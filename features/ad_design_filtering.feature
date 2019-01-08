@@ -39,23 +39,19 @@ Feature: Ad Design filtering
 
   Scenario Outline: Filter ad designs by Date
     Given I am on Ad Design page
-    When I select a date <date> from Date picker drop-down
-    Then I should see all ad designs under that date
+    When I enter a date range from <date1> to <date2> in Date picker drop-down
+    Then I should see ad designs from <date1> to <date2> date range
 
     Examples: Dates
-    | date                  |
-    | Today                 |
-    | Yesterday             |
-    | Last 7 Days           |
-    | Last Week ( Mo - Su ) |
-    | Month to Date         |
-    | Previous Month        |
-    | Year To Date          |
+    | date1         | date2       |
+    | 30/12/2018    | 05/01/2019  |
+    | 01/01/2017    | 04/01/2019  |
+    | 01/12/2018    | 31/12/2018  |
 
   Scenario: Filter ad designs by Tags
     Given I am on Ad Design page
-    When I enter an existing tag in Tags input field
-    Then I should see ad designs containing that tag
+    When I enter tag1 tag in Tags input field
+    Then I should see ad designs containing tag1 tag
 
   Scenario: Filter ad designs by Instagram applicable designs
     Given I am on Ad Design page

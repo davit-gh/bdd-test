@@ -25,7 +25,7 @@ Feature: Ad Design General
 
   Scenario: Sort Ad Designs by Date From Newest to Oldest
     Given I am on Ad Design page
-    And At least two of any type of ad designs are created
+    And At least one ad design is created
     When I select Date - Newest to Oldest
     Then The ad designs are sorted from newest to oldest
 
@@ -34,9 +34,3 @@ Feature: Ad Design General
     When I click on Add Folder and fill in a name
     And I click on Save icon
     Then I see the folder listed under All
-
-  Scenario: Delete A Folder
-
-  Scenario: Edit A Folder
-
-  Scenario: Move Ad Design To A Folder

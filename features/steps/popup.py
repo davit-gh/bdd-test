@@ -98,6 +98,17 @@ def step_impl(context):
     pass
 
 
+@step("I should see ad designs from (?P<date1>.+) to (?P<date2>.+) date range")
+def step_impl(context, date1, date2):
+    """
+    :type date2: str
+    :type date1: str
+    :type ad_number: str
+    :type context: behave.runner.Context
+    """
+    context.adsdesignpage.verify_ad_designs_within_date_range(date1, date2)
+
+
 @when("I click on Pages drop-down")
 def step_impl(context):
     """
@@ -140,21 +151,23 @@ def step_impl(context, ad_type):
     context.adsdesignpage.display_filtered_ad_designs(ad_type)
 
 
-@when("I select a date (?P<date>.+) from Date picker drop-down")
-def step_impl(context, date):
+@when("I enter a date range from (?P<date1>.+) to (?P<date2>.+) in Date picker drop-down")
+def step_impl(context, date1, date2):
     """
+    :type date2: str
     :type context: behave.runner.Context
-    :type date: str
+    :type date1: str
     """
-    context.adsdesignpage.select_date_range(date)
+    context.adsdesignpage.select_date_range(date1, date2)
 
 
-@when("I enter an existing tag in Tags input field")
-def step_impl(context):
+@when("I enter (?P<tag_name>.+) tag in Tags input field")
+def step_impl(context, tag_name):
     """
+    :type tag_name: str
     :type context: behave.runner.Context
     """
-    context.adsdesignpage.enter_tag()
+    context.adsdesignpage.enter_tag(tag_name)
 
 
 @when("I click on Instagram icon")
@@ -220,3 +233,135 @@ def step_impl(context, page_id):
     :type context: behave.runner.Context
     """
     context.adsdesignpage.page_ad_desings(page_id)
+
+
+@then("I should see ad designs containing (?P<tag_name>.+) tag")
+def step_impl(context, tag_name):
+    """
+    :type tag_name: str
+    :type context: behave.runner.Context
+    """
+    context.adsdesignpage.verify_ad_design_contains_tag(tag_name)
+
+
+@then("I should see Instagram applicable ad designs")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    context.adsdesignpage.verify_instagram_applicable()
+
+
+@step("At least one ad design is created")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    context.adsdesignpage.verify_ad_design_page_is_not_empty()
+
+
+@when("I hover over the ad design")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    context.adsdesignpage.hover_over_ad_design_block()
+
+
+@then("I should see 5 action icons")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    context.adsdesignpage.verify_action_icons_visible()
+
+
+@step("I click on (?P<icon_name>.+) icon")
+def step_impl(context, icon_name):
+    """
+    :type icon_name: str
+    :type context: behave.runner.Context
+    """
+    context.adsdesignpage.click_on_icon(icon_name)
+
+
+@then("Success notification is displayed")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    context.adsdesignpage.success_popover_is_displayed()
+
+
+@step("The ad design is duplicated")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    context.adsdesignpage.ad_design_is_duplicated()
+
+
+@step("A new popup is displayed with id (?P<modal_id>.+)")
+def step_impl(context, modal_id):
+    """
+    :type modal_id: str
+    :type context: behave.runner.Context
+    """
+    context.adsdesignpage.verify_popup_is_displayed(modal_id)
+
+
+@then("The button with class (?P<btn_class>.+) is disabled")
+def step_impl(context, btn_class):
+    """
+    :type btn_class: str
+    :type context: behave.runner.Context
+    """
+    context.adsdesignpage.verify_button_is_disabled(btn_class)
+
+
+@step("At least one folder is created")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    context.adsdesignpage.verify_folders_list_is_not_empty()
+
+
+@step("I select a folder and click on Move")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    context.adsdesignpage.move_to_folder()
+
+
+@then("The ad is moved into the folder")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    context.adsdesignpage.verify_ad_is_moved()
+
+
+@step("The ad is deleted")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    context.adsdesignpage.verify_ad_is_deleted()
+
+
+@step("I click on Delete button on popup")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    context.adsdesignpage.click_button_on_popup()
+
+
+@when("I select Date - Newest to Oldest")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    context.adsdesignpage.select_sorting_by_date()

@@ -32,8 +32,6 @@ def step_impl(context):
     """
     :type context: behave.runner.Context
     """
-    # TO DO
-    # Please implement this method
     pass
 
 
@@ -139,6 +137,14 @@ def step_impl(context):
     context.adsdesignpage.hover_and_click_on_post()
 
 
+@when("Published posts does not exist")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    context.adsdesignpage.published_posts_doesnot_exist()
+
+
 @then("I should see an error message")
 def step_impl(context):
     """
@@ -188,6 +194,7 @@ def step_impl(context, button_name, ad_type):
     :type button_name: str
     :type ad_type: str
     """
+    context.adsdesignpage.published_posts_exist()
     context.adsdesignpage.click_btn_popup(button_name, ad_type)
 
 
