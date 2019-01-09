@@ -9,7 +9,6 @@ from framework.webapp import WebApp
 
 class AdDesignPageLocator(object):
 
-    AD_DESIGN_TAB = (By.XPATH, "//a[contains(@href, 'addesign')]")
     CREATE_AD_DESIGN_BUTTON = (By.ID, "createAdDesignBtn")
     MODAL_ID = (By.ID, "createAdDesignModal")
     AD_ACCOUNT_OPTION = (By.XPATH, "//span[text()='Sandbox Adzwedo']")
@@ -32,10 +31,6 @@ class AdDesignPageLocator(object):
 class AdDesignPage(WebApp):
 
     ad_design_id = ''
-
-    def click_menu(self):
-        element = self.wait_for_element(AdDesignPageLocator.AD_DESIGN_TAB)
-        element.click()
 
     def verify_on_ad_design_page(self):
         element = self.wait_for_element(AdDesignPageLocator.CREATE_AD_DESIGN_BUTTON)
