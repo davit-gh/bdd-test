@@ -15,16 +15,16 @@ Feature: Ad Design actions
     And At least one ad design is created
     When I hover over the ad design
     And I click on Duplicate icon
-    Then 'Duplicate' notification is displayed
-    And The ad is duplicated
+    Then Success notification is displayed
+    And The ad design is duplicated
 
   Scenario: Move Ad Design to a Folder - Negative
     Given I am on Ad Design page
     And At least one ad design is created
     When I hover over the ad design
     And I click on Move To Folder icon
-    And I click on Move button
-    Then The popup stays displayed
+    And A new popup is displayed with id moveToModal
+    Then The button with class move-btn is disabled
 
   Scenario: Move Ad Design to a Folder - Positive
     Given I am on Ad Design page
@@ -64,7 +64,8 @@ Feature: Ad Design actions
     And At least one ad design is created
     When I hover over the ad design
     And I click on Delete icon
-    Then 'Delete' notification is displayed
+    Then A new popup is displayed with id deleteSelectedModal
+    And I click on Delete button on popup
     And The ad is deleted
 
   Scenario: Select Ad Designs

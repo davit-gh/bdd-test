@@ -9,7 +9,6 @@ from framework.webapp import WebApp
 
 class AdDesignPageLocator(object):
 
-    AD_DESIGN_TAB = (By.XPATH, "//a[contains(@href, 'addesign')]")
     CREATE_AD_DESIGN_BUTTON = (By.ID, "createAdDesignBtn")
     MODAL_ID = (By.ID, "createAdDesignModal")
     AD_ACCOUNT_OPTION = (By.XPATH, "//span[text()='Sandbox Adzwedo']")
@@ -29,13 +28,9 @@ class AdDesignPageLocator(object):
     FOLDERS_LI = (By.XPATH, "//ul[@class='folders-ul']/li")
     DELETE_BUTTON = (By.XPATH, "//div[@id='deleteSelectedModal']//button[2]")
 
+
 class AdDesignPage(WebApp):
-
     ad_design_id = ''
-
-    def click_menu(self):
-        element = self.wait_for_element(AdDesignPageLocator.AD_DESIGN_TAB)
-        element.click()
 
     def verify_on_ad_design_page(self):
         element = self.wait_for_element(AdDesignPageLocator.CREATE_AD_DESIGN_BUTTON)
@@ -174,7 +169,8 @@ class AdDesignPage(WebApp):
         element.click()
 
     def verify_ad_design_images_displayed(self):
-        selector = (By.XPATH, "//div[@class='ads-block-content flex-content ad-items-flex-content addesign-list']//div[@class='ads-block--content']/img")
+        selector = (By.XPATH,
+                    "//div[@class='ads-block-content flex-content ad-items-flex-content addesign-list']//div[@class='ads-block--content']/img")
         self.select_date_range("Year To Date")
         time.sleep(3)
         ad_images = self.wait_for_elements(selector)
