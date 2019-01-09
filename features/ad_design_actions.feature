@@ -40,7 +40,7 @@ Feature: Ad Design actions
     And At least one ad design is created
     And At least one folder is created
     When I hover over the ad design
-    And I click on Edit icon
+    And I click on Edit icon1
     Then The edit popup is opened
 
   Scenario Outline: Ad Design Preview

@@ -29,6 +29,7 @@ Feature: Ad Design General
     When I select Date - Newest to Oldest
     Then The ad designs are sorted from newest to oldest
 
+  # click on Folders link on the left upper corner
   Scenario: Create A Folder
     Given I am on Ad Design page
     When I click on Add Folder and fill in a name

@@ -73,11 +73,11 @@ class AdDesignPage(WebApp):
     def click_btn_popup(self, btn_name, ad_type):
         btn_locator = (By.XPATH, "//div[@id='{}']//button[text()='{}']".format(ad_type, btn_name))
         self.wait_for_loading(AdDesignPageLocator.LOADING_OVERLAY)
-        btn = self.wait_for_element(btn_locator)
+        btn = self.wait_for_clickable(btn_locator)
         btn.click()
 
-    def screen_is_displayed(self, screen_name):
-        screen = (By.XPATH, "//span[contains(text(), '{}')]".format(screen_name))
+    def screen_is_displayed(self, adtype_id):
+        screen = (By.XPATH, "//div[@id='{}']".format(adtype_id))
         element = self.wait_for_element(screen)
         assert element.is_displayed()
 

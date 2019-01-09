@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e9890c41-f447-49b9-8112-3fdbafcb276b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/ad_design/steps/addesign_steps.py" beforeDir="false" afterPath="$PROJECT_DIR$/features/ad_design/steps/addesign_steps.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/ad_design_actions.feature" beforeDir="false" afterPath="$PROJECT_DIR$/features/ad_design_actions.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/ad_design_filtering.feature" beforeDir="false" afterPath="$PROJECT_DIR$/features/ad_design_filtering.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/ad_design_general.feature" beforeDir="false" afterPath="$PROJECT_DIR$/features/ad_design_general.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/pages/ad_design.py" beforeDir="false" afterPath="$PROJECT_DIR$/features/pages/ad_design.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/steps/popup.py" beforeDir="false" afterPath="$PROJECT_DIR$/features/steps/popup.py" afterDir="false" />
-    </list>
+    <list default="true" id="e9890c41-f447-49b9-8112-3fdbafcb276b" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,8 +17,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/features/steps/popup.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="334">
-              <caret line="318" column="61" selection-start-line="318" selection-start-column="61" selection-end-line="318" selection-end-column="61" />
+            <state relative-caret-position="5445">
+              <caret line="366" column="49" selection-start-line="366" selection-start-column="49" selection-end-line="366" selection-end-column="49" />
               <folding>
                 <element signature="e#0#20#0" expanded="true" />
               </folding>
@@ -37,8 +29,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/features/ad_design_actions.feature">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="370">
-              <caret line="42" column="28" lean-forward="true" selection-start-line="42" selection-start-column="28" selection-end-line="42" selection-end-column="28" />
+            <state relative-caret-position="565">
+              <caret line="88" column="12" lean-forward="true" selection-start-line="88" selection-start-column="12" selection-end-line="88" selection-end-column="12" />
             </state>
           </provider>
         </entry>
@@ -46,8 +38,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/features/pages/ad_design.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="301">
-              <caret line="256" selection-start-line="256" selection-end-line="256" />
+            <state relative-caret-position="3990">
+              <caret line="271" selection-start-line="271" selection-end-line="271" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
               </folding>
@@ -67,8 +59,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/features/ad_design/steps/addesign_steps.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="233">
-              <caret line="43" column="30" lean-forward="true" selection-start-line="43" selection-start-column="30" selection-end-line="43" selection-end-column="30" />
+            <state relative-caret-position="600">
+              <caret line="43" column="30" selection-start-line="43" selection-start-column="30" selection-end-line="43" selection-end-column="30" />
               <folding>
                 <element signature="e#0#20#0" expanded="true" />
               </folding>
@@ -125,7 +117,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -149,10 +140,17 @@
               <item name="features" type="462c0819:PsiDirectoryNode" />
               <item name="pages" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="bdd-prof" type="b2602c69:ProjectViewProjectNode" />
+              <item name="bdd-prof" type="462c0819:PsiDirectoryNode" />
+              <item name="features" type="462c0819:PsiDirectoryNode" />
+              <item name="steps" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -234,6 +232,7 @@
       <workItem from="1543703544451" duration="11203000" />
       <workItem from="1546221001802" duration="3656000" />
       <workItem from="1546677325083" duration="16152000" />
+      <workItem from="1546964288396" duration="369000" />
     </task>
     <servers />
   </component>
@@ -270,12 +269,12 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="32261000" />
+    <option name="totallyTimeSpent" value="32630000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="75" y="57" width="1400" height="772" extended-state="0" />
+    <frame x="40" y="57" width="1400" height="772" extended-state="0" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.29086894" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2952872" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -352,9 +351,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/features/ad_design_actions.feature">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/webdriver.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -375,12 +371,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/features/ad_design/steps/addesign_steps.py">
+    <entry file="file://$PROJECT_DIR$/features/steps/popup.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="233">
-          <caret line="43" column="30" lean-forward="true" selection-start-line="43" selection-start-column="30" selection-end-line="43" selection-end-column="30" />
+        <state relative-caret-position="5445">
+          <caret line="366" column="49" selection-start-line="366" selection-start-column="49" selection-end-line="366" selection-end-column="49" />
           <folding>
             <element signature="e#0#20#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/features/pages/ad_design.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3990">
+          <caret line="271" selection-start-line="271" selection-end-line="271" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -392,30 +398,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/features/steps/popup.py">
+    <entry file="file://$PROJECT_DIR$/features/ad_design/steps/addesign_steps.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="334">
-          <caret line="318" column="61" selection-start-line="318" selection-start-column="61" selection-end-line="318" selection-end-column="61" />
+        <state relative-caret-position="600">
+          <caret line="43" column="30" selection-start-line="43" selection-start-column="30" selection-end-line="43" selection-end-column="30" />
           <folding>
             <element signature="e#0#20#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/features/pages/ad_design.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="301">
-          <caret line="256" selection-start-line="256" selection-end-line="256" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/features/ad_design_actions.feature">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="370">
-          <caret line="42" column="28" lean-forward="true" selection-start-line="42" selection-start-column="28" selection-end-line="42" selection-end-column="28" />
+        <state relative-caret-position="565">
+          <caret line="88" column="12" lean-forward="true" selection-start-line="88" selection-start-column="12" selection-end-line="88" selection-end-column="12" />
         </state>
       </provider>
     </entry>
