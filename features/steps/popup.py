@@ -210,14 +210,6 @@ def step_impl(context):
     context.adsdesignpage.select_date_from_dropdown()
 
 
-@then("The ad designs are sorted from oldest to newest")
-def step_impl(context):
-    """
-    :type context: behave.runner.Context
-    """
-    context.adsdesignpage.newest_to_oldest()
-
-
 @step("I should see ad designs belonging to that account")
 def step_impl(context):
     """

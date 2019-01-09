@@ -190,13 +190,6 @@ class AdDesignPage(WebApp):
         element = self.wait_for_element(selector)
         element.click()
 
-    def newest_to_oldest(self):
-        selector = (By.XPATH, "//div[@class='ads-block-content flex-content ad-items-flex-content addesign-list']/div")
-        elements = self.wait_for_elements(selector)
-        first_element = elements[0]
-        data_id = first_element.get_attribute("data-id")
-        assert data_id == "2839"
-
     def adaccount_ad_desings(self):
         selector = (By.XPATH, "//option[text()='Sandbox Adzwedo']")
         element = self.wait_for_element(selector)
@@ -271,8 +264,9 @@ class AdDesignPage(WebApp):
         assert not btn.get_attribute("style")
 
     def verify_ad_design_contains_tag(self, tag_name):
-        tag = self.wait_for_element(AdDesignPageLocator.TAG)
-        assert tag.text == tag_name
+        tags = self.wait_for_elements(AdDesignPageLocator.TAG)
+        for tag in tags:
+            assert tag.text == tag_name
 
     def verify_instagram_applicable(self):
         try:
