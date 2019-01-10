@@ -1,6 +1,7 @@
 from behave import *
 from features.pages.login_page import LoginPage
 from features.pages.ad_design import AdDesignPage
+from features.pages.nav_menu import NavigationMenu
 from webdriver import Driver
 use_step_matcher("re")
 
@@ -13,8 +14,9 @@ def step_impl(context):
     driver = Driver()
     loginpage = LoginPage(driver)
     driver = loginpage.log_in()
+    context.navmenu = NavigationMenu(driver)
     context.adsdesignpage = AdDesignPage(driver)
-    context.adsdesignpage.click_menu()
+    context.navmenu.navigate_to_page("Ad Designs")
     context.adsdesignpage.verify_on_ad_design_page()
     context.adsdesignpage.click_create_ad_design_button()
 
@@ -62,8 +64,9 @@ def step_impl(context, adtype_id):
     driver = Driver()
     loginpage = LoginPage(driver)
     driver = loginpage.log_in()
+    context.navmenu = NavigationMenu(driver)
     context.adsdesignpage = AdDesignPage(driver)
-    context.adsdesignpage.click_menu()
+    context.navmenu.navigate_to_page("Ad Designs")
     context.adsdesignpage.verify_on_ad_design_page()
     context.adsdesignpage.click_create_ad_design_button()
     context.adsdesignpage.click_box(adtype_id)
@@ -186,5 +189,3 @@ def step_impl(context, button_name, ad_type):
     :type ad_type: str
     """
     context.adsdesignpage.click_btn_popup(button_name, ad_type)
-
-
