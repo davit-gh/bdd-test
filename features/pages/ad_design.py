@@ -1,4 +1,5 @@
 import random
+from random import randint
 import time
 from datetime import datetime, timedelta
 from selenium.webdriver.common.by import By
@@ -8,7 +9,6 @@ from framework.webapp import WebApp
 
 
 class AdDesignPageLocator(object):
-
     CREATE_AD_DESIGN_BUTTON = (By.ID, "createAdDesignBtn")
     MODAL_ID = (By.ID, "createAdDesignModal")
     AD_ACCOUNT_OPTION = (By.XPATH, "//span[text()='Sandbox Adzwedo']")
@@ -27,14 +27,31 @@ class AdDesignPageLocator(object):
     INSTAGRAM_NOT_APPLICABLE = (By.CLASS_NAME, "adz-icon-ic_instagram_notapp")
     FOLDERS_LI = (By.XPATH, "//ul[@class='folders-ul']/li")
     DELETE_BUTTON = (By.XPATH, "//div[@id='deleteSelectedModal']//button[2]")
+    AD_DESIGN_SELECT_BTN = "(//div[@class='ads-block--content'])[{}]/div[2]/div/button"
+    AD_DESIGN_HEADER_TEXT = "((//h5[text()='{}']))"
+    AD_DESIGN_BLOCK_BY_HEADER = "(//h5[text()='{}'])[{}]/../../parent::div//div[@class='ads-block--content']"
+
+    # TODO move to popup page
+    POP_UP_MOVE_BUTTON = (By.XPATH, "//div[contains(@class, 'display-block')]//button[2]")
+    POP_UP_FIRST_FOLDER_SELECTOR = (By.XPATH, "//ul[@id='moveToFolderList']/li[1]")
+
 
 class AdDesignPage(WebApp):
-
     ad_design_id = ''
 
     def verify_on_ad_design_page(self):
         element = self.wait_for_element(AdDesignPageLocator.CREATE_AD_DESIGN_BUTTON)
         assert element.is_displayed()
+
+    def select_ad_design(self):
+        element = self.wait_for_element(
+            (By.XPATH, AdDesignPageLocator.AD_DESIGN_SELECT_BTN.format(AdDesignPageLocator.ADD_BLOCK_ID)))
+        element.click()
+
+    def verify_ad_design_is_selected(self):
+        element = self.wait_for_element(
+            (By.XPATH, AdDesignPageLocator.AD_DESIGN_SELECT_BTN.format(AdDesignPageLocator.ADD_BLOCK_ID)))
+        assert element.text == "Unselect"
 
     def click_create_ad_design_button(self):
         self.click_element(*AdDesignPageLocator.CREATE_AD_DESIGN_BUTTON)
@@ -169,7 +186,8 @@ class AdDesignPage(WebApp):
         element.click()
 
     def verify_ad_design_images_displayed(self):
-        selector = (By.XPATH, "//div[@class='ads-block-content flex-content ad-items-flex-content addesign-list']//div[@class='ads-block--content']/img")
+        selector = (By.XPATH,
+                    "//div[@class='ads-block-content flex-content ad-items-flex-content addesign-list']//div[@class='ads-block--content']/img")
         self.select_date_range("Year To Date")
         time.sleep(3)
         ad_images = self.wait_for_elements(selector)
@@ -214,6 +232,14 @@ class AdDesignPage(WebApp):
         # in UI index is plus 1
         AdDesignPageLocator.ADD_BLOCK_ID = (ad_designs.index(ad_design)) + 1
 
+    def hover_over_ad_design_by_type(self, ad_header: str):
+        ad_designs = self.wait_for_elements((By.XPATH, AdDesignPageLocator.AD_DESIGN_HEADER_TEXT.format(ad_header)))
+        ad_design = randint(0, len(ad_designs))
+        ad_design = self.wait_for_element(
+            (By.XPATH, AdDesignPageLocator.AD_DESIGN_BLOCK_BY_HEADER.format(ad_header, ad_design)))
+        action = ActionChains(self.driver.instance)
+        action.move_to_element(ad_design).perform()
+
     def verify_action_icons_visible(self):
         icon = (By.XPATH, AdDesignPageLocator.ACTION_ICONS_XPATH.format(AdDesignPageLocator.ADD_BLOCK_ID))
         action_icons = self.wait_for_elements(icon)
@@ -221,8 +247,19 @@ class AdDesignPage(WebApp):
             raise AssertionError("Found {} actions icons, expected to find 5".format(len(action_icons)))
 
     def click_on_icon(self, icon_name):
-        icon = (By.XPATH, AdDesignPageLocator.ACTION_ICONS_XPATH.format(AdDesignPageLocator.ADD_BLOCK_ID))
-        action_icons = self.wait_for_elements(icon)
+        # TODO when issue is fixed.
+        #  Edit button does not have "title" attribute, for some reason it was moved to span.
+        if icon_name == "Edit":
+            icon = (By.XPATH, AdDesignPageLocator.ACTION_ICONS_XPATH.format(AdDesignPageLocator.ADD_BLOCK_ID) + "/span")
+            action_icons = self.wait_for_elements(icon)
+            self._click_icon_if_exists(action_icons, icon_name)
+        else:
+            icon = (By.XPATH, AdDesignPageLocator.ACTION_ICONS_XPATH.format(AdDesignPageLocator.ADD_BLOCK_ID))
+            action_icons = self.wait_for_elements(icon)
+            self._click_icon_if_exists(action_icons, icon_name)
+
+    @staticmethod
+    def _click_icon_if_exists(action_icons, icon_name):
         icon_arr = [icon for icon in action_icons if icon.get_attribute("title") == icon_name]
         if icon_arr:
             icon_arr[0].click()
@@ -256,7 +293,8 @@ class AdDesignPage(WebApp):
     def verify_button_is_disabled(self, btn_class_name):
         btn_selector = (By.CLASS_NAME, btn_class_name)
         btn = self.wait_for_element(btn_selector)
-        assert not btn.get_attribute("style")
+        expected_btn_style = "opacity: 0.5;"
+        assert btn.get_attribute("style") == expected_btn_style
 
     def verify_ad_design_contains_tag(self, tag_name):
         tags = self.wait_for_elements(AdDesignPageLocator.TAG)
@@ -294,18 +332,15 @@ class AdDesignPage(WebApp):
         assert len(folders) > 1
 
     def move_to_folder(self):
-        first_folder_selector = (By.XPATH, "//ul[@id='moveToFolderList']/li[1]")
-        first_folder = self.wait_for_element(first_folder_selector)
-        first_folder.click()
-        move_btn_selector = (By.XPATH, "//div[contains(@class, 'display-block')]//button[2]")
-        move_btn = self.wait_for_clickable(move_btn_selector)
-        time.sleep(7)
-        move_btn.click()
+        self.wait_for_element(AdDesignPageLocator.POP_UP_FIRST_FOLDER_SELECTOR).click()
+        time.sleep(2)
+        self.click_element(*AdDesignPageLocator.POP_UP_MOVE_BUTTON)
 
     def verify_ad_is_moved(self):
+        self.success_popover_is_displayed()
+        self.wait_for_element_to_disappear(AdDesignPageLocator.SUCCESS_POPOVER)
         folders = self.wait_for_elements(AdDesignPageLocator.FOLDERS_LI)
         folders[1].click()
-        time.sleep(3)
         ad_designs = self.wait_for_elements(AdDesignPageLocator.ADS_BLOCK)
         data_ids = []
         for ad_design in ad_designs:
