@@ -15,7 +15,7 @@ Feature: Link Ad Edit
     And I click on Save button on linkAdType popup
     Then The Post Link should change to the new value
 
-  Scenario: Edit a Lead Ad Image
+  Scenario: Edit a Link Ad Image
     Given I am on Ad Design page
     And At least one ad design of type Link Ad is created
     When I hover over the ad design
