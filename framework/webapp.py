@@ -1,6 +1,7 @@
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.common.action_chains import ActionChains
 
 
 class WebApp:
@@ -67,3 +68,7 @@ class WebApp:
 
     def close_website(self):
         self.driver.instance.close()
+
+    def action_move_to_element(self, ads_block_1):
+        action = ActionChains(self.driver.instance)
+        action.move_to_element(ads_block_1).perform()

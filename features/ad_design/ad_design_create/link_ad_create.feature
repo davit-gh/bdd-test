@@ -13,13 +13,15 @@ Feature: Link Ad Creation Screen
     And I click on Next button
     Then I should see linkAdType creation screen
 
+  @create.image_ad
   Scenario: Create single image link ad
     Given I am on linkAd creation screen
-    When Fill in the required post link address
+    When I fill in the required post link URL
     And I upload a single image
     And I click on Create button on linkAdType popup
     Then I should see the newly created Link Ad design
 
+  @create.image_ad
   Scenario: Create single image link ad
     Given I am on linkAd creation screen
     When I fill in the required post link URL
@@ -30,6 +32,7 @@ Feature: Link Ad Creation Screen
     And I click on Create button on linkAdType popup
     Then I should see 2 newly created Link Ad designs
 
+  @create.video_ad
   Scenario: Create single video ad
     Given I am on linkAd creation screen
     When I fill in the required post link URL
@@ -37,7 +40,8 @@ Feature: Link Ad Creation Screen
     And I click on Create button on linkAdType popup
     Then I should see the newly created Link Ad design
 
-  Scenario: Create slideshow ad
+  @create.slideshow
+  Scenario: Create single slideshow ad
     Given I am on linkAd creation screen
     When I fill in the required post link URL
     And I upload multiple images as a slideshow
