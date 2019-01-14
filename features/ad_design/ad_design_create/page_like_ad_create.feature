@@ -15,7 +15,7 @@ Feature: Page Like Ad Creation Screen
 
   Scenario: Create single image link ad
     Given I am on pageLikeAd creation screen
-    When I fill in a sample text in Text field
+    When I edit the Text field
     And I click on Single Image box
     And I upload an image
     And I click on Create button on pageLikeAdType popup
@@ -23,7 +23,7 @@ Feature: Page Like Ad Creation Screen
 
   Scenario: Create single image link ad
     Given I am on pageLikeAd creation screen
-    When I fill in a sample text in Text field
+    When I edit the Text field
     And I click on plus icon next to Text field
     And I fill in sample text in the second field
     And I click on Single Image box
@@ -33,15 +33,15 @@ Feature: Page Like Ad Creation Screen
 
   Scenario: Create single video ad
     Given I am on pageLikeAd creation screen
-    When I fill in a sample text in Text field
+    When I edit the Text field
     And I click on Single Video box
-    And I upload a video
+    And I upload a single video
     And I click on Create button on pageLikeAdType popup
     Then I should see the newly created Page Like Ad design
 
   Scenario: Create slideshow ad
     Given I am on pageLikeAd creation screen
-    When I fill in a sample text in Text field
+    When I edit the Text field
     And I click on Slideshow box
     And I upload images
     And I click on Create button on pageLikeAdType popup

@@ -1,5 +1,3 @@
-# Created by Effortis at 12/5/2018
-
 Feature: Link Ad Creation Screen
   As an ad creator
   I want to open Link Ad creation screen

@@ -30,8 +30,8 @@ Feature: Page Like Ad Edit
     Given I am on Ad Design page
     And At least one ad design of type Page Like Ad is created
     When I hover over the ad design
-    And I click on Edit icon1
-    And I upload a new Single Video
+    And I click on Edit icon
+    And I upload a single video
     And I click on Save button on pageLikeAdType popup
     Then The thumbnail image should change to the new image
 
@@ -39,8 +39,8 @@ Feature: Page Like Ad Edit
     Given I am on Ad Design page
     And At least one ad design of type Page Like Ad is created
     When I hover over the ad design
-    And I click on Edit icon1
-    And I upload a new Slideshow
+    And I click on Edit icon
+    And I upload multiple images as a slideshow
     And I click on Save button on pageLikeAdType popup
     Then The thumbnail image should change to the new image
 

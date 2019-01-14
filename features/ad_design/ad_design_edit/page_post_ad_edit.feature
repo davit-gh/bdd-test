@@ -10,7 +10,7 @@ Feature: Page Post Ad Edit
     Given I am on Ad Design page
     And At least one ad design of type Psge Post Ad is created
     When I hover over the ad design
-    And I click on Edit icon1
+    And I click on Edit icon
     And I click on Select Published Page posts radio-button
     And I randomly select a post from available posts
     And I click on Save button on pagePostAdType popup
@@ -20,7 +20,7 @@ Feature: Page Post Ad Edit
     Given I am on Ad Design page
     And At least one ad design of type Psge Post Ad is created
     When I hover over the ad design
-    And I click on Edit icon1
+    And I click on Edit icon
     And I upload a new Single Image
     And I click on Save button on pagePostAdType popup
     Then The thumbnail image should change to the new image

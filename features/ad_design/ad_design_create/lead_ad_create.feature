@@ -27,7 +27,7 @@ Feature: Lead Ad Creation Screen
   Scenario: Create single image lead ad
     Given I am on leadAd creation screen
     And "Lead form" select box contains at least 1 option
-    When I fill in a sample text in Text field
+    When I edit the Text field
     And I click on plus icon next to Text field
     And I fill in sample text in the second field
     And I click on Single Image box
@@ -39,7 +39,7 @@ Feature: Lead Ad Creation Screen
   Scenario: Create single video ad
     Given I am on leadAd creation screen
     When I click on Single Video box
-    And I upload a video
+    And I upload a single video
     And I select an option from "Lead form" select box
     And I click on Create button on leadAdType popup
     Then I should see the newly created Lead Ad design

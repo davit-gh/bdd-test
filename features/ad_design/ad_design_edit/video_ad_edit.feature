@@ -10,16 +10,16 @@ Feature: Video Ad Edit
     Given I am on Ad Design page
     And At least one ad design of type Video Ad is created
     When I hover over the ad design
-    And I click on Edit icon1
+    And I click on Edit icon
     And I edit the Text field
     And I click on Save button on videoAdType popup
     Then The Text should change to the new value
 
   Scenario: Edit a Photo Ad Image
     Given I am on Ad Design page
-    And At least one ad design of type Photo Ad is created
+    And At least one ad design of type Video Ad is created
     When I hover over the ad design
-    And I click on Edit icon1
-    And I upload a new Single Video
+    And I click on Edit icon
+    And I upload a single video
     And I click on Save button on videoAdType popup
     Then The thumbnail image should change to the new image
