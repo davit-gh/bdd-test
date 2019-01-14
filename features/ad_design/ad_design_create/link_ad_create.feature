@@ -22,7 +22,7 @@ Feature: Link Ad Creation Screen
     Then I should see the newly created Link Ad design
 
   @create.image_ad
-  Scenario: Create single image link ad
+  Scenario: Create single image link ad - Double URL
     Given I am on linkAd creation screen
     When I fill in the required post link URL
     And I click on plus button next to URL field

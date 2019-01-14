@@ -17,7 +17,7 @@ Feature: Page Like Ad Edit
     Then The Text should change to the new value
 
   @edit.image
-  Scenario: Edit a Lead Ad Image
+  Scenario: Edit a Page Like Ad Image
     Given I am on Ad Design page
     And At least one ad design of type Page Like Ad is created
     When I hover over the ad design of type Page Like Ad
@@ -26,9 +26,27 @@ Feature: Page Like Ad Edit
     And I click on Save button on pageLikeAdType popup
     Then The thumbnail image should change to the new image
 
-  Scenario: Edit a Lead Ad Image
+   Scenario: Edit a Page Like Ad Video
     Given I am on Ad Design page
-    And At least one ad design of type Link Ad is created
+    And At least one ad design of type Page Like Ad is created
+    When I hover over the ad design
+    And I click on Edit icon1
+    And I upload a new Single Video
+    And I click on Save button on pageLikeAdType popup
+    Then The thumbnail image should change to the new image
+
+  Scenario: Edit a Page Like Ad Slideshow
+    Given I am on Ad Design page
+    And At least one ad design of type Page Like Ad is created
+    When I hover over the ad design
+    And I click on Edit icon1
+    And I upload a new Slideshow
+    And I click on Save button on pageLikeAdType popup
+    Then The thumbnail image should change to the new image
+
+  Scenario: Edit a Page Like Ad - Add Tag
+    Given I am on Ad Design page
+    And At least one ad design of type Page Like Ad is created
     When I hover over the ad design
     And I click on Edit icon
     And I add a new tag
