@@ -85,7 +85,7 @@ Feature: Ad Design actions
     And Click on Select button
     Then The ad designs are selected
 
-  @actions.unselect
+  @actions.unselect_all
   Scenario: Unselect Multiple Ad Designs
     Given I am on Ad Design page
     And At least two ad designs are selected
@@ -95,8 +95,8 @@ Feature: Ad Design actions
   @actions.move
   Scenario: Move Multiple Ad Designs to a Folder
     Given I am on Ad Design page
-    And At least two ad designs are created
     And At least one folder is created
+    And At least two ad designs are selected
     When I click on Move to
-    And Choose a folder
+    And I select a folder and click on Move
     Then The ad designs are moved to that folder

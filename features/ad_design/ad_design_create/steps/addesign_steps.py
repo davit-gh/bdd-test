@@ -2,6 +2,7 @@ from behave import *
 from features.pages.login_page import LoginPage
 from features.pages.ad_design import AdDesignPage
 from features.pages.nav_menu import NavigationMenu
+from features.pages.popup_window import PopUpWindow
 from webdriver import Driver
 use_step_matcher("re")
 
@@ -72,6 +73,7 @@ def step_impl(context, adtype_id):
     context.adsdesignpage.click_box(adtype_id)
     context.adsdesignpage.click_btn("Next")
     context.adsdesignpage.screen_is_displayed(adtype_id + "Type")
+    context.popup_window = PopUpWindow(driver)
 
 
 @when('I click on (?P<box_name>.+) box')
@@ -113,7 +115,8 @@ def step_impl(context):
     """
     :type context: behave.runner.Context
     """
-    raise NotImplementedError(u'STEP: And I upload a video')
+    context.popup_window.select_single_video_block()
+    context.popup_window.upload_file("video")
 
 
 @step("I upload images")
@@ -189,3 +192,62 @@ def step_impl(context, button_name, ad_type):
     :type ad_type: str
     """
     context.adsdesignpage.click_btn_popup(button_name, ad_type)
+
+
+@when("I fill in the required post link URL")
+def step_impl_fill_in_required_url(context):
+    """
+    :type context: behave.runner.Context
+    """
+
+    context.popup_window.enter_link_url("0")
+
+
+@step("I upload a single image")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    context.popup_window.upload_file("image")
+
+
+@step("I click on plus button next to URL field")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    context.popup_window.add_one_more_post_link_input()
+
+
+@step("I fill in another URL")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    context.popup_window.enter_link_url("1")
+
+
+@step("I fill in a headline text")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    context.popup_window.enter_headline()
+
+
+@then("I should see 2 newly created Link Ad designs")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    context.adsdesignpage.verify_that_ads_were_created()
+
+
+@step("I upload multiple images as a slideshow")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    context.popup_window.select_slideshow_block()
+    context.popup_window.upload_file("slideshow")
+    context.popup_window.upload_file("slideshow")

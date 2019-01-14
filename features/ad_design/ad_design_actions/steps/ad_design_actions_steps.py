@@ -2,6 +2,7 @@ from behave import *
 from features.pages.login_page import LoginPage
 from features.pages.ad_design import AdDesignPage
 from features.pages.nav_menu import NavigationMenu
+from features.pages.popup_window import PopUpWindow
 from webdriver import Driver
 
 use_step_matcher("re")
@@ -19,6 +20,7 @@ def step_impl(context):
     context.adsdesignpage = AdDesignPage(driver)
     context.navmenu.navigate_to_page("Ad Designs")
     context.adsdesignpage.verify_on_ad_design_page()
+    context.popup_window = PopUpWindow(driver)
 
 
 @step("At least one ad design is created")
@@ -109,6 +111,7 @@ def step_impl(context):
     """
     :type context: behave.runner.Context
     """
+    context.adsdesignpage.verify_ad_design_page_is_not_empty()
     context.adsdesignpage.verify_folders_list_is_not_empty()
 
 
@@ -145,9 +148,65 @@ def step_impl(context):
 
 
 @when("I hover over the ad design of type (?P<type>.+)")
-def step_impl(context, type: str):
+def step_impl_hover_over_by_type(context, type: str):
     """
     :param type: type of wanted ad design
     :type context: behave.runner.Context
     """
     context.adsdesignpage.hover_over_ad_design_by_type(type)
+
+
+@step("All the previews display properly")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    context.adsdesignpage.verify_all_previews_displayed()
+
+
+@step("At least two ad designs are selected")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    context.adsdesignpage.select_multiple_ad_designs()
+
+
+@when("I click on Unselect all link")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    context.adsdesignpage.click_on_unselect_all_link()
+
+
+@then("The ad designs are unselected")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    context.adsdesignpage.verify_ad_designs_unselected()
+
+
+@step("At least two ad designs are created")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    context.adsdesignpage.verify_ad_design_page_is_not_empty()
+
+
+@when("I click on Move to")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    context.adsdesignpage.click_on_move_to_link()
+
+
+@then("The ad designs are moved to that folder")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    context.adsdesignpage.verify_ad_is_moved()
