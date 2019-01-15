@@ -37,7 +37,7 @@ def step_impl(context):
     context.adsdesignpage.verify_ad_design_images_displayed()
 
 
-@given("Ad Design page contains at least 13 ad designs")
+@given("Ad Design page is paginated")
 def step_impl(context):
     """
     :type context: behave.runner.Context
@@ -49,7 +49,7 @@ def step_impl(context):
     context.adsdesignpage = AdDesignPage(driver)
     context.navmenu.navigate_to_page("Ad Designs")
     context.adsdesignpage.verify_on_ad_design_page()
-
+    context.adsdesignpage.verify_pagination_is_displayed()
 
 @when("I click on Add Folder and fill in a name")
 def step_impl(context):
@@ -73,3 +73,30 @@ def step_impl(context):
     :type context: behave.runner.Context
     """
     context.adsdesignpage.click_folder_creation_save_icon()
+
+
+@step("I select (?P<pagination_number>.+) Ads Per Page from the pagination drop-down")
+def step_impl(context, pagination_number):
+    """
+    :type pagination_number: str
+    :type context: behave.runner.Context
+    """
+    context.adsdesignpage.select_per_page_pagination(pagination_number)
+
+
+@when("I click on Next pagination link")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    context.adsdesignpage.click_on_pagination_next()
+
+
+@then("More than (?P<min_number>.+) and less than (?P<max_number>.+) ad designs are displayed")
+def step_impl(context, min_number, max_number):
+    """
+    :type min_number: str
+    :type max_number: str
+    :type context: behave.runner.Context
+    """
+    context.adsdesignpage.verify_number_of_displayed_ad_designs(min_number, max_number)

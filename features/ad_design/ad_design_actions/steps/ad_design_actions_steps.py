@@ -153,6 +153,7 @@ def step_impl_hover_over_by_type(context, type: str):
     :param type: type of wanted ad design
     :type context: behave.runner.Context
     """
+    context.adsdesignpage.filer_ad_designs_by_type(type)
     context.adsdesignpage.hover_over_ad_design_by_type(type)
 
 

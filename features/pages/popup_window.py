@@ -72,6 +72,7 @@ class PopUpWindow(WebApp):
         element.send_keys(self.text)
 
     def verify_edit_window_text_input_is_correct(self):
+        time.sleep(1)
         self.wait_for_element_to_disappear(PopUpWindowLocators.LOADING_ICON)
         element = self.wait_for_element(PopUpWindowLocators.AD_EDIT_TEXT_INPUT)
         element_text = element.get_attribute("data-value")

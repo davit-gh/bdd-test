@@ -11,12 +11,10 @@ Feature: Ad Design General
 
   @general.pagination
   Scenario: Check Pagination
-    Given Ad Design page contains at least 13 ad designs
-    And I select 12 Ads Per Page from the pagination drop-down
-    And Pagination links are displayed
-    When I click on Next button
-    Then I navigate to next page of ad designs
-    And The rest of ad designs are displayed
+    Given Ad Design page is paginated
+    And I select 24 Ads Per Page from the pagination drop-down
+    When I click on Next pagination link
+    Then More than 12 and less than 24 ad designs are displayed
 
   Scenario: Sort Ad Designs by Date From Oldest to Newest
     Given I am on Ad Design page

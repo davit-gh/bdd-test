@@ -18,7 +18,7 @@ class AdDesignPageLocator(object):
     PUBLISHED_POSTS_TABLE_ROW = (By.XPATH, "//div[@id='selectedByPublishedPosts']//tbody/tr")
     SELECT_BTN = (By.XPATH, "//div[@id='selectedByPublishedPosts']//tbody/tr//button")
     ERROR_LABEL = (By.CLASS_NAME, "error_message")
-    LOADING_OVERLAY = (By.CLASS_NAME, "loading-overlay-popups")
+    LOADING_OVERLAY = (By.XPATH, "(//div[@class='loading-overlay-popups'])[9]")
     ADS_BLOCK = (By.XPATH, "//div[@class='ads-block']")
     ADS_BLOCK_IMG = "(//div[@class='ads-block--content'])[{}]/img"
     ACTION_ICONS_XPATH = "(//div[@class='ads-block--content'])[{}]/div[2]/div/div/button"
@@ -45,6 +45,10 @@ class AdDesignPageLocator(object):
     TYPE_DROPDOWN = (By.XPATH, "//a[@class='chosen-single']/span[text()='Ad types']")
     TYPE_DROPDOWN_PAGE_LIKE_AD = "//ul[@class='chosen-results']/li[text()='{}']"
     LOADING_ICON = (By.XPATH, "//div[@class='js-get-data-loading-overlay']")
+    PAGINATION_DIV = (By.CLASS_NAME, "addesign-pagination")
+    PAGINATION_DEFAULT = (By.XPATH, "//span[text()='Show: 12 Per']")
+    PAGINATION_PER_PAGE_XPATH = "//li[text()='Show: {} Per']"
+    PAGINATION_NEXT = (By.CLASS_NAME, "pagination-next")
 
     # TODO move to popup page
     POP_UP_MOVE_BUTTON = (By.XPATH, "//div[contains(@class, 'display-block')]//button[2]")
@@ -134,7 +138,7 @@ class AdDesignPage(WebApp):
 
     def click_btn_popup(self, btn_name, ad_type):
         btn_locator = (By.XPATH, "//div[@id='{}']//button[text()='{}']".format(ad_type, btn_name))
-        self.wait_for_loading(AdDesignPageLocator.LOADING_OVERLAY)
+        self.wait_for_element_to_disappear(AdDesignPageLocator.LOADING_OVERLAY)
         btn = self.wait_for_clickable(btn_locator)
         btn.click()
 
@@ -287,7 +291,7 @@ class AdDesignPage(WebApp):
         AdDesignPageLocator.ADD_BLOCK_ID = (ad_designs.index(ad_design)) + 1
 
     def hover_over_ad_design_by_type(self, ad_header: str):
-        time.sleep(3)
+        time.sleep(5)
         self.ad_design_header = ad_header
         ad_designs = self.wait_for_elements((By.XPATH, AdDesignPageLocator.AD_DESIGN_HEADER_TEXT.format(ad_header)))
         ad_design_block_id = randint(1, len(ad_designs))
@@ -491,10 +495,7 @@ class AdDesignPage(WebApp):
         self.wait_for_element_to_disappear(AdDesignPageLocator.LOADING_ICON)
         type_dropdown = self.wait_for_element(AdDesignPageLocator.TYPE_DROPDOWN)
         type_dropdown.click()
-        if ad_type == 'Page Like Ad':
-            self.wait_for_element((By.XPATH, AdDesignPageLocator.TYPE_DROPDOWN_PAGE_LIKE_AD.format(ad_type))).click()
-        else:
-            raise NotImplementedError
+        self.wait_for_element((By.XPATH, AdDesignPageLocator.TYPE_DROPDOWN_PAGE_LIKE_AD.format(ad_type))).click()
 
     def verify_that_image_url_changed(self):
         pass
@@ -510,6 +511,25 @@ class AdDesignPage(WebApp):
             (By.XPATH, AdDesignPageLocator.ADS_BLOCK_IMG.format("1")))
         print(new_url.get_attribute("src"))
         assert self.ad_design_img != new_url.get_attribute("src")
+
+    def verify_pagination_is_displayed(self):
+        pagination = self.wait_for_element(AdDesignPageLocator.PAGINATION_DIV)
+        assert pagination.is_displayed()
+
+    def select_per_page_pagination(self, pagination_number):
+        pagination_dropdown = self.wait_for_clickable(AdDesignPageLocator.PAGINATION_PER_PAGE_12)
+        pagination_dropdown.click()
+        pagination_per_page = self.wait_for_clickable(
+            (By.XPATH, AdDesignPageLocator.PAGINATION_PER_PAGE_XPATH.format(pagination_number))
+        )
+        pagination_per_page.click()
+
+    def click_on_pagination_next(self):
+        self.wait_for_clickable(AdDesignPageLocator.PAGINATION_NEXT).click()
+
+    def verify_number_of_displayed_ad_designs(self, min_number, max_number):
+        ad_designs = self.wait_for_elements(AdDesignPageLocator.ADS_BLOCK)
+        assert len(ad_designs) > min_number and len(ad_designs) < max_number
 
     @staticmethod
     def _get_current_date():

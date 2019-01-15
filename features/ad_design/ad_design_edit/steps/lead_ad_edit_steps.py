@@ -11,7 +11,7 @@ def step_impl(context, ad_type: str):
     :param ad_type: type of wanted ad design
     :type context: behave.runner.Context
     """
-    context.adsdesignpage.filer_ad_designs_by_type("Page Like Ad")
+    context.adsdesignpage.filer_ad_designs_by_type(ad_type)
     context.adsdesignpage.verify_that_ad_with_specific_type_exists(ad_type)
 
 

@@ -25,7 +25,6 @@ Feature: Ad Design actions
     And At least one ad design is created
     When I hover over the ad design
     And I click on Move To Folder icon
-#    TODO replace it, popups are rendered even if they are not opened
     And A new popup is displayed with id moveToModal
     Then The button with class move-btn is disabled
 
@@ -46,7 +45,6 @@ Feature: Ad Design actions
     And At least one folder is created
     When I hover over the ad design
     And I click on Edit icon
-#    TODO replace it, popups are rendered even if they are not opened
     And A new popup is displayed with id createAdDesignModal
 
   @actions.preview
@@ -54,7 +52,6 @@ Feature: Ad Design actions
     Given I am on Ad Design page
     When I hover over the ad design of type <type>
     And I click on Preview icon
-#    TODO replace it, popups are rendered even if they are not opened
     And A new popup is displayed with id preview-modal
     And All the previews display properly
 
