@@ -19,6 +19,8 @@ class PopUpWindowLocators(object):
     CREATE_BUTTON = (By.XPATH, "//div[@id='linkAdType']//button[contains(@class, 'create-button')]")
     IMAGE_CONTENT = (By.XPATH, "(//div[@class='image-content'])[1]")
     AD_EDIT_TEXT_INPUT = (By.XPATH, "(//textarea[@name='text[0]'])[1]")
+    LOADING_ICON = (By.XPATH, "//div[@class='loading-overlay-popups']")
+    FILE_UPLOAD_COMPLETED = (By.XPATH, "//div[@role='progressbar' and text()='100% Complete']")
 
 
 class PopUpWindow(WebApp):
@@ -43,12 +45,11 @@ class PopUpWindow(WebApp):
         path_videos = "\\files\\videos"
         if file_type == "image":
             image = os.getcwd() + "{}\\{}".format(path_images, file)
-            print(image)
             self.driver.instance.find_element(*PopUpWindowLocators.UPLOAD_IMAGES).send_keys(image)
         elif file_type == "video":
             video = os.getcwd() + "{}\\SampleVideo.mp4".format(path_videos)
             self.driver.instance.find_element(*PopUpWindowLocators.UPLOAD_SINGLE_VIDEO_FILE).send_keys(video)
-            time.sleep(10)
+            self.wait_for_element(PopUpWindowLocators.FILE_UPLOAD_COMPLETED, time=20)
         elif file_type == "slideshow":
             img = os.getcwd() + "{}\\image.jpg".format(path_images)
             img1 = os.getcwd() + "{}\\image1.jpg".format(path_images)
@@ -64,14 +65,14 @@ class PopUpWindow(WebApp):
 
     def edit_text_input_value(self):
         faker = Faker()
+        time.sleep(2)
         element = self.wait_for_element(PopUpWindowLocators.AD_EDIT_TEXT_INPUT)
         self.text = faker.name()
         element.clear()
-        time.sleep(5)
         element.send_keys(self.text)
 
     def verify_edit_window_text_input_is_correct(self):
-        time.sleep(2)
+        self.wait_for_element_to_disappear(PopUpWindowLocators.LOADING_ICON)
         element = self.wait_for_element(PopUpWindowLocators.AD_EDIT_TEXT_INPUT)
         element_text = element.get_attribute("data-value")
         assert element_text == self.text

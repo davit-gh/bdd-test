@@ -31,9 +31,9 @@ class WebApp:
             pass
         return exists
 
-    def wait_for_element(self, locator):
+    def wait_for_element(self, locator, time=10):
         """Select an element by waiting for it to become visible"""
-        wait = WebDriverWait(self.driver.instance, 10)
+        wait = WebDriverWait(self.driver.instance, time)
         element = wait.until(EC.visibility_of_element_located(locator))
         return element
 

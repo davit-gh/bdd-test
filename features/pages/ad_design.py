@@ -44,6 +44,7 @@ class AdDesignPageLocator(object):
     AD_DESIGN_HEADER_DATE = (By.XPATH, "//div[@class='ads-block--header--text-content']/p")
     TYPE_DROPDOWN = (By.XPATH, "//a[@class='chosen-single']/span[text()='Ad types']")
     TYPE_DROPDOWN_PAGE_LIKE_AD = "//ul[@class='chosen-results']/li[text()='{}']"
+    LOADING_ICON = (By.XPATH, "//div[@class='js-get-data-loading-overlay']")
 
     # TODO move to popup page
     POP_UP_MOVE_BUTTON = (By.XPATH, "//div[contains(@class, 'display-block')]//button[2]")
@@ -54,6 +55,7 @@ class AdDesignPageLocator(object):
     PREVIEW_INSTAGRAM_FEED = (By.XPATH, "//li[@data-value='instagramstream']")
     PREVIEW_INSTAGRAM_STORY = (By.XPATH, "//li[@data-value='instagramstory']")
     PREVIEW_AUDIENCE_NETWORK = (By.XPATH, "//li[@data-value='mobileexternal']")
+    PREVIEW_IMAGE = (By.XPATH, "//div[@class='frame-content']/iframe")
 
 
 class AdDesignPage(WebApp):
@@ -309,14 +311,7 @@ class AdDesignPage(WebApp):
             raise AssertionError("Found {} actions icons, expected to find 5".format(len(action_icons)))
 
     def click_on_icon(self, icon_name):
-        # TODO when issue is fixed.
-        #  Edit button does not have "title" attribute, for some reason it was moved to span.
-        if icon_name == "Edit":
-            time.sleep(3)
-            icon = (By.XPATH, AdDesignPageLocator.ACTION_ICONS_XPATH.format(AdDesignPageLocator.ADD_BLOCK_ID) + "/span")
-            action_icons = self.wait_for_elements(icon)
-            self._click_icon_if_exists(action_icons, icon_name)
-        elif self.ad_design_header != "":
+        if self.ad_design_header != "":
             icon = (By.XPATH,
                     AdDesignPageLocator.AD_DESIGN_BUTTONS_BY_HEADER)
             action_icons = self.wait_for_elements(icon)
@@ -406,7 +401,6 @@ class AdDesignPage(WebApp):
         time.sleep(5)
 
     def verify_ad_is_moved(self):
-        self.success_popover_is_displayed()
         self.wait_for_element_to_disappear(AdDesignPageLocator.SUCCESS_POPOVER)
         folders = self.wait_for_elements(AdDesignPageLocator.FOLDERS_LI)
         folders[1].click()
@@ -442,12 +436,23 @@ class AdDesignPage(WebApp):
         sort_by.click()
 
     def verify_all_previews_displayed(self):
-        assert self.wait_for_element(AdDesignPageLocator.PREVIEW_MOBILE_FEED).is_displayed()
-        assert self.wait_for_element(AdDesignPageLocator.PREVIEW_DESKTOP_FEED).is_displayed()
-        assert self.wait_for_element(AdDesignPageLocator.PREVIEW_RIGHT_COLUMN).is_displayed()
-        assert self.wait_for_element(AdDesignPageLocator.PREVIEW_INSTAGRAM_FEED).is_displayed()
-        assert self.wait_for_element(AdDesignPageLocator.PREVIEW_INSTAGRAM_STORY).is_displayed()
-        assert self.wait_for_element(AdDesignPageLocator.PREVIEW_AUDIENCE_NETWORK).is_displayed()
+        self.wait_for_element(AdDesignPageLocator.PREVIEW_MOBILE_FEED).click()
+        element = AdDesignPageLocator.PREVIEW_IMAGE
+        self.wait_for_element(element).is_displayed()
+        self.wait_for_element(AdDesignPageLocator.PREVIEW_DESKTOP_FEED).click()
+        self._check_disappears_and_appears_again(element)
+        self.wait_for_element(AdDesignPageLocator.PREVIEW_RIGHT_COLUMN).click()
+        self._check_disappears_and_appears_again(element)
+        self.wait_for_element(AdDesignPageLocator.PREVIEW_INSTAGRAM_FEED).click()
+        self._check_disappears_and_appears_again(element)
+        self.wait_for_element(AdDesignPageLocator.PREVIEW_INSTAGRAM_STORY).click()
+        self._check_disappears_and_appears_again(element)
+        self.wait_for_element(AdDesignPageLocator.PREVIEW_AUDIENCE_NETWORK).click()
+        self._check_disappears_and_appears_again(element)
+
+    def _check_disappears_and_appears_again(self, element):
+        self.wait_for_element_to_disappear(element)
+        self.wait_for_element(element).is_displayed()
 
     def create_new_folder(self):
         time.sleep(3)
@@ -483,7 +488,7 @@ class AdDesignPage(WebApp):
             raise NotImplementedError
 
     def filer_ad_designs_by_type(self, ad_type: str):
-        time.sleep(5)
+        self.wait_for_element_to_disappear(AdDesignPageLocator.LOADING_ICON)
         type_dropdown = self.wait_for_element(AdDesignPageLocator.TYPE_DROPDOWN)
         type_dropdown.click()
         if ad_type == 'Page Like Ad':
