@@ -45,4 +45,4 @@ def step_impl(context):
     """
     :type context: behave.runner.Context
     """
-    context.popup_window.upload_file("image", "image2.jpg")
+    context.popup_window.upload_file("image_edit")
