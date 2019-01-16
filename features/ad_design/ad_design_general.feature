@@ -18,15 +18,16 @@ Feature: Ad Design General
 
   Scenario: Sort Ad Designs by Date From Oldest to Newest
     Given I am on Ad Design page
-    And At least two of any type of ad designs are created
-    When I select Date - Oldest to Newest
-    Then The ad designs are sorted from oldest to newest
+    And At least one ad design is created
+    When I select sort type Date - Oldest to Newest
+    Then The ad designs are sorted by ascending order of date
 
   Scenario: Sort Ad Designs by Date From Newest to Oldest
     Given I am on Ad Design page
     And At least one ad design is created
-    When I select Date - Newest to Oldest
-    Then The ad designs are sorted from newest to oldest
+    When I select sort type Date - Oldest to Newest
+    When I select sort type Date - Newest to Oldest
+    Then The ad designs are sorted by descending order of date
 
   # click on Folders link on the left upper corner
   @general.create_folder

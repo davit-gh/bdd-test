@@ -99,3 +99,27 @@ def step_impl(context, pagination_number):
     :type context: behave.runner.Context
     """
     context.adsdesignpage.verify_number_of_displayed_ad_designs(pagination_number)
+
+
+@then("The ad designs are sorted by (?P<sort_type>.+) order of date")
+def step_impl(context, sort_type):
+    """
+    :type sort_type: str
+    :type context: behave.runner.Context
+    """
+    context.adsdesignpage.verify_ad_design_ordering(sort_type)
+
+@step("At least one ad design is created")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    context.adsdesignpage.verify_ad_design_page_is_not_empty()
+
+@when("I select sort type (?P<sort_type>.+)")
+def step_impl(context, sort_type):
+    """
+    :type sort_type: str
+    :type context: behave.runner.Context
+    """
+    context.adsdesignpage.select_sorting_by_date(sort_type)

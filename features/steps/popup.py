@@ -247,9 +247,10 @@ def step_impl(context):
     context.adsdesignpage.verify_instagram_applicable()
 
 
-@when("I select Date - Newest to Oldest")
-def step_impl(context):
+@when("I select sort type (?P<sort_type>.+)")
+def step_impl(context, sort_type):
     """
+    :type sort_type: str
     :type context: behave.runner.Context
     """
-    context.adsdesignpage.select_sorting_by_date()
+    context.adsdesignpage.select_sorting_by_date(sort_type)

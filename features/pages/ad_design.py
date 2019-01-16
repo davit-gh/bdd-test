@@ -25,6 +25,7 @@ class AdDesignPageLocator(object):
     ADD_BLOCK_ID = ""
     SUCCESS_POPOVER = (By.ID, "successMessage")
     AD_DESIGN_MODIFIED_DATE_XPATH = "(//div[@class='ads-block--header--text-content'])[{}]/p"
+    AD_DESIGN_MODIFIED_DATES = (By.XPATH, "//div[@class='ads-block--header--text-content']/p")
     AD_DESIGN_PREVIEW_IMG_XPATH = "(//div[@class='ads-block--content'])[{}]/img"
     TAG = (By.XPATH, "//div[@class='tag-item']/span")
     INSTAGRAM_NOT_APPLICABLE = (By.CLASS_NAME, "adz-icon-ic_instagram_notapp")
@@ -45,10 +46,10 @@ class AdDesignPageLocator(object):
     TYPE_DROPDOWN = (By.XPATH, "//a[@class='chosen-single']/span[text()='Ad types']")
     TYPE_DROPDOWN_PAGE_LIKE_AD = "//ul[@class='chosen-results']/li[text()='{}']"
     LOADING_ICON = (By.XPATH, "//div[@class='js-get-data-loading-overlay']")
-    PAGINATION_DIV = (By.CLASS_NAME, "addesign-pagination")
     PAGINATION_DEFAULT = (By.XPATH, "//span[text()='Show: 12 Per']")
     PAGINATION_PER_PAGE_XPATH = "//li[text()='Show: {} Per']"
     PAGINATION_NEXT = (By.CLASS_NAME, "pagination-next")
+    AD_DESIGN_COUNT = (By.CLASS_NAME, "addesign-count")
 
     # TODO move to popup page
     POP_UP_MOVE_BUTTON = (By.XPATH, "//div[contains(@class, 'display-block')]//button[2]")
@@ -248,13 +249,12 @@ class AdDesignPage(WebApp):
         assert len(ad_images) == 6
 
     def select_date_from_dropdown(self):
-        selector = (By.XPATH, "//div[@class='filters-content--item pull-right']")
+        selector = (By.XPATH, "//span[text()='Date - Newest to Oldest']")
         element = self.wait_for_element(selector)
-        time.sleep(3)
+        #time.sleep(3)
         element.click()
-        time.sleep(3)
-        selector = (By.XPATH, "//div[@class='filters-content--item pull-right']//li[text()='Date - Newest to Oldest']")
-        element = self.wait_for_element(selector)
+        selector = (By.XPATH, "//li[text()='Date - Oldest to Newest']")
+        element = self.wait_for_clickable(selector)
         element.click()
 
     def adaccount_ad_desings(self):
@@ -432,11 +432,13 @@ class AdDesignPage(WebApp):
         delete_btn = self.wait_for_element(AdDesignPageLocator.DELETE_BUTTON)
         delete_btn.click()
 
-    def select_sorting_by_date(self):
-        selector = (By.XPATH, "//div[contains(@class, 'chosen-with-drop')]/a")
+    def select_sorting_by_date(self, sort_type):
+        self.wait_for_element_to_disappear(AdDesignPageLocator.LOADING_ICON)
+        selector = (By.XPATH, "//div[contains(@class,'sort-by-select-content')]")
         element = self.wait_for_element(selector)
         element.click()
-        sort_by = element.find_element_by_xpath('.//li[text(), "Date - Oldest to Newest"]')
+        selector = (By.XPATH, '//li[text()="{}"]'.format(sort_type))
+        sort_by = self.wait_for_element(selector)
         sort_by.click()
 
     def verify_all_previews_displayed(self):
@@ -513,8 +515,8 @@ class AdDesignPage(WebApp):
         assert self.ad_design_img != new_url.get_attribute("src")
 
     def verify_pagination_is_displayed(self):
-        pagination = self.wait_for_element(AdDesignPageLocator.PAGINATION_DIV)
-        assert pagination.is_displayed()
+        exists = self.element_exists(AdDesignPageLocator.PAGINATION_NEXT)
+        assert exists
 
     def select_per_page_pagination(self, pagination_number):
         pagination_dropdown = self.wait_for_clickable(AdDesignPageLocator.PAGINATION_DEFAULT)
@@ -531,6 +533,15 @@ class AdDesignPage(WebApp):
     def verify_number_of_displayed_ad_designs(self, pagination_number):
         ad_designs = self.wait_for_elements(AdDesignPageLocator.ADS_BLOCK)
         assert len(ad_designs) <= int(pagination_number)
+
+    def verify_ad_design_ordering(self, sort_type):
+        reverse = True if sort_type == "descending" else False
+        ad_designs_dates = self.wait_for_elements(AdDesignPageLocator.AD_DESIGN_MODIFIED_DATES)
+        date_times = [datetime.strptime(date.text, '%d/%m/%Y %H:%M') for date in ad_designs_dates]
+        assert sorted(date_times, reverse=reverse) == date_times
+        if self.element_exists(AdDesignPageLocator.PAGINATION_NEXT):
+            self.click_on_pagination_next()
+            self.verify_ad_design_ordering(sort_type)
 
     @staticmethod
     def _get_current_date():

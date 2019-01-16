@@ -1,6 +1,6 @@
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.action_chains import ActionChains
 
 
@@ -27,7 +27,7 @@ class WebApp:
         try:
             self.wait_for_element(*locator)
             exists = True
-        except NoSuchElementException:
+        except TimeoutException:
             pass
         return exists
 
