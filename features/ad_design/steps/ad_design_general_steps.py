@@ -92,11 +92,10 @@ def step_impl(context):
     context.adsdesignpage.click_on_pagination_next()
 
 
-@then("More than (?P<min_number>.+) and less than (?P<max_number>.+) ad designs are displayed")
-def step_impl(context, min_number, max_number):
+@then("Less than or equal to (?P<pagination_number>\d+) ad designs are displayed")
+def step_impl(context, pagination_number):
     """
-    :type min_number: str
-    :type max_number: str
+    :type pagination_number: str
     :type context: behave.runner.Context
     """
-    context.adsdesignpage.verify_number_of_displayed_ad_designs(min_number, max_number)
+    context.adsdesignpage.verify_number_of_displayed_ad_designs(pagination_number)

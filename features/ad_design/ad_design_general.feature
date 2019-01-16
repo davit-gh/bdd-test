@@ -14,7 +14,7 @@ Feature: Ad Design General
     Given Ad Design page is paginated
     And I select 24 Ads Per Page from the pagination drop-down
     When I click on Next pagination link
-    Then More than 12 and less than 24 ad designs are displayed
+    Then Less than or equal to 24 ad designs are displayed
 
   Scenario: Sort Ad Designs by Date From Oldest to Newest
     Given I am on Ad Design page

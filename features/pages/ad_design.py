@@ -517,19 +517,20 @@ class AdDesignPage(WebApp):
         assert pagination.is_displayed()
 
     def select_per_page_pagination(self, pagination_number):
-        pagination_dropdown = self.wait_for_clickable(AdDesignPageLocator.PAGINATION_PER_PAGE_12)
+        pagination_dropdown = self.wait_for_clickable(AdDesignPageLocator.PAGINATION_DEFAULT)
         pagination_dropdown.click()
         pagination_per_page = self.wait_for_clickable(
             (By.XPATH, AdDesignPageLocator.PAGINATION_PER_PAGE_XPATH.format(pagination_number))
         )
         pagination_per_page.click()
+        self.wait_for_element_to_disappear(AdDesignPageLocator.LOADING_ICON)
 
     def click_on_pagination_next(self):
         self.wait_for_clickable(AdDesignPageLocator.PAGINATION_NEXT).click()
 
-    def verify_number_of_displayed_ad_designs(self, min_number, max_number):
+    def verify_number_of_displayed_ad_designs(self, pagination_number):
         ad_designs = self.wait_for_elements(AdDesignPageLocator.ADS_BLOCK)
-        assert len(ad_designs) > min_number and len(ad_designs) < max_number
+        assert len(ad_designs) <= int(pagination_number)
 
     @staticmethod
     def _get_current_date():
