@@ -498,7 +498,7 @@ class AdDesignPage(WebApp):
             option = (By.XPATH, AdDesignPageLocator.TYPE_DROPDOWN_PAGE_LIKE_AD.format(ad_type))
             self.click_element(*option)
         except (ElementNotVisibleException, NoSuchElementException):
-            print("In reality element it visible and I can click it. Later, find a better way to select from dropdown.")
+            print("In reality element is visible and I can click it. Later, we need to find a better way to select from dropdown.")
 
     def verify_that_image_url_changed(self):
         pass
