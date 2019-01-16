@@ -4,10 +4,19 @@ Feature: Ad Design General
   I want to see thumbnail images for the created ads
   when I navigate to the Ad Designs tab
 
-  Scenario: Check thumbnail images
+  Scenario Outline: Check thumbnail images
     Given I am on Ad Design page
-    And The page contains ad designs of all 6 objectives
+    When I filter ad designs of type <type>
     Then I can see thumbnail images for all the ad designs
+
+    Examples: Types
+      | type         |
+      | Page Like Ad |
+      | Page Post Ad |
+      | Link Ad      |
+      | Lead Ad      |
+      | Photo Ad     |
+      | Video Ad     |
 
   @general.pagination
   Scenario: Check Pagination
@@ -29,7 +38,6 @@ Feature: Ad Design General
     When I select sort type Date - Newest to Oldest
     Then The ad designs are sorted by descending order of date
 
-  # click on Folders link on the left upper corner
   @general.create_folder
   Scenario: Create A Folder
     Given I am on Ad Design page

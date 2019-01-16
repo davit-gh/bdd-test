@@ -21,14 +21,6 @@ def step_impl(context):
     context.adsdesignpage.verify_on_ad_design_page()
 
 
-@step("The page contains ad designs of all 6 objectives")
-def step_impl(context):
-    """
-    :type context: behave.runner.Context
-    """
-    pass
-
-
 @then("I can see thumbnail images for all the ad designs")
 def step_impl(context):
     """
@@ -123,3 +115,12 @@ def step_impl(context, sort_type):
     :type context: behave.runner.Context
     """
     context.adsdesignpage.select_sorting_by_date(sort_type)
+
+
+@when("I filter ad designs of type (?P<type>.+)")
+def step_impl(context, type):
+    """
+    :type context: behave.runner.Context
+    :type type: str
+    """
+    context.adsdesignpage.filer_ad_designs_by_type(type)
