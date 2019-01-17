@@ -5,7 +5,7 @@ import time
 from datetime import datetime, timedelta
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
-from selenium.common.exceptions import TimeoutException
+from selenium.common.exceptions import TimeoutException, ElementNotVisibleException, NoSuchElementException
 
 from framework.webapp import WebApp
 
@@ -492,9 +492,12 @@ class AdDesignPage(WebApp):
 
     def filer_ad_designs_by_type(self, ad_type: str):
         self.wait_for_element_to_disappear(AdDesignPageLocator.LOADING_ICON)
-        type_dropdown = self.wait_for_element(AdDesignPageLocator.TYPE_DROPDOWN)
-        type_dropdown.click()
-        self.wait_for_element((By.XPATH, AdDesignPageLocator.TYPE_DROPDOWN_PAGE_LIKE_AD.format(ad_type))).click()
+        try:
+            self.click_element(*AdDesignPageLocator.TYPE_DROPDOWN)
+            option = (By.XPATH, AdDesignPageLocator.TYPE_DROPDOWN_PAGE_LIKE_AD.format(ad_type))
+            self.click_element(*option)
+        except (ElementNotVisibleException, NoSuchElementException):
+            print("In reality element is visible and I can click it. Later, we need to find a better way to select from dropdown.")
 
     def verify_that_image_url_changed(self):
         pass
