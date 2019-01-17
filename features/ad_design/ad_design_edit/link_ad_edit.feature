@@ -10,16 +10,16 @@ Feature: Link Ad Edit
     Given I am on Ad Design page
     And At least one ad design of type Link Ad is created
     When I hover over the ad design
-    And I click on Edit icon1
-    And I edit the Post Link field
+    And I click on Edit icon
+    And I edit the postlink field
     And I click on Save button on linkAdType popup
-    Then The Post Link should change to the new value
+    Then The postlink should change to the new value
 
   Scenario: Edit a Link Ad Image
     Given I am on Ad Design page
     And At least one ad design of type Link Ad is created
     When I hover over the ad design
-    And I click on Edit icon1
+    And I click on Edit icon
     And I upload a new Single Image
     And I click on Save button on linkAdType popup
     Then The thumbnail image should change to the new image

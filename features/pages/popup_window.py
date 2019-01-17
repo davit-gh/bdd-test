@@ -3,6 +3,7 @@ import os
 from random import randint
 
 from faker import Faker
+from faker.providers import internet
 
 from framework.webapp import WebApp
 from selenium.webdriver.common.by import By
@@ -21,7 +22,7 @@ class PopUpWindowLocators(object):
     UPLOAD_SINGLE_VIDEO_FILE = (By.ID, "addVideo2")
     CREATE_BUTTON = (By.XPATH, "//div[@id='linkAdType']//button[contains(@class, 'create-button')]")
     IMAGE_CONTENT = (By.XPATH, "(//div[@class='image-content'])[1]")
-    AD_EDIT_TEXT_INPUT = (By.XPATH, "(//textarea[@name='text[0]'])[1]")
+    AD_EDIT_INPUT_XPATH = "(//*[@name='{}[0]'])[1]"
     LOADING_ICON = (By.XPATH, "//div[@class='loading-overlay-popups']")
     FILE_UPLOAD_COMPLETED = (By.XPATH, "//div[@role='progressbar' and text()='100% Complete']")
 
@@ -69,17 +70,20 @@ class PopUpWindow(WebApp):
     def add_one_more_post_link_input(self):
         self.wait_for_element(PopUpWindowLocators.POST_LINK_INPUT_ADD_ICON).click()
 
-    def edit_text_input_value(self):
+    def edit_text_input_value(self, field_type):
         faker = Faker()
+        faker.add_provider(internet)
         time.sleep(2)
-        element = self.wait_for_element(PopUpWindowLocators.AD_EDIT_TEXT_INPUT)
-        self.text = faker.name()
+        selector = (By.XPATH, PopUpWindowLocators.AD_EDIT_INPUT_XPATH.format(field_type))
+        element = self.wait_for_element(selector)
+        self.text = faker.name() if 'link' not in field_type else faker.url()
         element.clear()
         element.send_keys(self.text)
 
-    def verify_edit_window_text_input_is_correct(self):
+    def verify_edit_window_text_input_is_correct(self, field_type):
         time.sleep(1)
         self.wait_for_element_to_disappear(PopUpWindowLocators.LOADING_ICON)
-        element = self.wait_for_element(PopUpWindowLocators.AD_EDIT_TEXT_INPUT)
+        selector = (By.XPATH, PopUpWindowLocators.AD_EDIT_INPUT_XPATH.format(field_type))
+        element = self.wait_for_element(selector)
         element_text = element.get_attribute("data-value")
         assert element_text == self.text

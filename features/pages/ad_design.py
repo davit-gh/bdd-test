@@ -18,7 +18,7 @@ class AdDesignPageLocator(object):
     PUBLISHED_POSTS_TABLE_ROW = (By.XPATH, "//div[@id='selectedByPublishedPosts']//tbody/tr")
     SELECT_BTN = (By.XPATH, "//div[@id='selectedByPublishedPosts']//tbody/tr//button")
     ERROR_LABEL = (By.CLASS_NAME, "error_message")
-    LOADING_OVERLAY = (By.XPATH, "(//div[@class='loading-overlay-popups'])[9]")
+    LOADING_OVERLAY_XPATH = "//div[@id='{}']/div[1]"
     ADS_BLOCK = (By.XPATH, "//div[@class='ads-block']")
     ADS_BLOCK_IMG = "(//div[@class='ads-block--content'])[{}]/img"
     ACTION_ICONS_XPATH = "(//div[@class='ads-block--content'])[{}]/div[2]/div/div/button"
@@ -50,6 +50,7 @@ class AdDesignPageLocator(object):
     PAGINATION_PER_PAGE_XPATH = "//li[text()='Show: {} Per']"
     PAGINATION_NEXT = (By.CLASS_NAME, "pagination-next")
     AD_DESIGN_COUNT = (By.CLASS_NAME, "addesign-count")
+    FIRST_IMG_LOADING_OVERLAY = (By.XPATH, "(//div[@class='img-loading-overlay-icon'])[1]")
 
     # TODO move to popup page
     POP_UP_MOVE_BUTTON = (By.XPATH, "//div[contains(@class, 'display-block')]//button[2]")
@@ -139,7 +140,8 @@ class AdDesignPage(WebApp):
 
     def click_btn_popup(self, btn_name, ad_type):
         btn_locator = (By.XPATH, "//div[@id='{}']//button[text()='{}']".format(ad_type, btn_name))
-        self.wait_for_element_to_disappear(AdDesignPageLocator.LOADING_OVERLAY)
+        overlay_selector = (By.XPATH, AdDesignPageLocator.LOADING_OVERLAY_XPATH.format(ad_type))
+        self.wait_for_element_to_disappear(overlay_selector)
         btn = self.wait_for_clickable(btn_locator)
         btn.click()
 
@@ -300,7 +302,8 @@ class AdDesignPage(WebApp):
         AdDesignPageLocator.AD_DESIGN_BUTTONS_BY_HEADER = ad_design_block + "//div[2]/div/div/button"
 
     def edit_first_ad_design(self):
-        time.sleep(5)
+        time.sleep(1)
+        self.wait_for_element_to_disappear(AdDesignPageLocator.FIRST_IMG_LOADING_OVERLAY)
         ad_designs = self.wait_for_elements(AdDesignPageLocator.ADS_BLOCK)
         self.action_move_to_element(ad_designs[0])
         self.wait_for_element((By.XPATH, AdDesignPageLocator.ACTION_ICONS_XPATH.format(1) + "[3]")).click()

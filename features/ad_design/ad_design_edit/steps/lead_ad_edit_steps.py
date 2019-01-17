@@ -15,21 +15,23 @@ def step_impl(context, ad_type: str):
     context.adsdesignpage.verify_that_ad_with_specific_type_exists(ad_type)
 
 
-@step("I edit the Text field")
-def step_impl(context):
+@step("I edit the (?P<field_type>.+) field")
+def step_impl(context, field_type):
     """
+    :type field_type: str
     :type context: behave.runner.Context
     """
-    context.popup_window.edit_text_input_value()
+    context.popup_window.edit_text_input_value(field_type)
 
 
-@then("The Text should change to the new value")
-def step_impl(context):
+@then("The (?P<field_type>.+) should change to the new value")
+def step_impl(context, field_type):
     """
+    :type field_type: str
     :type context: behave.runner.Context
     """
     context.adsdesignpage.edit_first_ad_design()
-    context.popup_window.verify_edit_window_text_input_is_correct()
+    context.popup_window.verify_edit_window_text_input_is_correct(field_type)
 
 
 @then("The thumbnail image should change to the new image")
