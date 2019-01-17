@@ -13,8 +13,8 @@ class PopUpWindowLocators(object):
     POST_LINK_INPUT = "//input[@name='postlink[{}]']"
     HEADLINE_INPUT = (
     By.XPATH, "(//textarea[@name='headline[0]' and @placeholder='Ad a brief headline about your ad'])[1]")
-    POST_LINK_INPUT_ADD_ICON = (By.XPATH, "//input[@name='postlink[0]']/..//span[@class='adz-icon-add_circle']")
-    UPLOAD_IMAGES = (By.ID, "addImage2")
+    INPUT_ADD_ICON_XPATH = "//input[@name='{}[0]']/..//span[@class='adz-icon-add_circle']"
+
     EDIT_UPLOAD_IMAGES = (By.ID, "addImage1")
     UPLOAD_SLIDESHOW_IMAGES = (By.ID, "addSlideshow2")
     SINGLE_VIDEO_BLOCK = (By.XPATH, "//a[@href='#videoTypeLinkAD']")
@@ -22,11 +22,19 @@ class PopUpWindowLocators(object):
     UPLOAD_SINGLE_VIDEO_FILE = (By.ID, "addVideo2")
     CREATE_BUTTON = (By.XPATH, "//div[@id='linkAdType']//button[contains(@class, 'create-button')]")
     IMAGE_CONTENT = (By.XPATH, "(//div[@class='image-content'])[1]")
-    AD_EDIT_INPUT_XPATH = "(//*[@name='{}[0]'])[1]"
+    AD_EDIT_INPUT_XPATH = "(//*[@name='{}'])[1]"
     LOADING_ICON = (By.XPATH, "//div[@class='loading-overlay-popups']")
     FILE_UPLOAD_COMPLETED = (By.XPATH, "//div[@role='progressbar' and text()='100% Complete']")
-
-
+    CHOOSE_EXISTING_BUTTON = (By.XPATH, "(//button[text()='Choose Existing'])[4]")
+    LOADING_OVERLAY = (By.CLASS_NAME, "loading-filter-getBrowseLibrary")
+    EXISTING_VIDEOS = (By.XPATH, "//div[@class='select-video-box']")
+    CHOOSE_VIDEO_BUTTON = (By.ID, "browse_library_done")
+    UPLOAD_IMAGE_IDS = {
+        'pageLikeAdType': 'addImage1',
+        'linkAdType': 'addImage2',
+        'leadAdType': 'addImage3',
+        'photoAdType': 'addImage4'
+    }
 class PopUpWindow(WebApp):
     text = ''
 
@@ -44,16 +52,25 @@ class PopUpWindow(WebApp):
     def select_slideshow_block(self):
         self.wait_for_element(PopUpWindowLocators.SLIDESHOW_BLOCK).click()
 
-    def upload_file(self, file_type: str):
+    def upload_file(self, file_type: str, ad_type: str):
         path_images = "\\files\\images"
         path_videos = "\\files\\videos"
         if file_type == "image":
             image = os.getcwd() + "{}\\image1.jpg".format(path_images)
-            self.driver.instance.find_element(*PopUpWindowLocators.UPLOAD_IMAGES).send_keys(image)
+            image_field_id = PopUpWindowLocators.UPLOAD_IMAGE_IDS[ad_type]
+            selector = (By.ID, image_field_id)
+            self.driver.instance.find_element(*selector).send_keys(image)
         elif file_type == "video":
-            video = os.getcwd() + "{}\\SampleVideo.mp4".format(path_videos)
-            self.driver.instance.find_element(*PopUpWindowLocators.UPLOAD_SINGLE_VIDEO_FILE).send_keys(video)
-            self.wait_for_element(PopUpWindowLocators.FILE_UPLOAD_COMPLETED, time=20)
+            # video = os.getcwd() + "{}\\SampleVideo.mp4".format(path_videos)
+            # self.driver.instance.find_element(*PopUpWindowLocators.UPLOAD_SINGLE_VIDEO_FILE).send_keys(video)
+            # self.wait_for_element(PopUpWindowLocators.FILE_UPLOAD_COMPLETED, time=20)
+            choose_existing_btn = self.wait_for_element(PopUpWindowLocators.CHOOSE_EXISTING_BUTTON)
+            choose_existing_btn.click()
+            self.wait_for_element_to_disappear(PopUpWindowLocators.LOADING_OVERLAY)
+            videos = self.wait_for_elements(PopUpWindowLocators.EXISTING_VIDEOS)
+            videos[randint(0, len(videos))].click()
+            choose_video_btn = self.wait_for_clickable(PopUpWindowLocators.CHOOSE_VIDEO_BUTTON)
+            choose_video_btn.click()
         elif file_type == "slideshow":
             img = os.getcwd() + "{}\\image1.jpg".format(path_images)
             img1 = os.getcwd() + "{}\\image2.jpg".format(path_images)
@@ -67,8 +84,9 @@ class PopUpWindow(WebApp):
         else:
             raise FileNotFoundError("File with type '{}' does not exist".format(file_type))
 
-    def add_one_more_post_link_input(self):
-        self.wait_for_element(PopUpWindowLocators.POST_LINK_INPUT_ADD_ICON).click()
+    def add_one_more_input(self, field_type):
+        selector = (By.XPATH, PopUpWindowLocators.INPUT_ADD_ICON_XPATH.format(field_type))
+        self.wait_for_element(selector).click()
 
     def edit_text_input_value(self, field_type):
         faker = Faker()

@@ -30,12 +30,13 @@ def step_impl(context):
     context.adsdesignpage.select_ad_account()
 
 
-@step("I select a page")
-def step_impl(context):
+@step("I select (?P<page_name>.+) page")
+def step_impl(context, page_name):
     """
+    :type page_name: str
     :type context: behave.runner.Context
     """
-    pass
+    context.adsdesignpage.select_page(page_name)
 
 
 @step('I click on (?P<button_name>.+) button')
@@ -70,6 +71,8 @@ def step_impl(context, adtype_id):
     context.navmenu.navigate_to_page("Ad Designs")
     context.adsdesignpage.verify_on_ad_design_page()
     context.adsdesignpage.click_create_ad_design_button()
+    if adtype_id == 'leadAd':
+        context.adsdesignpage.select_page('Effortis')
     context.adsdesignpage.click_box(adtype_id)
     context.adsdesignpage.click_btn("Next")
     context.adsdesignpage.screen_is_displayed(adtype_id + "Type")
@@ -85,31 +88,6 @@ def step_impl(context, box_name):
     context.adsdesignpage.click_box(box_name)
 
 
-@step("I upload an image")
-def step_impl(context):
-    """
-    :type context: behave.runner.Context
-    """
-    raise NotImplementedError(u'STEP: And I upload an image')
-
-
-@step("I fill in the required fields")
-def step_impl(context):
-    """
-    :type context: behave.runner.Context
-    """
-    raise NotImplementedError(u'STEP: When I fill in the required fields')
-
-
-@then("I should see the newly created (?P<design_name>.+) design")
-def step_impl(context, design_name):
-    """
-    :type design_name: str
-    :type context: behave.runner.Context
-    """
-    context.adsdesignpage.verify_ad_is_created(design_name)
-
-
 @step("I upload a single video")
 def step_impl(context):
     """
@@ -117,14 +95,6 @@ def step_impl(context):
     """
     context.popup_window.select_single_video_block()
     context.popup_window.upload_file("video")
-
-
-@step("I upload images")
-def step_impl(context):
-    """
-    :type context: behave.runner.Context
-    """
-    raise NotImplementedError(u'STEP: And I upload images')
 
 
 @step("Published posts exist")
@@ -159,20 +129,12 @@ def step_impl(context):
     raise NotImplementedError(u'STEP: Then I should see an error message')
 
 
-@step('"Lead form" select box contains at least 1 option')
-def step_impl(context):
-    """
-    :type context: behave.runner.Context
-    """
-    raise NotImplementedError(u'STEP: And "Lead form" select box contains at least 1 option')
-
-
 @step('I select an option from "Lead form" select box')
 def step_impl(context):
     """
     :type context: behave.runner.Context
     """
-    raise NotImplementedError(u'STEP: And I select an option from "Lead form" select box')
+    pass
 
 
 @then('I should see a validation error (?P<error_msg>.+)')
@@ -203,20 +165,22 @@ def step_impl_fill_in_required_url(context):
     context.popup_window.enter_link_url("0")
 
 
-@step("I upload a single image")
-def step_impl(context):
+@step("I upload a single image for (?P<ad_type>.+)")
+def step_impl(context, ad_type):
     """
+    :type ad_type: str
     :type context: behave.runner.Context
     """
-    context.popup_window.upload_file("image")
+    context.popup_window.upload_file("image", ad_type)
 
 
-@step("I click on plus button next to URL field")
-def step_impl(context):
+@step("I click on plus button next to (?P<field_type>.+) field")
+def step_impl(context, field_type):
     """
+    :type field_type: str
     :type context: behave.runner.Context
     """
-    context.popup_window.add_one_more_post_link_input()
+    context.popup_window.add_one_more_input(field_type)
 
 
 @step("I fill in another URL")
@@ -235,12 +199,14 @@ def step_impl(context):
     context.popup_window.enter_headline()
 
 
-@then("I should see 2 newly created Link Ad designs")
-def step_impl(context):
+@then("I should see (?P<count>.+) newly created (?P<ad_type>.+) designs")
+def step_impl(context, count, ad_type):
     """
+    :type ad_type: str
+    :type count: str
     :type context: behave.runner.Context
     """
-    context.adsdesignpage.verify_that_ads_were_created()
+    context.adsdesignpage.verify_that_ads_were_created(count, ad_type)
 
 
 @step("I upload multiple images as a slideshow")
@@ -251,3 +217,32 @@ def step_impl(context):
     context.popup_window.select_slideshow_block()
     context.popup_window.upload_file("slideshow")
     context.popup_window.upload_file("slideshow")
+
+
+@when("I upload a video file")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    context.popup_window.upload_file("video")
+
+
+@step("I open (?P<adtype_id>.+) creation screen")
+def step_impl(context, adtype_id):
+    """
+    :type adtype_id: str
+    :type context: behave.runner.Context
+    """
+    context.adsdesignpage.click_box(adtype_id)
+    context.adsdesignpage.click_btn("Next")
+    driver = context.adsdesignpage.screen_is_displayed(adtype_id + "Type")
+    context.popup_window = PopUpWindow(driver)
+
+
+@step("I edit the (?P<field_type>.+) field")
+def step_impl(context, field_type):
+    """
+    :type field_type: str
+    :type context: behave.runner.Context
+    """
+    context.popup_window.edit_text_input_value(field_type)

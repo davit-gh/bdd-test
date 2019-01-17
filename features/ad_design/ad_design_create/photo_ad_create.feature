@@ -15,9 +15,9 @@ Feature: Photo Ad Creation Screen
 
   Scenario: Create a photo ad - positive
     Given I am on photoAd creation screen
-    When I upload an image
+    When I upload a single image
     And I click on Create button on photoAdType popup
-    Then I should see the newly created Photo Ad design
+    Then I should see 1 newly created Photo Ad designs
 
   Scenario: Create a photo ad - negative
     Given I am on photoAd creation screen

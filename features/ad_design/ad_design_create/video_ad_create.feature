@@ -15,9 +15,9 @@ Feature: Video Ad Creation Screen
 
   Scenario: Create a video ad - positive
     Given I am on videoAd creation screen
-    When I upload a single video
+    When I upload a video file
     And I click on Create button on videoAdType popup
-    Then I should see the newly created Video Ad design
+    Then I should see 1 newly created Video Ad designs
 
   Scenario: Create a video ad - negative
     Given I am on videoAd creation screen

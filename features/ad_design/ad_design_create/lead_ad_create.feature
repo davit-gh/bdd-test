@@ -8,7 +8,7 @@ Feature: Lead Ad Creation Screen
   Scenario: Open the Lead Ad creation screen
     Given Ad Design creation popup is opened
     When I select an Ad Account from adaccount drop-down
-    And I select a page
+    And I select Adscook page
     And I click on leadAd box
     And I click on Next button
     Then I should see leadAdType creation screen
@@ -17,21 +17,17 @@ Feature: Lead Ad Creation Screen
   # clicking on Lead Ad box
   Scenario: Create single image lead ad
     Given I am on leadAd creation screen
-    And "Lead form" select box contains at least 1 option
-    When I click on Single Image box
-    And I upload an image
+    When I upload a single image for leadAdType
     And I select an option from "Lead form" select box
     And I click on Create button on leadAdType popup
-    Then I should see the newly created Lead Ad design
+    Then I should see 1 newly created Lead Ad designs
 
-  Scenario: Create single image lead ad
+  Scenario: Create single image lead ad - Double Text
     Given I am on leadAd creation screen
-    And "Lead form" select box contains at least 1 option
-    When I edit the Text field
-    And I click on plus icon next to Text field
-    And I fill in sample text in the second field
-    And I click on Single Image box
-    And I upload an image
+    When I edit the text[0] field
+    And I click on plus button next to text field
+    And I edit the text[1] field
+    And I upload a single image for leadAdType
     And I select an option from "Lead form" select box
     And I click on Create button on leadAdType popup
     Then I should see 2 newly created Lead Ad designs
@@ -42,15 +38,15 @@ Feature: Lead Ad Creation Screen
     And I upload a single video
     And I select an option from "Lead form" select box
     And I click on Create button on leadAdType popup
-    Then I should see the newly created Lead Ad design
+    Then I should see 1 newly created Lead Ad designs
 
   Scenario: Create slideshow ad
     Given I am on leadAd creation screen
     When I click on Slideshow box
-    And I upload images
+    And I upload multiple images as a slideshow
     And I select an option from "Lead form" select box
     And I click on Create button on leadAdType popup
-    Then I should see the newly created Lead Ad design
+    Then I should see 1 newly created Lead Ad designs
 
   Scenario: Create a lead ad - negative
     Given I am on leadAd creation screen

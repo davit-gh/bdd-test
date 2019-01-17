@@ -51,6 +51,8 @@ class AdDesignPageLocator(object):
     PAGINATION_NEXT = (By.CLASS_NAME, "pagination-next")
     AD_DESIGN_COUNT = (By.CLASS_NAME, "addesign-count")
     FIRST_IMG_LOADING_OVERLAY = (By.XPATH, "(//div[@class='img-loading-overlay-icon'])[1]")
+    PAGE_SELECT = (By.XPATH, "//form[@id='addesign']//button[@data-id='pageSelect']")
+    PAGE_OPTION_XPATH = "(//li[.//p[text()='{}']])[2]/a"
 
     # TODO move to popup page
     POP_UP_MOVE_BUTTON = (By.XPATH, "//div[contains(@class, 'display-block')]//button[2]")
@@ -141,6 +143,7 @@ class AdDesignPage(WebApp):
     def click_btn_popup(self, btn_name, ad_type):
         btn_locator = (By.XPATH, "//div[@id='{}']//button[text()='{}']".format(ad_type, btn_name))
         overlay_selector = (By.XPATH, AdDesignPageLocator.LOADING_OVERLAY_XPATH.format(ad_type))
+        time.sleep(1)
         self.wait_for_element_to_disappear(overlay_selector)
         btn = self.wait_for_clickable(btn_locator)
         btn.click()
@@ -149,6 +152,7 @@ class AdDesignPage(WebApp):
         screen = (By.XPATH, "//div[@id='{}']".format(adtype_id))
         element = self.wait_for_element(screen)
         assert element.is_displayed()
+        return self.driver
 
     def published_posts_exist(self):
         exist = self.element_exists(AdDesignPageLocator.PUBLISHED_POSTS_TABLE_ROW)
@@ -161,22 +165,15 @@ class AdDesignPage(WebApp):
         btn = self.wait_for_element(AdDesignPageLocator.SELECT_BTN)
         btn.click()
 
-    def verify_ad_is_created(self, design_name):
-        element_locator = (By.XPATH, "//h5[text()='{}']".format(design_name))
-        element = self.element_exists(element_locator)
-        assert element
-
     def verify_error_is_displayed(self, error_text):
         element = self.wait_for_element(AdDesignPageLocator.ERROR_LABEL)
         assert error_text == element.text
 
-    def select_page(self, page):
-        selector = (By.XPATH, "//button[@data-id='pageSelect']")
-        page_dropdown = self.wait_for_clickable(selector)
-        self.driver.instance.execute_script("arguments[0].click();", page_dropdown)
-        option_selector = (By.XPATH, '//p[text()="{}"]'.format(page))
-        option = self.wait_for_clickable(option_selector)
-        self.driver.instance.execute_script("arguments[0].click();", option)
+    def select_page(self, page_name):
+        page_dropdown = self.wait_for_clickable(AdDesignPageLocator.PAGE_SELECT)
+        page_dropdown.click()
+        option = self.wait_for_clickable((By.XPATH, AdDesignPageLocator.PAGE_OPTION_XPATH.format(page_name)))
+        option.click()
 
     def click_on_pages(self):
         selector = (By.XPATH, "//button[@data-id='pageSelect']")
@@ -479,13 +476,12 @@ class AdDesignPage(WebApp):
     def click_folder_creation_save_icon(self):
         self.wait_for_element(AdDesignPageLocator.SAVE_ICON).click()
 
-    def verify_that_ads_were_created(self):
+    def verify_that_ads_were_created(self, count, ad_type):
+        self.wait_for_element_to_disappear(AdDesignPageLocator.FIRST_IMG_LOADING_OVERLAY)
         elements = self.wait_for_elements(AdDesignPageLocator.AD_DESIGN_HEADER_DATE)
-        ad_header_dates = []
-        for date in elements:
-            ad_header_dates.append(date.text)
+        ad_header_dates = [date.text for date in elements]
         current_date = self._get_current_date()
-        assert ad_header_dates.count(current_date) == 2
+        assert ad_header_dates.count(current_date) == int(count)
 
     def verify_that_ad_with_specific_type_exists(self, ad_header: str):
         ad_types = self.wait_for_elements((By.XPATH, AdDesignPageLocator.AD_DESIGN_HEADER_TEXT.format(ad_header)))

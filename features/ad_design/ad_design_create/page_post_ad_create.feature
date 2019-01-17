@@ -18,13 +18,7 @@ Feature: Page Post Ad Creation Screen
     And Published posts exist
     When I select a post
     And I click on Create button on pagePostAdType popup
-    Then I should see the newly created Page Post Ad design
-
-#  Scenario: Negative case when published posts don't exist
-#    Given I am on pagePostAd creation screen
-#    When Published posts does not exist
-#    And I click on Create button on pagePostAdType popup
-#    Then I should see an error message
+    Then I should see 1 newly created Page Post Ad designs
 
   Scenario: Create a page post ad - negative
     Given I am on pagePostAd creation screen
