@@ -12,9 +12,9 @@ Feature: Page Like Ad Edit
     And At least one ad design of type Page Like Ad is created
     When I hover over the ad design of type Page Like Ad
     And I click on Edit icon
-    And I edit the text field
+    And I edit the text[0] field
     And I click on Save button on pageLikeAdType popup
-    Then The text should change to the new value
+    Then The text[0] should change to the new value
 
   @edit.image
   Scenario: Edit a Page Like Ad Image

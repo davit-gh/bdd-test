@@ -34,16 +34,14 @@ Feature: Lead Ad Creation Screen
 
   Scenario: Create single video ad
     Given I am on leadAd creation screen
-    When I click on Single Video box
-    And I upload a single video
+    When I upload a single video
     And I select an option from "Lead form" select box
     And I click on Create button on leadAdType popup
     Then I should see 1 newly created Lead Ad designs
 
   Scenario: Create slideshow ad
     Given I am on leadAd creation screen
-    When I click on Slideshow box
-    And I upload multiple images as a slideshow
+    When I upload multiple images as a slideshow
     And I select an option from "Lead form" select box
     And I click on Create button on leadAdType popup
     Then I should see 1 newly created Lead Ad designs

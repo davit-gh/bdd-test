@@ -43,9 +43,9 @@ class WebApp:
         element = wait.until(EC.element_to_be_clickable(locator))
         return element
 
-    def wait_to_be_selected(self, locator):
+    def wait_for_presence_of_elements(self, locator):
         wait = WebDriverWait(self.driver.instance, 10)
-        element = wait.until(EC.element_to_be_selected(locator))
+        element = wait.until(EC.presence_of_all_elements_located(locator))
         return element
 
     def wait_for_elements(self, locator):

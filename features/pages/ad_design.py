@@ -20,6 +20,7 @@ class AdDesignPageLocator(object):
     ERROR_LABEL = (By.CLASS_NAME, "error_message")
     LOADING_OVERLAY_XPATH = "//div[@id='{}']/div[1]"
     ADS_BLOCK = (By.XPATH, "//div[@class='ads-block']")
+    DATA_IDS = (By.XPATH, "//div[@class='ads-block']/..")
     ADS_BLOCK_IMG = "(//div[@class='ads-block--content'])[{}]/img"
     ACTION_ICONS_XPATH = "(//div[@class='ads-block--content'])[{}]/div[2]/div/div/button"
     ADD_BLOCK_ID = ""
@@ -44,7 +45,8 @@ class AdDesignPageLocator(object):
     SAVE_ICON = (By.XPATH, "//span[contains(@class, 'save-folder-action')]")
     AD_DESIGN_HEADER_DATE = (By.XPATH, "//div[@class='ads-block--header--text-content']/p")
     TYPE_DROPDOWN = (By.XPATH, "//a[@class='chosen-single']/span[text()='Ad types']")
-    TYPE_DROPDOWN_PAGE_LIKE_AD = "//ul[@class='chosen-results']/li[text()='{}']"
+    TYPE_DROPDOWN_AD = "//ul[@class='chosen-results']/li[text()='{}']"
+    SELECT_OPTIONS = (By.XPATH, "//div[@class='filters-content--item'][3]//option")
     LOADING_ICON = (By.XPATH, "//div[@class='js-get-data-loading-overlay']")
     PAGINATION_DEFAULT = (By.XPATH, "//span[text()='Show: 12 Per']")
     PAGINATION_PER_PAGE_XPATH = "//li[text()='Show: {} Per']"
@@ -75,6 +77,7 @@ class AdDesignPage(WebApp):
     ad_design_img = ''
 
     def verify_on_ad_design_page(self):
+        self.wait_for_element_to_disappear(AdDesignPageLocator.LOADING_ICON)
         element = self.wait_for_element(AdDesignPageLocator.CREATE_AD_DESIGN_BUTTON)
         assert element.is_displayed()
 
@@ -305,7 +308,7 @@ class AdDesignPage(WebApp):
         self.wait_for_element_to_disappear(AdDesignPageLocator.FIRST_IMG_LOADING_OVERLAY)
         ad_designs = self.wait_for_elements(AdDesignPageLocator.ADS_BLOCK)
         self.action_move_to_element(ad_designs[0])
-        self.wait_for_element((By.XPATH, AdDesignPageLocator.ACTION_ICONS_XPATH.format(1) + "[3]")).click()
+        self.wait_for_clickable((By.XPATH, AdDesignPageLocator.ACTION_ICONS_XPATH.format(1) + "[3]")).click()
 
     def verify_action_icons_visible(self):
         icon = (By.XPATH, AdDesignPageLocator.ACTION_ICONS_XPATH.format(AdDesignPageLocator.ADD_BLOCK_ID))
@@ -420,16 +423,15 @@ class AdDesignPage(WebApp):
                     raise AssertionError("Ad design id - '{}' is not in the list '{}'".format(ad_id, data_ids))
 
     def verify_ad_is_deleted(self):
-        ad_designs = self.wait_for_elements(AdDesignPageLocator.ADS_BLOCK)
-        data_ids = []
-        for ad_design in ad_designs:
-            data_id = ad_design.find_element_by_xpath('..').get_attribute('data-id')
-            data_ids.append(data_id)
+        self.wait_for_element_to_disappear(AdDesignPageLocator.SUCCESS_POPOVER)
+        data_ids = self.wait_for_elements(AdDesignPageLocator.DATA_IDS)
+        data_ids = [data_id.get_attribute('data-id') for data_id in data_ids]
         assert self.ad_design_id not in data_ids
 
     def click_button_on_popup(self):
         delete_btn = self.wait_for_element(AdDesignPageLocator.DELETE_BUTTON)
         delete_btn.click()
+
 
     def select_sorting_by_date(self, sort_type):
         self.wait_for_element_to_disappear(AdDesignPageLocator.LOADING_ICON)
@@ -492,13 +494,10 @@ class AdDesignPage(WebApp):
             raise NotImplementedError
 
     def filer_ad_designs_by_type(self, ad_type: str):
-        self.wait_for_element_to_disappear(AdDesignPageLocator.LOADING_ICON)
-        try:
-            self.click_element(*AdDesignPageLocator.TYPE_DROPDOWN)
-            option = (By.XPATH, AdDesignPageLocator.TYPE_DROPDOWN_PAGE_LIKE_AD.format(ad_type))
-            self.click_element(*option)
-        except (ElementNotVisibleException, NoSuchElementException):
-            print("In reality element is visible and I can click it. Later, we need to find a better way to select from dropdown.")
+        self.wait_for_presence_of_elements(AdDesignPageLocator.SELECT_OPTIONS)
+        self.wait_for_clickable(AdDesignPageLocator.TYPE_DROPDOWN).click()
+        option = (By.XPATH, AdDesignPageLocator.TYPE_DROPDOWN_AD.format(ad_type))
+        self.wait_for_clickable(option).click()
 
     def verify_that_image_url_changed(self):
         pass

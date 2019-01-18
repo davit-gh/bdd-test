@@ -17,7 +17,7 @@ class PopUpWindowLocators(object):
 
     EDIT_UPLOAD_IMAGES = (By.ID, "addImage1")
     UPLOAD_SLIDESHOW_IMAGES = (By.ID, "addSlideshow2")
-    SINGLE_VIDEO_BLOCK = (By.XPATH, "//a[@href='#videoTypeLinkAD']")
+    SINGLE_VIDEO_BLOCK_XPATH = "//div[@id='{}']//a[contains(@href, 'video')]"
     SLIDESHOW_BLOCK = (By.XPATH, "//a[@href='#slideshowTypeLinkAD']")
     UPLOAD_SINGLE_VIDEO_FILE = (By.ID, "addVideo2")
     CREATE_BUTTON = (By.XPATH, "//div[@id='linkAdType']//button[contains(@class, 'create-button')]")
@@ -25,10 +25,13 @@ class PopUpWindowLocators(object):
     AD_EDIT_INPUT_XPATH = "//div[@id='{}']//*[@name='{}']"
     LOADING_ICON = (By.XPATH, "//div[@class='loading-overlay-popups']")
     FILE_UPLOAD_COMPLETED = (By.XPATH, "//div[@role='progressbar' and text()='100% Complete']")
-    CHOOSE_EXISTING_BUTTON = (By.XPATH, "(//button[text()='Choose Existing'])[4]")
+    CHOOSE_EXISTING_BTN_XPATH = "//div[@id='{}']//button[text()='Choose Existing']"
     LOADING_OVERLAY = (By.CLASS_NAME, "loading-filter-getBrowseLibrary")
     EXISTING_VIDEOS = (By.XPATH, "//div[@class='select-video-box']")
     CHOOSE_VIDEO_BUTTON = (By.ID, "browse_library_done")
+    LOADING_OVERLAY_XPATH = "//div[@id='{}']/div[1]"
+    PUBLISHED_RADIO_BTN = (By.XPATH, "//input[@id='publishedPage']/following-sibling::label[2]")
+    LOADING_OVERLAY_XPATH = "//div[@id='{}']/div[1]"
     UPLOAD_IMAGE_IDS = {
         'pageLikeAdType': 'addImage1',
         'linkAdType': 'addImage2',
@@ -46,31 +49,39 @@ class PopUpWindow(WebApp):
         element = self.wait_for_element(PopUpWindowLocators.HEADLINE_INPUT)
         element.send_keys('example headline')
 
-    def select_single_video_block(self):
-        self.wait_for_element(PopUpWindowLocators.SINGLE_VIDEO_BLOCK).click()
+    def select_single_video_block(self, ad_type):
+        overlay_selector = (By.XPATH, PopUpWindowLocators.LOADING_OVERLAY_XPATH.format(ad_type))
+        time.sleep(1)
+        self.wait_for_element_to_disappear(overlay_selector)
+        selector = (By.XPATH, PopUpWindowLocators.SINGLE_VIDEO_BLOCK_XPATH.format(ad_type))
+        element = self.wait_for_clickable(selector)
+        element.click()
 
     def select_slideshow_block(self):
         self.wait_for_element(PopUpWindowLocators.SLIDESHOW_BLOCK).click()
 
-    def upload_file(self, file_type: str, ad_type: str):
+    def upload_file(self, file_type: str, ad_type: str, choose_or_upload: str):
         path_images = "/files/images"
-        path_videos = "\\files\\videos"
+        path_videos = "/files/videos"
         if file_type == "image":
             image = os.getcwd() + "{}/image1.jpg".format(path_images)
             image_field_id = PopUpWindowLocators.UPLOAD_IMAGE_IDS[ad_type]
             selector = (By.ID, image_field_id)
             self.driver.instance.find_element(*selector).send_keys(image)
         elif file_type == "video":
-            # video = os.getcwd() + "{}\\SampleVideo.mp4".format(path_videos)
-            # self.driver.instance.find_element(*PopUpWindowLocators.UPLOAD_SINGLE_VIDEO_FILE).send_keys(video)
-            # self.wait_for_element(PopUpWindowLocators.FILE_UPLOAD_COMPLETED, time=20)
-            choose_existing_btn = self.wait_for_element(PopUpWindowLocators.CHOOSE_EXISTING_BUTTON)
-            choose_existing_btn.click()
-            self.wait_for_element_to_disappear(PopUpWindowLocators.LOADING_OVERLAY)
-            videos = self.wait_for_elements(PopUpWindowLocators.EXISTING_VIDEOS)
-            videos[randint(0, len(videos))].click()
-            choose_video_btn = self.wait_for_clickable(PopUpWindowLocators.CHOOSE_VIDEO_BUTTON)
-            choose_video_btn.click()
+            if choose_or_upload == 'upload':
+                video = os.getcwd() + "{}\\SampleVideo.mp4".format(path_videos)
+                self.driver.instance.find_element(*PopUpWindowLocators.UPLOAD_SINGLE_VIDEO_FILE).send_keys(video)
+                self.wait_for_element(PopUpWindowLocators.FILE_UPLOAD_COMPLETED, time=20)
+            else:
+                btn_selector = (By.XPATH, PopUpWindowLocators.CHOOSE_EXISTING_BTN_XPATH.format(ad_type))
+                choose_existing_btn = self.wait_for_clickable(btn_selector)
+                choose_existing_btn.click()
+                self.wait_for_element_to_disappear(PopUpWindowLocators.LOADING_OVERLAY)
+                videos = self.wait_for_elements(PopUpWindowLocators.EXISTING_VIDEOS)
+                videos[randint(0, len(videos) - 1)].click()
+                choose_video_btn = self.wait_for_clickable(PopUpWindowLocators.CHOOSE_VIDEO_BUTTON)
+                choose_video_btn.click()
         elif file_type == "slideshow":
             img = os.getcwd() + "{}\\image1.jpg".format(path_images)
             img1 = os.getcwd() + "{}\\image2.jpg".format(path_images)
@@ -98,10 +109,15 @@ class PopUpWindow(WebApp):
         element.clear()
         element.send_keys(self.text)
 
-    def verify_edit_window_text_input_is_correct(self, field_type):
+    def verify_edit_window_text_input_is_correct(self, field_type, ad_type):
         time.sleep(1)
         self.wait_for_element_to_disappear(PopUpWindowLocators.LOADING_ICON)
-        selector = (By.XPATH, PopUpWindowLocators.AD_EDIT_INPUT_XPATH.format(field_type))
+        selector = (By.XPATH, PopUpWindowLocators.AD_EDIT_INPUT_XPATH.format(ad_type, field_type))
         element = self.wait_for_element(selector)
         element_text = element.get_attribute("data-value")
         assert element_text == self.text
+
+    def click_on_published_radio(self, ad_type):
+        overlay_selector = (By.XPATH, PopUpWindowLocators.LOADING_OVERLAY_XPATH.format(ad_type))
+        self.wait_for_element_to_disappear(overlay_selector)
+        self.wait_for_clickable(PopUpWindowLocators.PUBLISHED_RADIO_BTN).click()

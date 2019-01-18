@@ -89,13 +89,14 @@ def step_impl(context, box_name):
     context.adsdesignpage.click_box(box_name)
 
 
-@step("I upload a single video")
-def step_impl(context):
+@step("I (?P<choose_or_upload>.+) a single video")
+def step_impl(context, choose_or_upload):
     """
+    :type choose_or_upload: str
     :type context: behave.runner.Context
     """
-    context.popup_window.select_single_video_block()
-    context.popup_window.upload_file("video")
+    context.popup_window.select_single_video_block(context.ad_type)
+    context.popup_window.upload_file("video", context.ad_type, choose_or_upload)
 
 
 @step("Published posts exist")
@@ -216,8 +217,8 @@ def step_impl(context):
     :type context: behave.runner.Context
     """
     context.popup_window.select_slideshow_block()
-    context.popup_window.upload_file("slideshow")
-    context.popup_window.upload_file("slideshow")
+    context.popup_window.upload_file("slideshow", context.ad_type)
+    context.popup_window.upload_file("slideshow", context.ad_type)
 
 
 @when("I upload a video file")
@@ -226,18 +227,6 @@ def step_impl(context):
     :type context: behave.runner.Context
     """
     context.popup_window.upload_file("video")
-
-
-@step("I open (?P<adtype_id>.+) creation screen")
-def step_impl(context, adtype_id):
-    """
-    :type adtype_id: str
-    :type context: behave.runner.Context
-    """
-    context.adsdesignpage.click_box(adtype_id)
-    context.adsdesignpage.click_btn("Next")
-    driver = context.adsdesignpage.screen_is_displayed(adtype_id + "Type")
-    context.popup_window = PopUpWindow(driver)
 
 
 @step("I edit the (?P<field_type>.+) field")

@@ -11,9 +11,9 @@ Feature: Lead Ad Edit
     And At least one ad design of type Lead Ad is created
     When I hover over the ad design
     And I click on Edit icon
-    And I edit the Text field
+    And I edit the text[0] field
     And I click on Save button on leadAdType popup
-    Then The Text should change to the new value
+    Then The text[0] should change to the new value
 
   Scenario: Edit a Lead Ad Image
     Given I am on Ad Design page

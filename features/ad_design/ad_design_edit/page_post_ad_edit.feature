@@ -8,11 +8,11 @@ Feature: Page Post Ad Edit
   # you can use Ad Types drop-down
   Scenario: Edit a Psge Post Ad Text
     Given I am on Ad Design page
-    And At least one ad design of type Psge Post Ad is created
+    And At least one ad design of type Page Post Ad is created
     When I hover over the ad design
     And I click on Edit icon
     And I click on Select Published Page posts radio-button
-    And I randomly select a post from available posts
+    And I select a post
     And I click on Save button on pagePostAdType popup
     Then The thumbnail image should change to the new image
 
