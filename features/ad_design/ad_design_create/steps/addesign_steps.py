@@ -75,7 +75,8 @@ def step_impl(context, adtype_id):
         context.adsdesignpage.select_page('Effortis')
     context.adsdesignpage.click_box(adtype_id)
     context.adsdesignpage.click_btn("Next")
-    context.adsdesignpage.screen_is_displayed(adtype_id + "Type")
+    context.ad_type = adtype_id + "Type"
+    context.adsdesignpage.screen_is_displayed(context.ad_type)
     context.popup_window = PopUpWindow(driver)
 
 
@@ -180,7 +181,7 @@ def step_impl(context, field_type):
     :type field_type: str
     :type context: behave.runner.Context
     """
-    context.popup_window.add_one_more_input(field_type)
+    context.popup_window.add_one_more_input(field_type, context.ad_type)
 
 
 @step("I fill in another URL")
@@ -245,4 +246,4 @@ def step_impl(context, field_type):
     :type field_type: str
     :type context: behave.runner.Context
     """
-    context.popup_window.edit_text_input_value(field_type)
+    context.popup_window.edit_text_input_value(field_type, context.ad_type)

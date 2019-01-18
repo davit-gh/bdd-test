@@ -53,6 +53,7 @@ class AdDesignPageLocator(object):
     FIRST_IMG_LOADING_OVERLAY = (By.XPATH, "(//div[@class='img-loading-overlay-icon'])[1]")
     PAGE_SELECT = (By.XPATH, "//form[@id='addesign']//button[@data-id='pageSelect']")
     PAGE_OPTION_XPATH = "(//li[.//p[text()='{}']])[2]/a"
+    PAGE_LOADING_OVERLAY = (By.CLASS_NAME, "js-popup-adpage-loading")
 
     # TODO move to popup page
     POP_UP_MOVE_BUTTON = (By.XPATH, "//div[contains(@class, 'display-block')]//button[2]")
@@ -170,6 +171,7 @@ class AdDesignPage(WebApp):
         assert error_text == element.text
 
     def select_page(self, page_name):
+        self.wait_for_element_to_disappear(AdDesignPageLocator.PAGE_LOADING_OVERLAY)
         page_dropdown = self.wait_for_clickable(AdDesignPageLocator.PAGE_SELECT)
         page_dropdown.click()
         option = self.wait_for_clickable((By.XPATH, AdDesignPageLocator.PAGE_OPTION_XPATH.format(page_name)))

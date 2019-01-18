@@ -25,7 +25,7 @@ Feature: Lead Ad Creation Screen
   Scenario: Create single image lead ad - Double Text
     Given I am on leadAd creation screen
     When I edit the text[0] field
-    And I click on plus button next to text field
+    And I click on plus button next to text[0] field
     And I edit the text[1] field
     And I upload a single image for leadAdType
     And I select an option from "Lead form" select box
