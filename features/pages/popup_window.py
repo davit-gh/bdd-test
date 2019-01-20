@@ -18,7 +18,9 @@ class PopUpWindowLocators(object):
     EDIT_UPLOAD_IMAGES = (By.ID, "addImage1")
     UPLOAD_SLIDESHOW_IMAGES = (By.ID, "addSlideshow2")
     SINGLE_VIDEO_BLOCK_XPATH = "//div[@id='{}']//a[contains(@href, 'video')]"
-    SLIDESHOW_BLOCK = (By.XPATH, "//a[@href='#slideshowTypeLinkAD']")
+    SLIDESHOW_BLOCK_XPATH = "//div[@id='{}']//a[contains(@href,'#slideshow')]"
+    SLIDESHOW_OVERLAY_XPATH = "//div[@id='{}']//div[contains(@class, 'slideshow-upload-loading')]"
+    CREATE_SLIDESHOW_BTN_XPATH = "//div[@id='{}']//button[text()='Create Slideshow']"
     UPLOAD_SINGLE_VIDEO_FILE = (By.ID, "addVideo2")
     CREATE_BUTTON = (By.XPATH, "//div[@id='linkAdType']//button[contains(@class, 'create-button')]")
     IMAGE_CONTENT = (By.XPATH, "(//div[@class='image-content'])[1]")
@@ -29,7 +31,6 @@ class PopUpWindowLocators(object):
     LOADING_OVERLAY = (By.CLASS_NAME, "loading-filter-getBrowseLibrary")
     EXISTING_VIDEOS = (By.XPATH, "//div[@class='select-video-box']")
     CHOOSE_VIDEO_BUTTON = (By.ID, "browse_library_done")
-    LOADING_OVERLAY_XPATH = "//div[@id='{}']/div[1]"
     PUBLISHED_RADIO_BTN = (By.XPATH, "//input[@id='publishedPage']/following-sibling::label[2]")
     LOADING_OVERLAY_XPATH = "//div[@id='{}']/div[1]"
     UPLOAD_IMAGE_IDS = {
@@ -37,6 +38,12 @@ class PopUpWindowLocators(object):
         'linkAdType': 'addImage2',
         'leadAdType': 'addImage3',
         'photoAdType': 'addImage4'
+    }
+    UPLOAD_SLIDESHOW_IDS = {
+        'pageLikeAdType': 'addSlideshow1',
+        'linkAdType': 'addSlideshow2',
+        'leadAdType': 'addSlideshow3',
+        'photoAdType': 'addSlideshow4'
     }
 class PopUpWindow(WebApp):
     text = ''
@@ -57,8 +64,10 @@ class PopUpWindow(WebApp):
         element = self.wait_for_clickable(selector)
         element.click()
 
-    def select_slideshow_block(self):
-        self.wait_for_element(PopUpWindowLocators.SLIDESHOW_BLOCK).click()
+    def select_slideshow_block(self, ad_type):
+        selector = (By.XPATH, PopUpWindowLocators.SLIDESHOW_BLOCK_XPATH.format(ad_type))
+        self.wait_for_clickable(selector).click()
+        time.sleep(1)
 
     def upload_file(self, file_type: str, ad_type: str, choose_or_upload: str):
         path_images = "/files/images"
@@ -83,14 +92,22 @@ class PopUpWindow(WebApp):
                 choose_video_btn = self.wait_for_clickable(PopUpWindowLocators.CHOOSE_VIDEO_BUTTON)
                 choose_video_btn.click()
         elif file_type == "slideshow":
-            img = os.getcwd() + "{}\\image1.jpg".format(path_images)
-            img1 = os.getcwd() + "{}\\image2.jpg".format(path_images)
-            img2 = os.getcwd() + "{}\\image3.jpg".format(path_images)
-            self.driver.instance.find_element(*PopUpWindowLocators.UPLOAD_SLIDESHOW_IMAGES).send_keys(img)
-            self.driver.instance.find_element(*PopUpWindowLocators.UPLOAD_SLIDESHOW_IMAGES).send_keys(img1)
-            self.driver.instance.find_element(*PopUpWindowLocators.UPLOAD_SLIDESHOW_IMAGES).send_keys(img2)
+            img = os.getcwd() + "{}/image1.jpg".format(path_images)
+            img1 = os.getcwd() + "{}/image2.jpg".format(path_images)
+            img2 = os.getcwd() + "{}/image3.jpg".format(path_images)
+            selector = (By.ID, PopUpWindowLocators.UPLOAD_SLIDESHOW_IDS[ad_type])
+            element = self.find_element(*selector)
+            element.send_keys(img)
+            element.send_keys(img1)
+            element.send_keys(img2)
+            create_btn_selector = PopUpWindowLocators.CREATE_SLIDESHOW_BTN_XPATH.format(ad_type)
+            overlay_selector = PopUpWindowLocators.SLIDESHOW_OVERLAY_XPATH.format(ad_type)
+            create_btn = (By.XPATH, create_btn_selector)
+            overlay = (By.XPATH, overlay_selector)
+            self.find_element(*create_btn).click()
+            self.wait_for_element_to_disappear(overlay, 20)
         elif file_type == "image_edit":
-            image = os.getcwd() + "{}\\image{}.jpg".format(path_images, randint(1, 3))
+            image = os.getcwd() + "{}/image{}.jpg".format(path_images, randint(1, 3))
             self.driver.instance.find_element(*PopUpWindowLocators.EDIT_UPLOAD_IMAGES).send_keys(image)
         else:
             raise FileNotFoundError("File with type '{}' does not exist".format(file_type))

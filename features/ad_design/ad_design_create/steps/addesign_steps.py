@@ -211,14 +211,15 @@ def step_impl(context, count, ad_type):
     context.adsdesignpage.verify_that_ads_were_created(count, ad_type)
 
 
-@step("I upload multiple images as a slideshow")
-def step_impl(context):
+@step("I (?P<choose_or_upload>.+) multiple images as a slideshow")
+def step_impl(context, choose_or_upload):
     """
+    :type choose_or_upload: str
     :type context: behave.runner.Context
     """
-    context.popup_window.select_slideshow_block()
-    context.popup_window.upload_file("slideshow", context.ad_type)
-    context.popup_window.upload_file("slideshow", context.ad_type)
+    context.popup_window.select_slideshow_block(context.ad_type)
+    context.popup_window.upload_file("slideshow", context.ad_type, choose_or_upload)
+    context.popup_window.upload_file("slideshow", context.ad_type, choose_or_upload)
 
 
 @when("I upload a video file")

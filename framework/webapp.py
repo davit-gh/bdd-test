@@ -54,9 +54,9 @@ class WebApp:
         elements = wait.until(EC.visibility_of_all_elements_located(locator))
         return elements
 
-    def wait_for_element_to_disappear(self, locator: tuple):
+    def wait_for_element_to_disappear(self, locator, time=10):
         """Waits for element to disappear"""
-        wait = WebDriverWait(self.driver.instance, 10)
+        wait = WebDriverWait(self.driver.instance, time)
         wait.until(EC.invisibility_of_element(locator))
 
     def wait_for_loading(self, locator):
