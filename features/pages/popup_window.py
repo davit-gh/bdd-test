@@ -33,6 +33,7 @@ class PopUpWindowLocators(object):
     CHOOSE_VIDEO_BUTTON = (By.ID, "browse_library_done")
     PUBLISHED_RADIO_BTN = (By.XPATH, "//input[@id='publishedPage']/following-sibling::label[2]")
     LOADING_OVERLAY_XPATH = "//div[@id='{}']/div[1]"
+    TAG_FIELD_XPATH = "//div[@id='{}']//input[@name='tags_list']"
     UPLOAD_IMAGE_IDS = {
         'pageLikeAdType': 'addImage1',
         'linkAdType': 'addImage2',
@@ -65,11 +66,12 @@ class PopUpWindow(WebApp):
         element.click()
 
     def select_slideshow_block(self, ad_type):
+        time.sleep(2)
         selector = (By.XPATH, PopUpWindowLocators.SLIDESHOW_BLOCK_XPATH.format(ad_type))
         self.wait_for_clickable(selector).click()
         time.sleep(1)
 
-    def upload_file(self, file_type: str, ad_type: str, choose_or_upload: str):
+    def upload_file(self, file_type: str, ad_type: str, choose_or_upload=None):
         path_images = "/files/images"
         path_videos = "/files/videos"
         if file_type == "image":
@@ -105,7 +107,7 @@ class PopUpWindow(WebApp):
             create_btn = (By.XPATH, create_btn_selector)
             overlay = (By.XPATH, overlay_selector)
             self.find_element(*create_btn).click()
-            self.wait_for_element_to_disappear(overlay, 20)
+            self.wait_for_element_to_disappear(overlay, 200)
         elif file_type == "image_edit":
             image = os.getcwd() + "{}/image{}.jpg".format(path_images, randint(1, 3))
             self.driver.instance.find_element(*PopUpWindowLocators.EDIT_UPLOAD_IMAGES).send_keys(image)
@@ -138,3 +140,8 @@ class PopUpWindow(WebApp):
         overlay_selector = (By.XPATH, PopUpWindowLocators.LOADING_OVERLAY_XPATH.format(ad_type))
         self.wait_for_element_to_disappear(overlay_selector)
         self.wait_for_clickable(PopUpWindowLocators.PUBLISHED_RADIO_BTN).click()
+
+    def edit_tag_field(self, ad_type, tag_name):
+        tag_field_selector = (By.XPATH, PopUpWindowLocators.TAG_FIELD_XPATH.format(ad_type))
+        self.wait_for_element(tag_field_selector).send_keys(tag_name)
+        pass

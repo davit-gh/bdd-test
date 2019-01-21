@@ -14,7 +14,7 @@ Feature: Ad Design filtering
 
   Scenario: Filter ad designs by Page
     Given I am on Ad Design page
-    When I select Adscook Page from Pages drop-down
+    When I select Adscook Page from Ad Design Pages drop-down
     Then That page is the selected option
     And I should see ad designs with pageid 223267218417113
 
@@ -50,8 +50,8 @@ Feature: Ad Design filtering
 
   Scenario: Filter ad designs by Tags
     Given I am on Ad Design page
-    When I enter tag1 tag in Tags input field
-    Then I should see ad designs containing tag1 tag
+    When I enter aaa tag in Tags input field
+    Then I should see ad designs containing aaa tag
 
   Scenario: Filter ad designs by Instagram applicable designs
     Given I am on Ad Design page

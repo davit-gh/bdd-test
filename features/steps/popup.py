@@ -254,3 +254,13 @@ def step_impl(context, sort_type):
     :type context: behave.runner.Context
     """
     context.adsdesignpage.select_sorting_by_date(sort_type)
+
+
+@when("I select (?P<page_name>.+) Page from Ad Design Pages drop-down")
+def step_impl(context, page_name):
+    """
+    :type page_name: str
+    :type context: behave.runner.Context
+    """
+
+    context.adsdesignpage.select_page_on_ad_design_page(page_name)

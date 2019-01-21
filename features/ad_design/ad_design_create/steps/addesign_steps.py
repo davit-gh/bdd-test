@@ -219,7 +219,7 @@ def step_impl(context, choose_or_upload):
     """
     context.popup_window.select_slideshow_block(context.ad_type)
     context.popup_window.upload_file("slideshow", context.ad_type, choose_or_upload)
-    context.popup_window.upload_file("slideshow", context.ad_type, choose_or_upload)
+    #context.popup_window.upload_file("slideshow", context.ad_type, choose_or_upload)
 
 
 @when("I upload a video file")

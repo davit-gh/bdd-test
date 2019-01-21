@@ -124,3 +124,29 @@ def step_impl(context, type):
     :type type: str
     """
     context.adsdesignpage.filer_ad_designs_by_type(type)
+
+
+@when("I open ad creation modal")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    context.adsdesignpage.click_create_ad_design_button()
+
+
+@step("I change the selected page to (?P<page_name>.+)")
+def step_impl(context, page_name):
+    """
+    :type page_name: str
+    :type context: behave.runner.Context
+    """
+    context.adsdesignpage.select_page(page_name)
+
+
+@then("The page on Ad Design page also changes to (?P<page_name>.+)")
+def step_impl(context, page_name):
+    """
+    :type page_name: str
+    :type context: behave.runner.Context
+    """
+    context.adsdesignpage.verify_page_syincing(page_name)

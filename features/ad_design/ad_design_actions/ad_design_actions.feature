@@ -42,7 +42,6 @@ Feature: Ad Design actions
   Scenario: Edit Ad Design
     Given I am on Ad Design page
     And At least one ad design is created
-    And At least one folder is created
     When I hover over the ad design
     And I click on Edit icon
     And A new popup is displayed with id createAdDesignModal

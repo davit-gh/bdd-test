@@ -44,3 +44,9 @@ Feature: Ad Design General
     When I click on Add Folder and fill in a name
     And I click Save icon
     Then I see the folder listed under All
+
+   Scenario: Check Page Syncing
+    Given I am on Ad Design page
+    When I open ad creation modal
+    And I change the selected page to Effortis
+    Then The page on Ad Design page also changes to Effortis

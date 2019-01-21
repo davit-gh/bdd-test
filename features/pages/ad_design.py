@@ -77,7 +77,7 @@ class AdDesignPage(WebApp):
     ad_design_img = ''
 
     def verify_on_ad_design_page(self):
-        self.wait_for_element_to_disappear(AdDesignPageLocator.LOADING_ICON)
+        self.wait_for_element_to_disappear(AdDesignPageLocator.LOADING_ICON, 30)
         element = self.wait_for_element(AdDesignPageLocator.CREATE_AD_DESIGN_BUTTON)
         assert element.is_displayed()
 
@@ -317,6 +317,7 @@ class AdDesignPage(WebApp):
             raise AssertionError("Found {} actions icons, expected to find 5".format(len(action_icons)))
 
     def click_on_icon(self, icon_name):
+        time.sleep(2)
         if self.ad_design_header != "":
             icon = (By.XPATH,
                     AdDesignPageLocator.AD_DESIGN_BUTTONS_BY_HEADER)
@@ -494,11 +495,13 @@ class AdDesignPage(WebApp):
             raise NotImplementedError
 
     def filer_ad_designs_by_type(self, ad_type: str):
-        self.wait_for_presence_of_elements(AdDesignPageLocator.SELECT_OPTIONS)
-        self.wait_for_clickable(AdDesignPageLocator.TYPE_DROPDOWN).click()
-        option = (By.XPATH, AdDesignPageLocator.TYPE_DROPDOWN_AD.format(ad_type))
-        self.wait_for_clickable(option).click()
-
+        try:
+            self.wait_for_presence_of_elements(AdDesignPageLocator.SELECT_OPTIONS)
+            self.wait_for_clickable(AdDesignPageLocator.TYPE_DROPDOWN).click()
+            option = (By.XPATH, AdDesignPageLocator.TYPE_DROPDOWN_AD.format(ad_type))
+            self.wait_for_clickable(option).click()
+        except TimeoutException:
+            pass
     def verify_that_image_url_changed(self):
         pass
 
@@ -542,6 +545,19 @@ class AdDesignPage(WebApp):
         if self.element_exists(AdDesignPageLocator.PAGINATION_NEXT):
             self.click_on_pagination_next()
             self.verify_ad_design_ordering(sort_type)
+
+    def verify_page_syincing(self, name):
+        cancel_btn = (By.XPATH, "//div[@id='createAdDesignModal']/div/div[2]//button[text()='Cancel']")
+        self.wait_for_clickable(cancel_btn).click()
+        ad_design_page_dropdown = (By.XPATH, "//div[@class='filters-content--item'][2]//p[1]")
+        element = self.wait_for_element(ad_design_page_dropdown)
+        assert element.text == name
+
+    def select_page_on_ad_design_page(self, page_name):
+        self.wait_for_element_to_disappear(AdDesignPageLocator.PAGE_LOADING_OVERLAY)
+        dropdown = (By.XPATH, "//div[@class='filters-content--item'][2]/div")
+        self.wait_for_clickable(dropdown).click()
+        self.wait_for_clickable((By.XPATH, "(//li[.//p[text()='{}']])[1]".format(page_name))).click()
 
     @staticmethod
     def _get_current_date():

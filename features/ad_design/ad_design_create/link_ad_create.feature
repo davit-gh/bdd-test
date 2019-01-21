@@ -6,7 +6,7 @@ Feature: Link Ad Creation Screen
   Scenario: User opens the Link Ad screen
     Given Ad Design creation popup is opened
     When I select an Ad Account from adaccount drop-down
-    And I select a page
+    And I select Adscook page
     And I click on linkAd box
     And I click on Next button
     Then I should see linkAdType creation screen
@@ -23,7 +23,7 @@ Feature: Link Ad Creation Screen
   Scenario: Create single image link ad - Double URL
     Given I am on linkAd creation screen
     When I fill in the required post link URL
-    And I click on plus button next to postlink field
+    And I click on plus button next to postlink[0] field
     And I fill in another URL
     And I fill in a headline text
     And I upload a single image for linkAdType
@@ -31,10 +31,18 @@ Feature: Link Ad Creation Screen
     Then I should see 2 newly created Link Ad designs
 
   @create.video_ad
-  Scenario: Create single video ad
+  Scenario: Create single video ad - Upload Video
     Given I am on linkAd creation screen
     When I fill in the required post link URL
     And I upload a single video
+    And I click on Create button on linkAdType popup
+    Then I should see 1 newly created Link Ad designs
+
+  @create.video_ad
+  Scenario: Create single video ad - Choose Existing Video
+    Given I am on linkAd creation screen
+    When I fill in the required post link URL
+    And I choose a single video
     And I click on Create button on linkAdType popup
     Then I should see 1 newly created Link Ad designs
 

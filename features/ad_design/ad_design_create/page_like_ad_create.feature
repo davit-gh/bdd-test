@@ -21,13 +21,12 @@ Feature: Page Like Ad Creation Screen
     And I click on Create button on pageLikeAdType popup
     Then I should see 1 newly created Page Like Ad designs
 
-  Scenario: Create single image link ad
+  Scenario: Create single image link ad - Double Text
     Given I am on pageLikeAd creation screen
     When I edit the Text field
-    And I click on plus icon next to Text field
-    And I fill in sample text in the second field
-    And I click on Single Image box
-    And I upload a single image
+    And I click on plus button next to text[0] field
+    And I edit the text[1] field
+    And I upload a single image for pageLikeAdType
     And I click on Create button on pageLikeAdType popup
     Then I should see 2 newly created Page Like Ad designs
 
