@@ -11,9 +11,9 @@ Feature: Link Ad Edit
     And At least one ad design of type Link Ad is created
     When I hover over the ad design
     And I click on Edit icon
-    And I edit the postlink field
+    And I edit the postlink[0] field
     And I click on Save button on linkAdType popup
-    Then The postlink should change to the new value
+    Then The postlink[0] should change to the new value
 
   Scenario: Edit a Link Ad Image
     Given I am on Ad Design page
