@@ -305,7 +305,7 @@ class AdDesignPage(WebApp):
 
     def edit_first_ad_design(self):
         time.sleep(1)
-        self.wait_for_element_to_disappear(AdDesignPageLocator.FIRST_IMG_LOADING_OVERLAY)
+        self.wait_for_element_to_disappear(AdDesignPageLocator.FIRST_IMG_LOADING_OVERLAY, 20)
         ad_designs = self.wait_for_elements(AdDesignPageLocator.ADS_BLOCK)
         self.action_move_to_element(ad_designs[0])
         self.wait_for_clickable((By.XPATH, AdDesignPageLocator.ACTION_ICONS_XPATH.format(1) + "[3]")).click()

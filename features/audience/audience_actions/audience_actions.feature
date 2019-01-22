@@ -24,13 +24,6 @@ Feature: Audience actions
     And I click on Edit button
     Then Edit audience modal is opened
 
-  Scenario: Edit An Audience
-    Given I am on Audience page
-    And At least one audience is created
-    When I hover over the audience
-    And I click on Edit button
-    Then Edit audience modal is opened
-
   Scenario: Move An Audience To a Folder
     Given I am on Audience page
     And At least one audience is created

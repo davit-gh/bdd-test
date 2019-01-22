@@ -60,3 +60,10 @@ Feature: Create New Audience
     When I fill in and choose a location
     And I add 2 tags in TAGS field
     Then I should see the 2 tags added to the new audience
+
+  Scenario: Create an audience - an exhaustive case
+    Given Create Audience modal is opened
+    When I fill in at least 2 values in each input field
+    And I click on all split switches
+    And I click on Create button
+    Then The create number of new audiences are created
