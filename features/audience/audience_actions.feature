@@ -14,7 +14,7 @@ Feature: Audience actions
     Given I am on Audience page
     And At least one audience is created
     When I hover over the audience
-    And I click on Select button
+    And I click on Select action button
     Then The audience is selected
 
   Scenario: Edit An Audience
@@ -29,14 +29,14 @@ Feature: Audience actions
     And At least one audience is created
     And At least one folder is created
     When I hover over the audience
-    And I click on Move button
-    And I choose a folder and click on Move
-    Then The audience is moved into that folder
+    And I click on Move To Folder action button
+    And I select a folder and click on Move
+    Then The audience is moved into the folder
 
   Scenario: Delete An Audience
     Given I am on Audience page
     And At least one audience is created
     When I hover over the audience
-    And I click on Delete button
+    And I click on Delete action button
     And I click on Delete button on popup
     Then The audience is deleted
