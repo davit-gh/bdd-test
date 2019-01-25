@@ -6,14 +6,13 @@ Feature: Create New Audience
 
   Scenario: Create audience modal
     Given I am on Audience page
-    When MY AUDIENCES is chosen
-    When I click on Create Audiences button
-    Then I should see Create Audience modal
+    When I click on Create Audience button
+    Then Edit/Create audience modal is opened
 
   Scenario: Create audiences - Locations and Language
     Given Create Audience modal is opened
-    When I fill in and choose 2 locations
-    And I click on Exclude link
+    When I fill in and choose 1 locations
+    And I click on 1st Exclude link
     And I fill in and choose 2 excluded locations
     And I fill in and choose 2 languages
     And I switch the 3 SPLIT buttons to on

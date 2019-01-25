@@ -20,7 +20,7 @@ class AudiencesPageLocator(object):
     AUDIENCE_ROWS = (By.XPATH, "//div[@id='adFlexContent2']//tbody/tr")
     ACTION_ICONS_XPATH = "(//div[@id='adFlexContent2']//tbody/tr)[{}]//div[@class='buttons-row']/button"
     SELECT_BTN = "(//div[@id='adFlexContent2']//tbody/tr)[{}]//div[@class='buttons-content']/button"
-    AUDIENCE_LOCATION_SELECT = (By.NAME, "location_include[]")
+    AUDIENCE_MODAL = (By.ID, "createSavedAudience")
     # MOVE TO MODAL
     POPUP_MOVE_BUTTON = (By.XPATH, "//div[@id='moveToModal']//button[2]")
     POPUP_DELETE_BUTTON = (By.XPATH, "//div[@id='deleteSelectedModal']//button[2]")
@@ -105,7 +105,7 @@ class AudiencePage(WebApp):
     def audience_modal_is_opened(self):
         self.wait_for_element_to_disappear(AudiencesPageLocator.AUDIENCE_MODAL_OVERLAY)
         self.wait_for_element_to_disappear(AudiencesPageLocator.AUDIENCE_ESTIMATE_OVERLAY)
-        assert self.element_exists(AudiencesPageLocator.AUDIENCE_LOCATION_SELECT)
+        assert self.element_exists(AudiencesPageLocator.AUDIENCE_MODAL)
 
     def verify_folders_list_is_not_empty(self):
         self.wait_for_clickable(AudiencesPageLocator.HAMBURGER_ICON).click()

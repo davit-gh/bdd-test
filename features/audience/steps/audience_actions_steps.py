@@ -1,7 +1,7 @@
 from behave import *
 from features.pages.login_page import LoginPage
 from features.pages.audiences import AudiencePage
-from features.pages.ad_design import AdDesignPage
+from features.pages.audience_modal import AudienceModal
 from features.pages.nav_menu import NavigationMenu
 from webdriver import Driver
 
@@ -17,7 +17,7 @@ def step_impl(context):
     driver = loginpage.log_in()
     context.navmenu = NavigationMenu(driver)
     context.audiencepage = AudiencePage(driver)
-    context.adsdesignpage = AdDesignPage(driver)
+    context.audiencemodal = AudienceModal(driver)
     context.navmenu.navigate_to_page("Audience")
     context.audiencepage.verify_on_audiences_page()
 
@@ -62,7 +62,7 @@ def step_impl(context):
     context.audiencepage.verify_audience_is_selected()
 
 
-@then("Edit audience modal is opened")
+@then("Edit/Create audience modal is opened")
 def step_impl(context):
     """
     :type context: behave.runner.Context

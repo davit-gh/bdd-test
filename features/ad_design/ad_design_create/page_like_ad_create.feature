@@ -15,7 +15,7 @@ Feature: Page Like Ad Creation Screen
 
   Scenario: Create single image link ad
     Given I am on pageLikeAd creation screen
-    When I edit the Text field
+    When I edit the text[0] field
     And I click on Single Image box
     And I upload a single image for pageLikeAdType
     And I click on Create button on pageLikeAdType popup
@@ -23,7 +23,7 @@ Feature: Page Like Ad Creation Screen
 
   Scenario: Create single image link ad - Double Text
     Given I am on pageLikeAd creation screen
-    When I edit the Text field
+    When I edit the text[0] field
     And I click on plus button next to text[0] field
     And I edit the text[1] field
     And I upload a single image for pageLikeAdType
