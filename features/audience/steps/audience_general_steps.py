@@ -115,3 +115,19 @@ def step_impl(context, date1, date2):
     :type context: behave.runner.Context
     """
     context.audiencepage.verify_ad_designs_within_date_range(date1, date2)
+
+@when("I enter (?P<tag_name>.+) tag in Tags input field")
+def step_impl(context, tag_name):
+    """
+    :type tag_name: str
+    :type context: behave.runner.Context
+    """
+    context.audiencepage.enter_tag(tag_name)
+
+@then("I should see audiences containing (?P<tag_name>.+) tag")
+def step_impl(context, tag_name):
+    """
+    :type tag_name: str
+    :type context: behave.runner.Context
+    """
+    context.audiencepage.verify_audience_contains_tag(tag_name)

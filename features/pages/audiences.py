@@ -9,39 +9,51 @@ from selenium.common.exceptions import TimeoutException, ElementNotVisibleExcept
 from framework.webapp import WebApp
 
 class AudiencesPageLocator(object):
+    # OVERLAYS
     LOADING_OVERLAY = (By.CLASS_NAME, "loading-overlay-audience")
     LOADING_OVERLAY_ICON_XPATH = "//div[@id='adFlexContent2']//tbody/tr[{}]/td/div[1]"
     MOVE_TO_MODAL_OVERLAY = (By.XPATH, "//div[@id='moveToModal']/div/div")
+    AUDIENCE_MODAL_OVERLAY = (By.XPATH, "//div[@id='createSavedAudience']/div/div")
+    AUDIENCE_ESTIMATE_OVERLAY = (By.CLASS_NAME, "audience-estimate")
+    # AUDIENCE
     CREATE_AUDIENCE_BTN = (By.XPATH, "//ul[@class='create-add-title']/li/button")
     AUDIENCE_ROWS = (By.XPATH, "//div[@id='adFlexContent2']//tbody/tr")
     ACTION_ICONS_XPATH = "(//div[@id='adFlexContent2']//tbody/tr)[{}]//div[@class='buttons-row']/button"
     SELECT_BTN = "(//div[@id='adFlexContent2']//tbody/tr)[{}]//div[@class='buttons-content']/button"
-    AUDIENCE_MODAL_OVERLAY = (By.XPATH, "//div[@id='createSavedAudience']/div/div")
-    AUDIENCE_ESTIMATE_OVERLAY = (By.CLASS_NAME, "audience-estimate")
     AUDIENCE_LOCATION_SELECT = (By.NAME, "location_include[]")
-    HAMBURGER_ICON = (By.ID, "showFoldersBtn2")
-    ADD_FOLDER_BUTTON = (By.CLASS_NAME, "add-folder")
-    FOLDERS_LI = (By.XPATH, "//ul[@class='folders-ul']/li")
-    FIRST_MOVE_TO_FOLDER = (By.XPATH, "//ul[@id='moveToFolderList']/li[1]")
+    # MOVE TO MODAL
     POPUP_MOVE_BUTTON = (By.XPATH, "//div[@id='moveToModal']//button[2]")
     POPUP_DELETE_BUTTON = (By.XPATH, "//div[@id='deleteSelectedModal']//button[2]")
     SUCCESS_POPOVER = (By.ID, "successMessage")
-    FOLDERS_PANEL = (By.CSS_SELECTOR, "div#adFlexContent2.active")
     MOVE_TO_MODAL = (By.ID, "moveToModal")
+    # PAGINATION
     PAGINATION_NEXT = (By.CLASS_NAME, "pagination-next")
     PAGINATION_PER_PAGE_XPATH = "//li[text()='Show: {} Per']"
     PAGINATION_DEFAULT = (By.XPATH, "//span[text()='Show: 12 Per']")
+    # DATES
     DATE_SORT = (By.XPATH, "//div[contains(@class,'sort-by-select-content')]")
     DATE_SORT_OPTION_XPATH = "//li[text()='{}']"
     AUDIENCE_MODIFIED_DATES = (By.XPATH, "//div[@id='adFlexContent2']//tbody/tr/td/p[2]")
+    # FOLDERS
+    FOLDERS_LI = (By.XPATH, "//ul[@class='folders-ul']/li")
+    FIRST_MOVE_TO_FOLDER = (By.XPATH, "//ul[@id='moveToFolderList']/li[1]")
+    ADD_FOLDER_BUTTON = (By.CLASS_NAME, "add-folder")
+    HAMBURGER_ICON = (By.ID, "showFoldersBtn2")
+    FOLDERS_PANEL = (By.CSS_SELECTOR, "div#adFlexContent2.active")
     NEW_FOLDER_NAME = (By.XPATH, "//div[@id='adFlexContent2']//div[2]/a")
     SAVE_ICON = (By.XPATH, "//span[contains(@class, 'save-folder-action')]")
+    # AD ACCOUNT
     AD_ACCOUNT_BTN = (By.XPATH, "//div[@id='savedAudienceTab']//div[@class='filters-content--item']//button")
     AD_ACCOUNT_SPAN_XPATH = "//div[@id='savedAudienceTab']//div[@class='filters-content--item']" \
                               "//span[@class='text' and text()='{}']"
     AD_ACCOUNT_OPTION_XPATH = "//select[@name='audience_adaccount_id']/option[text()='{}']"
+    # DATEPICKER
     DATEPICKER_START = (By.XPATH, '//input[@name="daterangepicker_start"]')
     DATEPICKER_END = (By.XPATH, '//input[@name="daterangepicker_end"]')
+    # TAGS
+    TAGS_FIELD = (By.XPATH, '//input[@value="Tags..."]')
+    TAGS_OPTION = (By.XPATH, "//li[@data-option-array-index='0']")
+    AUDIENCES_TAGS = (By.XPATH, "//div[@id='savedAudienceTab']//div[@class='tag-item']/span")
 
 class AudiencePage(WebApp):
 
@@ -222,3 +234,19 @@ class AudiencePage(WebApp):
 
         assert date_object1 > datetime_object2
         assert date_object2 > datetime_object1
+
+    def enter_tag(self, tag_name):
+        self.wait_for_element_to_disappear(AudiencesPageLocator.LOADING_OVERLAY)
+        element = self.wait_for_clickable(AudiencesPageLocator.TAGS_FIELD)
+        element.click()
+        time.sleep(1)
+        element.send_keys(tag_name)
+        self.wait_for_clickable(AudiencesPageLocator.TAGS_OPTION).click()
+
+    def verify_audience_contains_tag(self, tag_name):
+        try:
+            tags = self.wait_for_elements(AudiencesPageLocator.AUDIENCES_TAGS)
+        except TimeoutException:
+            raise AssertionError("No audiences containing the tag")
+        tag_text = [tag.text for tag in tags]
+        assert set(tag_text).pop() == tag_name
