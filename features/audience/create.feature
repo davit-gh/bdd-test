@@ -21,7 +21,7 @@ Feature: Create New Audience
 
   Scenario: Create audiences - Age and Gender
     Given Create Audience modal is opened
-    When I fill in and choose a location
+    When I fill in and choose 1 locations
     And I select age range
     And I select a gender
     And I switch the 2 SPLIT buttons to on
@@ -30,7 +30,7 @@ Feature: Create New Audience
 
   Scenario: Create audiences - Details Targeting
     Given Create Audience modal is opened
-    When I fill in and choose a location
+    When I fill in and choose 1 locations
     And I fill in and choose 2 Demographics, Interests or Behaviours
     And I fill in and choose an excluded Demographics, Interests or Behaviours
     And I fill in and choose an narrow Demographics, Interests or Behaviours
@@ -40,7 +40,7 @@ Feature: Create New Audience
 
   Scenario: Create audiences - Connections
     Given Create Audience modal is opened
-    When I fill in and choose a location
+    When I fill in and choose 1 locations
     And I fill in and choose users in Users Connect To field
     And I fill in and choose users in Friends of users connected to field
     And I click on Create button
@@ -48,15 +48,15 @@ Feature: Create New Audience
 
   Scenario: Create an audience - Place into a folder
     Given Create Audience modal is opened
-    When I fill in and choose a location
+    When I fill in and choose 1 locations
     And At least one folder is created
     And I choose a folder from FOLDERS drop-down
     And I click on Create button
     Then The new audience should be placed into that folder
 
-  Scenario: Create an audience - Place into a folder
+  Scenario: Create an audience - Add multiple tags
     Given Create Audience modal is opened
-    When I fill in and choose a location
+    When I fill in and choose 1 locations
     And I add 2 tags in TAGS field
     Then I should see the 2 tags added to the new audience
 
