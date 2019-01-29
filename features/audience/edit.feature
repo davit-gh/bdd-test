@@ -4,14 +4,14 @@ Feature: Edit Audience
 
   Scenario: Edit Location
     Given Edit Audience modal is opened
-    When I edit Locations field
-    And I click on Save button
+    When I edit Locations field and add 2 locations
+    And I click on Save button on audience popup
     Then The location is changed
 
   Scenario: Edit Languages
     Given Edit Audience modal is opened
     When I edit Languages field
-    And I click on Save button
+    And I click on Save button on audience popup
     Then The language is changed
 
   Scenario: Edit Age and Gender
