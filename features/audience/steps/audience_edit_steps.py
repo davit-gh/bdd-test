@@ -23,7 +23,7 @@ def step_impl(context, location_number):
     :type location_number: str
     :type context: behave.runner.Context
     """
-    raise NotImplementedError(u'Not implemented')
+    context.audiencemodal.fill_in_and_choose_location(location_number)
 
 
 @step("I click on (?P<button_name>.+) button on (?P<modal_id>.+) popup")
@@ -34,3 +34,35 @@ def step_impl(context, button_name, modal_id):
     :type ad_type: str
     """
     context.audiencemodal.click_btn_popup(button_name, modal_id)
+
+
+@when("I edit Languages field")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    context.audiencemodal.fill_language()
+
+
+@when("I edit Age and Gender fields")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    raise NotImplementedError(u'STEP: When I edit Age and Gender fields')
+
+
+@when("I edit Detailed Targeting fields")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    context.audiencemodal.fill_detailed_targeting_fields()
+
+
+@when("I edit Custom Audience fields")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    context.audiencemodal.fill_custom_audience_fields()
