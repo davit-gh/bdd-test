@@ -57,7 +57,9 @@ def step_impl(context):
     """
     :type context: behave.runner.Context
     """
-    context.audiencemodal.fill_detailed_targeting_fields()
+    context.audiencemodal.fill_targeting_demographics_or_behaviours_field(field_type="demographics")
+    context.audiencemodal.fill_targeting_demographics_or_behaviours_field(field_type="exclude demographics")
+    context.audiencemodal.fill_targeting_demographics_or_behaviours_field(field_type="narrow demographics")
 
 
 @when("I edit Custom Audience fields")
@@ -66,3 +68,19 @@ def step_impl(context):
     :type context: behave.runner.Context
     """
     context.audiencemodal.fill_custom_audience_fields()
+
+
+@when("I choose a new folder from Folders drop-down")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    context.audiencemodal.fill_folders()
+
+
+@when("I Edit The Tags")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    context.audiencemodal.fill_tags()
