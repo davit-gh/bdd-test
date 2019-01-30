@@ -1,5 +1,5 @@
 from random import randint
-
+import time
 from faker import Faker
 from faker.providers import address
 
@@ -8,11 +8,12 @@ from selenium.webdriver.common.by import By
 
 
 class AudienceModalLocators(object):
-    LOADING_OVERLAY = (By.CLASS_NAME, "loading-overlay-audience")
+    MODAL_OVERLAY = (By.XPATH, "//div[@id='createSavedAudience']/div/div")
     CREATE_AUDIENCE_BTN = (By.ID, "createSavedAudienceBtn")
     LOCATION_INPUT = (By.XPATH, "//input[@value='San Francisco...']")
     LANGUAGE_INPUT = (By.XPATH, "//input[@value='Select languages']")
-    SUGGESTED_LOCATIONS = (By.XPATH, "//form[@id='audience']//ul[@class='chosen-results']/li")
+    SUGGESTED_LOCATIONS_UL = (By.XPATH, "(//form[@id='audience']//ul[@class='chosen-results'])[2]")
+    SUGGESTED_LOCATIONS_LI = (By.XPATH, "(//form[@id='audience']//ul[@class='chosen-results'])[2]/li[last()]")
     SUGGESTED_LANGUAGES = (By.XPATH, "(//form[@id='audience']//ul[@class='chosen-results'])[4]/li")
     AGE_FROM = (By.XPATH, "//label[@class='age-label' and text()='Age:']/../div/div[@class='common-select'][1]")
     SUGGESTED_AGE_FROM = (By.XPATH, "(//form[@id='audience']//ul[@class='chosen-results'])[5]/li")
@@ -20,7 +21,7 @@ class AudienceModalLocators(object):
     SUGGESTED_AGE_TO = (By.XPATH, "(//form[@id='audience']//ul[@class='chosen-results'])[6]/li")
     EXCLUDE_LINK_ID = "(//span[@class='exclude-btn'])[{}]"
     MODAL_BUTTON_XPATH = "//form[@id='{}']//button[text()='{}']"
-    LOADING_SEARCH = (By.ID, "audience-search-loading")
+    LOADING_SEARCH = (By.XPATH, "//label[text()='Locations:']/following-sibling::div/div/div[1]")
     CUSTOM_AUDIENCE_INPUT = (By.XPATH, "(//input[@value='Add Custom or Lookalike Audiences'])")
     DETAILED_TARGETING_INPUT = (By.XPATH, "(//input[@value='Select demographics, interests or behaviours'])")
 
@@ -33,13 +34,15 @@ class AudienceModal(WebApp):
     def fill_in_and_choose_location(self, number_of_locations):
         faker = Faker()
         faker.add_provider(address)
+        self.wait_for_element_to_disappear(AudienceModalLocators.MODAL_OVERLAY)
         location_input = self.find_element(*AudienceModalLocators.LOCATION_INPUT)
         i = int(number_of_locations)
         while i > 0:
-            location_input.send_keys(faker.random_letter())
+            location_input.send_keys(faker.random_letter(), faker.random_letter())
+            time.sleep(1)
             self.wait_for_element_to_disappear(AudienceModalLocators.LOADING_SEARCH)
-            locations = self.wait_for_presence_of_elements(AudienceModalLocators.SUGGESTED_LOCATIONS)
-            locations[randint(0, len(locations) - 1)].click()
+            self.wait_for_element(AudienceModalLocators.SUGGESTED_LOCATIONS_UL)
+            self.wait_for_clickable(AudienceModalLocators.SUGGESTED_LOCATIONS_LI).click()
             i = i - 1
 
     def fill_language(self):
@@ -96,5 +99,5 @@ class AudienceModal(WebApp):
     def click_btn_popup(self, button_name, modal_id):
         btn_locator = (By.XPATH, AudienceModalLocators.MODAL_BUTTON_XPATH.format(modal_id, button_name))
         self.wait_for_clickable(btn_locator).click()
-        self.wait_for_element_to_disappear(AudienceModalLocators.LOADING_OVERLAY)
+        self.wait_for_element_to_disappear(AudienceModalLocators.MODAL_OVERLAY)
         pass
