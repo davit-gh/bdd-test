@@ -26,6 +26,7 @@ Feature: Create New Audience
     And I select a gender
     And I switch the 2 SPLIT buttons to on
     And I click on Create button
+#    TODO
     Then I should see audiences of correct combinations
 
   Scenario: Create audiences - Details Targeting
@@ -44,14 +45,16 @@ Feature: Create New Audience
     And I fill in and choose users in Users Connect To field
     And I fill in and choose users in Friends of users connected to field
     And I click on Create button
+#    TODO
     Then I edit the created audience and check that the values are saved
 
   Scenario: Create an audience - Place into a folder
     Given Create Audience modal is opened
     When I fill in and choose 1 locations
-    And At least one folder is created
+#    And At least one folder is created  TODO should be checked before opening modal window
     And I choose a folder from FOLDERS drop-down
     And I click on Create button
+#    TODO
     Then The new audience should be placed into that folder
 
   Scenario: Create an audience - Add multiple tags
