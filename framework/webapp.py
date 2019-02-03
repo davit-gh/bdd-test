@@ -22,6 +22,10 @@ class WebApp:
         element = self.driver.instance.find_element(*locator)
         return element
 
+    def find_elements(self, *locator):
+        elements = self.driver.instance.find_elements(*locator)
+        return elements
+
     def element_exists(self, *locator):
         exists = False
         try:

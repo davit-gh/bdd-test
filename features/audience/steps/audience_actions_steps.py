@@ -35,8 +35,8 @@ def step_impl(context):
     """
     :type context: behave.runner.Context
     """
-    context.audiencepage.hover_over_audience_block()
-
+    audience_id = context.audiencepage.hover_over_audience_block()
+    context.audience_id = audience_id
 
 @then("I should see 4 action icons")
 def step_impl(context):

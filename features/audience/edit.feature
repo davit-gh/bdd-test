@@ -3,11 +3,10 @@ Feature: Edit Audience
   # Enter feature description here
 
   @edit.location
-  Scenario: Edit Location
+  Scenario: Edit Locations
     Given Edit Audience modal is opened
     When I edit Locations field and add 2 locations
     And I click on Save button on audience popup
-#    TODO
     Then The location is changed
 
   @edit.language
@@ -15,7 +14,6 @@ Feature: Edit Audience
     Given Edit Audience modal is opened
     When I edit Languages field
     And I click on Save button on audience popup
-#    TODO
     Then The language is changed
 
   @edit.age_and_gender
@@ -23,7 +21,6 @@ Feature: Edit Audience
     Given Edit Audience modal is opened
     When I edit Age and Gender fields
     And I click on Save button on audience popup
-#    TODO
     Then The age and gender is changed
 
   @edit.targeting
@@ -31,15 +28,13 @@ Feature: Edit Audience
     Given Edit Audience modal is opened
     When I edit Detailed Targeting fields
     And I click on Save button on audience popup
-#    TODO
-    Then The age and gender is changed
+    Then The interest are changed
 
   @edit.audience
   Scenario: Edit Custom Audience
     Given Edit Audience modal is opened
     When I edit Custom Audience fields
     And I click on Save button on audience popup
-#    TODO
     Then The custom audience change is saved
 
   @edit.folders
@@ -47,7 +42,6 @@ Feature: Edit Audience
     Given Edit Audience modal is opened
     When I choose a new folder from Folders drop-down
     And I click on Save button on audience popup
-#  TODO
     Then The audience is moved to that folder
 
   @edit.tags

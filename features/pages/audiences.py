@@ -55,6 +55,7 @@ class AudiencesPageLocator(object):
     TAGS_OPTION = (By.XPATH, "//li[@data-option-array-index='0']")
     AUDIENCES_TAGS = (By.XPATH, "//div[@id='savedAudienceTab']//div[@class='tag-item']/span")
 
+
 class AudiencePage(WebApp):
 
     audience_id = ""
@@ -78,6 +79,7 @@ class AudiencePage(WebApp):
         self.action_move_to_element(audience)
         # in UI index is plus 1
         self.audience_index = (audiences.index(audience)) + 1
+        return self.audience_id
 
     def verify_action_icons_visible(self):
         icon = (By.XPATH, AudiencesPageLocator.ACTION_ICONS_XPATH.format(self.audience_id))
