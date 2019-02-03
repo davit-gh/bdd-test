@@ -20,7 +20,7 @@ class AudienceModalLocators(object):
     SUGGESTED_AGE_FROM_XPATH = "(//form[@id='audience']//ul[@class='chosen-results'])[5]/li[{}]"
     AGE_TO = (By.XPATH, "//label[@class='age-label' and text()='Age:']/../div/div[@class='common-select'][2]")
     SUGGESTED_AGE_TO_XPATH = "(//form[@id='audience']//ul[@class='chosen-results'])[6]/li[{}]"
-    EXCLUDE_LINK_ID = "(//span[@class='exclude-btn'])[{}]"
+    EXCLUDE_LINK_XPATH = "(//span[@class='exclude-btn'])[{}]"
     MODAL_BUTTON_XPATH = "//form[@id='{}']//button[text()='{}']"
     LOADING_SEARCH_XPATH = "//label[text()='{}:']/following-sibling::div/div/div[1]"
     CUSTOM_AUDIENCE_INPUT = (By.XPATH, "(//input[@value='Add Custom or Lookalike Audiences'])")
@@ -67,7 +67,7 @@ class AudienceModal(WebApp):
     def click_create_audience_btn(self):
         self.wait_for_clickable(AudienceModalLocators.CREATE_AUDIENCE_BTN).click()
 
-    def fill_in_and_choose_location(self, field_name, number_of_locations):
+    def fill_in_and_choose_location(self, number_of_locations):
         faker = Faker()
         faker.add_provider(address)
         self.wait_for_element_to_disappear(AudienceModalLocators.MODAL_OVERLAY)
@@ -76,7 +76,7 @@ class AudienceModal(WebApp):
         while i > 0:
             location_input.send_keys(faker.random_letter(), faker.random_letter())
             time.sleep(1)
-            self.wait_for_element_to_disappear((By.XPATH, AudienceModalLocators.LOADING_SEARCH_XPATH.format(field_name)))
+            self.wait_for_element_to_disappear((By.XPATH, AudienceModalLocators.LOADING_SEARCH_XPATH.format("Locations")))
             self.wait_for_element(AudienceModalLocators.SUGGESTED_LOCATIONS_UL)
             self.locations.append(self.find_element(*AudienceModalLocators.SUGGESTED_LOCATIONS_LI).text)
             self.wait_for_clickable(AudienceModalLocators.SUGGESTED_LOCATIONS_LI).click()
@@ -207,8 +207,8 @@ class AudienceModal(WebApp):
         self.find_element(*AudienceModalLocators.LOCATION_INPUT).clear()
 
     def click_on_exclude_link(self, link_number):
-        exclude_link_locator = (By.ID, AudienceModalLocators.EXCLUDE_LINK_ID.format(link_number[0]))
-        self.find_element(*exclude_link_locator).click()
+        exclude_link_locator = (By.XPATH, AudienceModalLocators.EXCLUDE_LINK_XPATH.format(link_number[0]))
+        self.wait_for_clickable(exclude_link_locator).click()
 
     def click_btn_popup(self, button_name, modal_id):
         btn_locator = (By.XPATH, AudienceModalLocators.MODAL_BUTTON_XPATH.format(modal_id, button_name))

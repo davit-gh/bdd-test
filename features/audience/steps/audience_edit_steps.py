@@ -17,14 +17,13 @@ def step_impl(context):
             ''')
 
 
-@when("I edit (?P<field_name>.+) field and add (?P<location_number>.+) locations")
-def step_impl(context, field_name, location_number):
+@when("I edit Locations field and add (?P<location_number>.+) locations")
+def step_impl(context, location_number):
     """
     :type location_number: str
-    :type field_name: str
     :type context: behave.runner.Context
     """
-    context.audiencemodal.fill_in_and_choose_location(field_name, location_number)
+    context.audiencemodal.fill_in_and_choose_location(location_number)
 
 
 @step("I click on (?P<button_name>.+) button on (?P<modal_id>.+) popup")
