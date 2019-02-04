@@ -49,8 +49,8 @@ class WebApp:
 
     def wait_for_presence_of_elements(self, locator):
         wait = WebDriverWait(self.driver.instance, 10)
-        element = wait.until(EC.presence_of_all_elements_located(locator))
-        return element
+        elements = wait.until(EC.presence_of_all_elements_located(locator))
+        return elements
 
     def wait_for_elements(self, locator):
         """Select an element by waiting for it to become visible"""

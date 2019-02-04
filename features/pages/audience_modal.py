@@ -5,16 +5,19 @@ from faker.providers import address
 
 from framework.webapp import WebApp
 from selenium.webdriver.common.by import By
-
+from selenium.webdriver.common.keys import Keys
 
 class AudienceModalLocators(object):
     LOADING_OVERLAY = (By.CLASS_NAME, "loading-overlay-audience")
+    FIRST_LOADING_OVERLAY_ICON = (By.XPATH, "//div[@class='loading-overlay-icon'][1]")
     MODAL_OVERLAY = (By.XPATH, "//div[@id='createSavedAudience']/div/div")
     CREATE_AUDIENCE_BTN = (By.ID, "createSavedAudienceBtn")
     LOCATION_INPUT = (By.XPATH, "//input[@value='San Francisco...']")
+    EXCLUDED_LOCATION_INPUT = (By.XPATH, "//input[@value='Country, City']")
     LANGUAGE_INPUT = (By.XPATH, "//input[@value='Select languages']")
     SUGGESTED_LOCATIONS_UL = (By.XPATH, "(//form[@id='audience']//ul[@class='chosen-results'])[2]")
     SUGGESTED_LOCATIONS_LI = (By.XPATH, "(//form[@id='audience']//ul[@class='chosen-results'])[2]/li[last()]")
+    SUGGESTED_EXCLUDED_LOCATIONS_LI = (By.XPATH, "(//form[@id='audience']//ul[@class='chosen-results'])[3]/li[last()]")
     SUGGESTED_LANGUAGES_LI = (By.XPATH, "(//form[@id='audience']//ul[@class='chosen-results'])[4]/li[last()]")
     AGE_FROM = (By.XPATH, "//label[@class='age-label' and text()='Age:']/../div/div[@class='common-select'][1]")
     SUGGESTED_AGE_FROM_XPATH = "(//form[@id='audience']//ul[@class='chosen-results'])[5]/li[{}]"
@@ -39,7 +42,8 @@ class AudienceModalLocators(object):
     SUGGESTED_EXCLUDE_DEMOGRAPHICS = (By.XPATH, "(//form[@id='audience']//ul[@class='chosen-results'])[9]/li")
     SUGGESTED_NARROW_DEMOGRAPHICS = (By.XPATH, "(//form[@id='audience']//ul[@class='chosen-results'])[10]/li")
     # LOCATIONS, LANGUAGES
-    LOCATIONS_XPATH = "//div[@id='adFlexContent2']//tr[@data-id='{}']/td[2]/div[2]/p"
+    LOCATIONS_XPATH = "//div[@id='adFlexContent2']//tr[@data-id='{}']/td[2]/div[2]/p[text()]"
+    LOCATIONS_EXCLUDED_XPATH = "//div[@id='adFlexContent2']//tr[@data-id='{}']/td[2]/div[3]/div/p[text()]"
     LANGUAGES_XPATH = "//div[@id='adFlexContent2']//tr[@data-id='{}']//div[@class='lenguages-column']/p"
     AGE_XPATH = "//div[@id='adFlexContent2']//tr[@data-id='{}']/td[5]/p[text()]"
     GENDER_XPATH = "//div[@id='adFlexContent2']//tr[@data-id='{}']/td[6]/p[text()]"
@@ -71,15 +75,22 @@ class AudienceModal(WebApp):
         faker = Faker()
         faker.add_provider(address)
         self.wait_for_element_to_disappear(AudienceModalLocators.MODAL_OVERLAY)
-        location_input = self.find_element(*AudienceModalLocators.LOCATION_INPUT)
+        location_input = self.wait_for_clickable(AudienceModalLocators.LOCATION_INPUT)
+        excluded_location_input = self.wait_for_clickable(AudienceModalLocators.EXCLUDED_LOCATION_INPUT)
         i = int(number_of_locations)
         while i > 0:
-            location_input.send_keys(faker.random_letter(), faker.random_letter())
-            time.sleep(1)
+            location_input.click()
+            location_input.send_keys(faker.random_letter())
             self.wait_for_element_to_disappear((By.XPATH, AudienceModalLocators.LOADING_SEARCH_XPATH.format("Locations")))
             self.wait_for_element(AudienceModalLocators.SUGGESTED_LOCATIONS_UL)
             self.locations.append(self.find_element(*AudienceModalLocators.SUGGESTED_LOCATIONS_LI).text)
             self.wait_for_clickable(AudienceModalLocators.SUGGESTED_LOCATIONS_LI).click()
+
+            excluded_location_input.click()
+            excluded_location_input.send_keys(faker.random_letter())
+            exclude_loc = self.wait_for_clickable(AudienceModalLocators.SUGGESTED_EXCLUDED_LOCATIONS_LI)
+            self.locations.append(exclude_loc.text)
+            exclude_loc.click()
             i = i - 1
 
     def fill_language(self, field_name, count=1):
@@ -175,12 +186,12 @@ class AudienceModal(WebApp):
         audience_input = self.wait_for_elements(AudienceModalLocators.CUSTOM_AUDIENCE_INPUT)
         i = fields_number
         while i > 0:
-            for i, field in enumerate(range(fields_number)):
+            for j, field in enumerate(range(fields_number)):
                 audience_input[field].send_keys(faker.random_letter())
                 overlay_selector = (By.XPATH, AudienceModalLocators.LOADING_SEARCH_XPATH.format("Custom Audience"))
                 time.sleep(2)
                 self.wait_for_element_to_disappear(overlay_selector)
-                suggestions_selector = (By.XPATH, AudienceModalLocators.CA_SUGGESTIONS_LI_XPATH.format(14 + i))
+                suggestions_selector = (By.XPATH, AudienceModalLocators.CA_SUGGESTIONS_LI_XPATH.format(14 + j))
                 custom_audiences = self.wait_for_presence_of_elements(suggestions_selector)
                 custom_audience = custom_audiences[random.randint(0, len(custom_audiences) - 1)]
                 self.custom_audiences.append(custom_audience.text)
@@ -193,7 +204,7 @@ class AudienceModal(WebApp):
         self.find_element(*locator).click()
         self.find_element(*locator).send_keys("a")
         users = self.wait_for_elements(AudienceModalLocators.SUGGESTED_USERS)
-        users[random.randint(0, len(users))].click()
+        users[random.randint(0, len(users)-1)].click()
 
     def fill_friends_of_user_connected_to(self):
         time.sleep(2)
@@ -201,7 +212,7 @@ class AudienceModal(WebApp):
         self.find_element(*locator).click()
         self.find_element(*locator).send_keys("a")
         friends = self.wait_for_elements(AudienceModalLocators.SUGGESTED_FRIENDS)
-        friends[random.randint(0, len(friends))].click()
+        friends[random.randint(0, len(friends)-1)].click()
 
     def clear_location_input_field(self):
         self.find_element(*AudienceModalLocators.LOCATION_INPUT).clear()
@@ -214,14 +225,19 @@ class AudienceModal(WebApp):
         btn_locator = (By.XPATH, AudienceModalLocators.MODAL_BUTTON_XPATH.format(modal_id, button_name))
         self.wait_for_clickable(btn_locator).click()
         self.wait_for_element_to_disappear(AudienceModalLocators.MODAL_OVERLAY)
+        return self.wait_for_elements(AudienceModalLocators.AUDIENCE_ROWS)
 
     def verify_locations_is_changed(self, audience_id):
         self.wait_for_element_to_disappear(AudienceModalLocators.LOADING_OVERLAY)
+        self.wait_for_element_to_disappear(AudienceModalLocators.FIRST_LOADING_OVERLAY_ICON)
         locations_selector = AudienceModalLocators.LOCATIONS_XPATH.format(audience_id)
-        locations = self.find_elements(*(By.XPATH, locations_selector))
-        final_location_texts = [location.text for location in locations]
-        assert set(self.locations).issubset(final_location_texts)
-        assert len(self.locations) < len(final_location_texts)
+        locations_excluded_selector = AudienceModalLocators.LOCATIONS_EXCLUDED_XPATH.format(audience_id)
+        locations = self.wait_for_presence_of_elements((By.XPATH, locations_selector))
+        locations_excluded = self.wait_for_presence_of_elements((By.XPATH, locations_excluded_selector))
+        location_texts = [location.text for location in locations]
+        location_excluded_texts = [location.text for location in locations_excluded]
+        assert set(self.locations).issubset(location_texts + location_excluded_texts)
+        assert len(self.locations) < len(location_texts + location_excluded_texts)
 
     def verify_languages_is_changed(self, audience_id):
         self.wait_for_element_to_disappear(AudienceModalLocators.LOADING_OVERLAY)
@@ -268,3 +284,9 @@ class AudienceModal(WebApp):
         audiences = self.wait_for_elements(AudienceModalLocators.AUDIENCE_ROWS)
         audience_ids = [audience.get_attribute('data-id') for audience in audiences]
         assert audience_id in audience_ids
+
+    def verify_locations_and_languages(self):
+        assert True
+
+    def click_on_all_switches(self):
+        pass

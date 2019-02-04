@@ -118,7 +118,7 @@ def step_impl(context):
     """
     :type context: behave.runner.Context
     """
-    context.audiencemodal.fill_targeting_demographics_or_behaviours_field(field_type="demographics")
+    context.audiencemodal.fill_targeting_demographics_or_behaviours_field(field_type="Demographics, Interests or Behaviours")
 
 
 @step("I fill in and choose an excluded Demographics, Interests or Behaviours")
@@ -126,7 +126,7 @@ def step_impl(context):
     """
     :type context: behave.runner.Context
     """
-    context.audiencemodal.fill_targeting_demographics_or_behaviours_field(field_type="exclude demographics")
+    context.audiencemodal.fill_targeting_demographics_or_behaviours_field(field_type="Exclude Demographics, Interests or Behaviours")
 
 
 @step("I fill in and choose an narrow Demographics, Interests or Behaviours")
@@ -134,7 +134,7 @@ def step_impl(context):
     """
     :type context: behave.runner.Context
     """
-    context.audiencemodal.fill_targeting_demographics_or_behaviours_field(field_type="narrow demographics")
+    context.audiencemodal.fill_targeting_demographics_or_behaviours_field(field_type="Narrow Demographics, Interests or Behaviours")
 
 
 @step("I fill in and choose (?P<count>.+) languages")
@@ -142,4 +142,29 @@ def step_impl(context, count):
     """
     :type context: behave.runner.Context
     """
-    context.audiencemodal.fill_language(count=2)
+    context.audiencemodal.fill_language("Languages", count=2)
+
+
+@then("I should see new audiences")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    context.audiencemodal.verify_locations_and_languages()
+
+
+@step("I edit Connections fields")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    context.audiencemodal.fill_users_connect_to_input()
+    context.audiencemodal.fill_friends_of_user_connected_to()
+
+
+@step("I click on all split switches")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    context.audiencemodal.click_on_all_switches()

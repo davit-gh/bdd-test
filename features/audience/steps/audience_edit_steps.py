@@ -33,7 +33,8 @@ def step_impl(context, button_name, modal_id):
     :type modal_id: str
     :type ad_type: str
     """
-    context.audiencemodal.click_btn_popup(button_name, modal_id)
+    audiences = context.audiencemodal.click_btn_popup(button_name, modal_id)
+    context.audience_id = audiences[0].get_attribute("data-id")
 
 
 @when("I edit (?P<field_name>.+) field")
