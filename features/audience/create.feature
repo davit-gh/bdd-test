@@ -72,8 +72,10 @@ Feature: Create New Audience
     And I fill in and choose 2 languages
     And I select age range
     And I select a gender
+    And I click on 2nd Exclude link
     And I edit Detailed Targeting fields
     And I edit Connections fields
+    And I click on 3nd Exclude link
     And I click on all split switches
     And I click on Create button on audience popup
-    Then The create number of new audiences are created
+    Then The correct number of new audiences are created

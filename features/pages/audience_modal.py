@@ -9,6 +9,7 @@ from selenium.webdriver.common.keys import Keys
 
 class AudienceModalLocators(object):
     LOADING_OVERLAY = (By.CLASS_NAME, "loading-overlay-audience")
+    ESTIMATE_LOADING_OVERLAY = (By.CLASS_NAME, "loading-overlay-estimate")
     FIRST_LOADING_OVERLAY_ICON = (By.XPATH, "//div[@class='loading-overlay-icon'][1]")
     MODAL_OVERLAY = (By.XPATH, "//div[@id='createSavedAudience']/div/div")
     CREATE_AUDIENCE_BTN = (By.ID, "createSavedAudienceBtn")
@@ -56,6 +57,10 @@ class AudienceModalLocators(object):
     FOLDERS_LI = (By.XPATH, "//ul[@class='folders-ul']/li")
     AUDIENCE_ROWS = (By.XPATH, "//div[@id='adFlexContent2']//tbody/tr")
     SHOW_FOLDERS_BTN = (By.ID, "showFoldersBtn2")
+    POTENTIAL_REACH = (By.XPATH, "//div[@id='fixedInfoBlock']/span")
+    AGE_SPLIT_DROPDOWN = (By.XPATH, "(//form[@id='audience']//a[@class='chosen-single'])[4]")
+    AGE_SPLIT_15_YEAR = (By.XPATH, "//li[text()='Every 15 year']")
+    AUDIENCE_COUNT = (By.CLASS_NAME, "audience-count")
 
 
 class AudienceModal(WebApp):
@@ -108,7 +113,7 @@ class AudienceModal(WebApp):
             i = i - 1
 
     def fill_age(self):
-        time.sleep(1)
+        time.sleep(2)
         self.wait_for_clickable(AudienceModalLocators.AGE_FROM).click()
         age_from_selector = (By.XPATH, AudienceModalLocators.SUGGESTED_AGE_FROM_XPATH.format(random.randint(1, 25)))
         age_from = self.wait_for_clickable(age_from_selector)
@@ -144,15 +149,22 @@ class AudienceModal(WebApp):
         tag = faker.word()
         self.find_element(*AudienceModalLocators.TAGS_INPUT).send_keys(tag)
 
-    def click_on_split_button(self, buttons=1):
+
+    def click_on_split_buttons(self):
         btns = self.wait_for_presence_of_elements(AudienceModalLocators.SPLIT_BUTTONS)
-        i = int(buttons)
-        while i > 0:
-            btn = random.randint(0, len(btns))
-            print(btn)
-            btns[btn].click()
-            i = i - 1
-            time.sleep(2)
+        for i in range(len(btns) - 1):
+            btns[i].click()
+        self.wait_for_clickable(AudienceModalLocators.AGE_SPLIT_DROPDOWN).click()
+        self.wait_for_clickable(AudienceModalLocators.AGE_SPLIT_15_YEAR).click()
+        self.wait_for_element_to_disappear(AudienceModalLocators.ESTIMATE_LOADING_OVERLAY)
+        reach_span = self.find_element(*AudienceModalLocators.POTENTIAL_REACH)
+        potential_reach = reach_span.text.split()[0]
+        audience_count = self.find_element(*AudienceModalLocators.AUDIENCE_COUNT).text
+        response = {
+            'potential_reach': potential_reach,
+            'audience_count': audience_count
+        }
+        return response
 
     def click_create_button(self):
         self.find_element(*AudienceModalLocators.CREATE_BUTTON).click()
@@ -288,5 +300,7 @@ class AudienceModal(WebApp):
     def verify_locations_and_languages(self):
         assert True
 
-    def click_on_all_switches(self):
-        pass
+    def verify_correct_number_of_audiences_are_created(self, context):
+        self.wait_for_element_to_disappear(AudienceModalLocators.LOADING_OVERLAY)
+        new_audience_count = self.find_element(*AudienceModalLocators.AUDIENCE_COUNT).text
+        assert int(new_audience_count) == int(context.potential_reach) + int(context.audience_count)
