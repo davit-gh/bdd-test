@@ -36,7 +36,6 @@ Feature: Create New Audience
     And I fill in and choose 2 Demographics, Interests or Behaviours
     And I fill in and choose an excluded Demographics, Interests or Behaviours
     And I fill in and choose an narrow Demographics, Interests or Behaviours
-    #And I switch the SPLIT button next to Demographics, Interests or Behaviours field
     And I click on Create button on audience popup
     Then I should see new audiences
 
@@ -47,7 +46,6 @@ Feature: Create New Audience
     And I fill in and choose users in Users Connect To field
     And I fill in and choose users in Friends of users connected to field
     And I click on Create button on audience popup
-#    TODO
     Then I should see new audiences
 
   Scenario: Create an audience - Place into a folder
