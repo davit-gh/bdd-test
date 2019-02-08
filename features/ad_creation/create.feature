@@ -25,17 +25,10 @@ Feature: Create Campaign
     | campaign          | ad_type       |
     | Post Engagements  | Page Post Ad  |
     | Post Engagements  | Photo Ad      |
-    | Post Engagements  | Video Ad      |
     | Page Likes        | Page Like Ad  |
-    | Web Traffic       | Page Post Ad  |
-    | Web Traffic       | Link Ad       |
     | Web Traffic       | Carousel Ad   |
-    | Conversions       | Page Post Ad  |
     | Conversions       | Link Ad       |
-    | Conversions       | Carousel Ad   |
     | Lead Generation   | Lead Ad       |
-    | Video Views       | Page Post Ad  |
-    | Video Views       | Link Ad       |
     | Video Views       | Video Ad      |
 
   Scenario: Create Campaign - Publish Later

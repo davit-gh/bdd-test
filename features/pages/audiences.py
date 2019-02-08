@@ -3,8 +3,7 @@ from faker import Faker
 import time
 from datetime import datetime, timedelta
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.action_chains import ActionChains
-from selenium.common.exceptions import TimeoutException, ElementNotVisibleException, NoSuchElementException
+from selenium.common.exceptions import TimeoutException
 
 from framework.webapp import WebApp
 

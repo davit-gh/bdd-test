@@ -13,4 +13,4 @@ def step_impl(context):
     """
     :type context: behave.runner.Context
     """
-    context.adcreationpage.select_ad_account()
+    context.adcreationpage.pick_ad_account()
