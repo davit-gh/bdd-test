@@ -69,7 +69,7 @@ class AudiencePage(WebApp):
     def verify_ad_audience_is_not_empty(self):
         # TODO add new ad design if page is empty
         elements = self.wait_for_elements(AudiencesPageLocator.AUDIENCE_ROWS)
-        assert len(elements) > 1
+        assert len(elements) >= 1
 
     def hover_over_audience_block(self):
         audiences = self.wait_for_elements(AudiencesPageLocator.AUDIENCE_ROWS)

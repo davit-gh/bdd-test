@@ -5,9 +5,9 @@ Feature: Create Campaign
   when I choose a campaign objective and follow through the flow
 
   Scenario Outline: Create Campaign - Positive
-    Given I am logged in
-    When I click on Create Ad button
-    And I choose Sandbox Adzwedo ad account
+    Given Ad_Creator is logged in
+    When she clicks on Create Ad button
+    And she chooses Sandbox Adzwedo ad account
     And I choose Adscook page
     And I fill in a new campaign name
     And I click on <campaign> box

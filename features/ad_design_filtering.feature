@@ -7,7 +7,7 @@ Feature: Ad Design filtering
 
   Scenario: Filter ad designs by Ad Account
     Given I am on Ad Design page
-    When I select Sandbox Adzwedo Ad Account from drop-down
+    When I select 155367MK Ad Account from drop-down
     Then That ad account is the selected option
     And I should see ad designs belonging to that account
 

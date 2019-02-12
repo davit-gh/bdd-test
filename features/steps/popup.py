@@ -73,8 +73,8 @@ def step_impl(context, ad_account):
     :type ad_account: str
     :type context: behave.runner.Context
     """
-    context.adsdesignpage.pick_ad_account(ad_account)
-
+    adacc_id = context.adsdesignpage.pick_ad_account(ad_account)
+    context.adacc_id = adacc_id
 
 @then("That ad account is the selected option")
 def step_impl(context):
@@ -218,7 +218,7 @@ def step_impl(context):
     """
     :type context: behave.runner.Context
     """
-    context.adsdesignpage.adaccount_ad_desings()
+    context.adsdesignpage.adaccount_ad_desings(context.adacc_id)
 
 
 @step("I should see ad designs with pageid (?P<page_id>.+)")

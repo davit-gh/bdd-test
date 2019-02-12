@@ -12,8 +12,8 @@ class WebApp:
     def get_driver(self):
         return self.driver
 
-    def load_page(self, page):
-        self.driver.navigate(page)
+    def load_page(self, url):
+        self.driver.navigate(url)
 
     def click_element(self, *locator):
         self.driver.instance.find_element(*locator).click()
