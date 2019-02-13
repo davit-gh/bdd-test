@@ -1,7 +1,7 @@
 """
 BaseElement
 """
-
+import random
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
@@ -55,6 +55,18 @@ class BaseElement(object):
         :return: None
         """
         webdriver.ActionChains(self.driver.instance).move_to_element(self.element).perform()
+
+    def hover_one_of_elements(self):
+        """Hover a randomly chosen element from a list of elements
+
+        :return: string
+        """
+        webelements = WebDriverWait(self.driver.instance, 10).until(
+            EC.visibility_of_all_elements_located((self.locator, self.selector))
+        )
+        webelement = random.choice(webelements)
+        webdriver.ActionChains(self.driver.instance).move_to_element(webelement).perform()
+        return webelement.get_attribute("data-id")
 
     def get_elements(self):
         """Retrieves actual WebElements from DOM, saves them in an array and returns

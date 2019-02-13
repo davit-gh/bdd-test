@@ -5,14 +5,25 @@ class Select(Task):
 
     def __init__(self, context):
         self.context = context
-        self.ad_account = None
 
-    def from_dropdown(self, ad_account):
-        self.ad_account = ad_account
+    def from_dropdown(self, ddown_name):
+        if ddown_name == 'adaccount':
+            self.ddown_selector = self.context.create_ad_locators.ad_account_ddown
+        elif ddown_name == 'page':
+            self.ddown_selector = self.context.create_ad_locators.page_ddown
+        self.ddown_name = ddown_name
+        return self
 
+    def option(self, option_name):
+        if self.ddown_name == 'adaccount':
+            self.option_selector = self.context.create_ad_locators.ad_account_option.set_parameters(option_name)
+        elif self.ddown_name == 'page':
+            self.option_selector = self.context.create_ad_locators.page_option.set_parameters(option_name)
         return self
 
     def perform_as(self, actor):
-        if self.ad_account:
-            Click(self.context).element(self.context.dropdown)
-            Click(self.context).element(self.context.option)
+        actions = (
+            Click(self.context).element(self.ddown_selector),
+            Click(self.context).element(self.option_selector)
+        )
+        actor.attempts_to("dummy", *actions)
