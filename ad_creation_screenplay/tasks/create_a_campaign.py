@@ -8,8 +8,8 @@ class CreateCampaign(Task):
     def __init__(self, context):
         self.context = context
 
-    def by_filling_in(self, campaing_name):
-        self.campaign_name = campaing_name
+    def by_filling_in(self, campaing_title):
+        self.context.campaign_title = campaing_title
         return self
 
     def choose(self, campaign_type):
@@ -18,7 +18,7 @@ class CreateCampaign(Task):
 
     def perform_as(self, actor):
         actions = (
-            Fill(self.context).value(self.campaign_name).into_field(self.context.create_ad_locators.campaign_name_field),
+            Fill(self.context).value(self.context.campaign_title).into_field(self.context.create_ad_locators.campaign_title_field),
             Click(self.context).element(self.context.create_ad_locators.campaign_type.set_parameters(self.campaign_type)),
             Click(self.context).element(self.context.create_ad_locators.next_btn)
         )

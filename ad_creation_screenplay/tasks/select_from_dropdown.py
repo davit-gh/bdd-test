@@ -11,6 +11,8 @@ class Select(Task):
             self.ddown_selector = self.context.create_ad_locators.ad_account_ddown
         elif ddown_name == 'page':
             self.ddown_selector = self.context.create_ad_locators.page_ddown
+        elif ddown_name == 'ad_type':
+            self.ddown_selector = self.context.create_ad_locators.ad_type_ddown
         self.ddown_name = ddown_name
         return self
 
@@ -19,6 +21,8 @@ class Select(Task):
             self.option_selector = self.context.create_ad_locators.ad_account_option.set_parameters(option_name)
         elif self.ddown_name == 'page':
             self.option_selector = self.context.create_ad_locators.page_option.set_parameters(option_name)
+        elif self.ddown_name == 'ad_type':
+            self.option_selector = self.context.create_ad_locators.ad_type_option.set_parameters(option_name)
         return self
 
     def perform_as(self, actor):

@@ -1,7 +1,6 @@
 import random
 from ad_creation_screenplay.tasks.task import Task
 from ad_creation_screenplay.interactions.click import Click
-from ad_creation_screenplay.elements.element import Element
 
 class Choose(Task):
 
@@ -10,13 +9,18 @@ class Choose(Task):
 
     def existing_audience(self):
         hovered_audience_data_id = self.context.create_ad_locators.audiences.hover_one_of_elements()
-        self.hovered_audience_data_id = hovered_audience_data_id
+        self.select_btn = self.context.create_ad_locators.audience_select_btn.set_parameters(hovered_audience_data_id)
+        return self
 
+    def existing_design(self):
+        hovered_ad_design_data_id = self.context.create_ad_locators.ad_designs.hover_one_of_elements()
+        self.select_btn = self.context.create_ad_locators.ad_design_select_btn.set_parameters(hovered_ad_design_data_id)
         return self
 
     def perform_as(self, actor):
+
         actions = (
-            Click(self.context).element(self.audience),
+            Click(self.context).element(self.select_btn),
             Click(self.context).element(self.context.create_ad_locators.next_btn)
         )
         actor.attempts_to("dummy", *actions)
