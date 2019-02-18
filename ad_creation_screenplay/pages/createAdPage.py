@@ -19,11 +19,17 @@ class AdCreationPage(BasePage):
         self.campaign_type = Element(By.XPATH, "//label[@for='{}']", context)
         self.next_btn = Element(By.XPATH, "//footer/div/button[text()='Next']", context)
         self.audiences = Element(By.XPATH, "//div[@id='adFlexContent2']//tbody/tr", context)
-        self.audience_select_btn = Element(By.XPATH, "//div[@id='adFlexContent2']//tbody/tr[@data-id='{}']//button[text()='Select']", context)
+        self.audience_select_btn = Element(
+            By.XPATH, "//div[@id='adFlexContent2']//tbody/tr[@data-id='{}']//button[text()='Select']", context
+        )
+        self.audience_select_btns = Element(By.XPATH, "//div[@id='adFlexContent2']//button[text()='Select']", context)
         self.ad_designs = Element(By.XPATH, "//div[@data-pageid]", context)
+        self.ad_design_select_btns = Element(By.XPATH, "//div[@class='ads-block']//button[text()='Select']", context)
         self.ad_design_select_btn = Element(By.XPATH, "//div[@data-pageid and @data-id='{}']//button[text()='Select']", context)
         self.ad_type_ddown = Element(By.XPATH, "//a[@class='chosen-single']/span[text()='Ad types']", context)
         self.ad_type_option = Element(By.XPATH, "//ul[@class='chosen-results']/li[text()='{}']", context)
         self.publish_later_link = Element(By.CLASS_NAME, "publish-later-action", context)
         self.validation_error_field = Element(By.XPATH, "//label[@class='error_message']/p", context)
+        self.adset_per_ad = Element(By.XPATH, "//label[@for='adset_per_ad'][1]", context)
+        self.adsets_ready_to_publish = Element(By.CLASS_NAME, "campaign-row--content", context)
         super().__init__(context)

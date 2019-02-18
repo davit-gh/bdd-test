@@ -85,6 +85,9 @@ class BaseElement(object):
 
         :return: None
         """
+        WebDriverWait(self.driver.instance, 10).until(
+            EC.element_to_be_clickable((self.locator, self.selector))
+        )
         self.element.click()
 
     def get_attribute(self, name):

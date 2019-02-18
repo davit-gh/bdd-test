@@ -7,6 +7,7 @@ class Get(Interaction):
         self._elements = None
         self._element = None
         self._text = False
+        self._length = False
         self.title_elements = None
         super().__init__(context)
 
@@ -20,6 +21,10 @@ class Get(Interaction):
 
     def text(self):
         self._text = True
+        return self
+
+    def length_of(self):
+        self._length = True
         return self
 
     def _split_by_newline(self, str):
@@ -37,4 +42,6 @@ class Get(Interaction):
             response = [self._split_by_newline(element.text) for element in self.title_elements]
         elif self._text:
             response = self._element.text
+        elif self._length:
+            response = len(self._elements.get_elements())
         return response
