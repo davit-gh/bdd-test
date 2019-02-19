@@ -150,7 +150,7 @@ def step_impl(context):
     """
     :type context: behave.runner.Context
     """
-    context.audiencemodal.verify_locations_and_languages()
+    context.audiencemodal.verify_correct_number_of_audiences_are_created(context)
 
 
 @step("I edit Connections fields")
@@ -167,10 +167,7 @@ def step_impl(context):
     """
     :type context: behave.runner.Context
     """
-    response = context.audiencemodal.click_on_split_buttons()
-    context.potential_reach = response['potential_reach']
-    context.audience_count = response['audience_count']
-
+    context.audiencemodal.click_on_split_buttons()
 
 @then("The correct number of new audiences are created")
 def step_impl(context):

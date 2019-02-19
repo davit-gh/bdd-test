@@ -80,8 +80,8 @@ class AudienceModal(WebApp):
         faker = Faker()
         faker.add_provider(address)
         self.wait_for_element_to_disappear(AudienceModalLocators.MODAL_OVERLAY)
-        location_input = self.wait_for_clickable(AudienceModalLocators.LOCATION_INPUT)
-        excluded_location_input = self.wait_for_clickable(AudienceModalLocators.EXCLUDED_LOCATION_INPUT)
+        location_input = self.wait_for_element(AudienceModalLocators.LOCATION_INPUT)
+        excluded_location_input = self.wait_for_element(AudienceModalLocators.EXCLUDED_LOCATION_INPUT)
         i = int(number_of_locations)
         while i > 0:
             location_input.click()
@@ -149,14 +149,7 @@ class AudienceModal(WebApp):
         tag = faker.word()
         self.find_element(*AudienceModalLocators.TAGS_INPUT).send_keys(tag)
 
-
-    def click_on_split_buttons(self):
-        btns = self.wait_for_presence_of_elements(AudienceModalLocators.SPLIT_BUTTONS)
-        for i in range(len(btns) - 1):
-            btns[i].click()
-        self.wait_for_clickable(AudienceModalLocators.AGE_SPLIT_DROPDOWN).click()
-        self.wait_for_clickable(AudienceModalLocators.AGE_SPLIT_15_YEAR).click()
-        self.wait_for_element_to_disappear(AudienceModalLocators.ESTIMATE_LOADING_OVERLAY)
+    def _get_potential_reach_and_audience_count(self):
         reach_span = self.find_element(*AudienceModalLocators.POTENTIAL_REACH)
         potential_reach = reach_span.text.split()[0]
         audience_count = self.find_element(*AudienceModalLocators.AUDIENCE_COUNT).text
@@ -165,6 +158,14 @@ class AudienceModal(WebApp):
             'audience_count': audience_count
         }
         return response
+
+    def click_on_split_buttons(self):
+        btns = self.wait_for_presence_of_elements(AudienceModalLocators.SPLIT_BUTTONS)
+        for i in range(len(btns) - 1):
+            btns[i].click()
+        self.wait_for_clickable(AudienceModalLocators.AGE_SPLIT_DROPDOWN).click()
+        self.wait_for_clickable(AudienceModalLocators.AGE_SPLIT_15_YEAR).click()
+        self.wait_for_element_to_disappear(AudienceModalLocators.ESTIMATE_LOADING_OVERLAY)
 
     def click_create_button(self):
         self.find_element(*AudienceModalLocators.CREATE_BUTTON).click()
@@ -235,9 +236,11 @@ class AudienceModal(WebApp):
 
     def click_btn_popup(self, button_name, modal_id):
         btn_locator = (By.XPATH, AudienceModalLocators.MODAL_BUTTON_XPATH.format(modal_id, button_name))
+        reach_and_count = self._get_potential_reach_and_audience_count()
         self.wait_for_clickable(btn_locator).click()
         self.wait_for_element_to_disappear(AudienceModalLocators.MODAL_OVERLAY)
-        return self.wait_for_elements(AudienceModalLocators.AUDIENCE_ROWS)
+        reach_and_count['audiences'] = self.wait_for_elements(AudienceModalLocators.AUDIENCE_ROWS)
+        return reach_and_count
 
     def verify_locations_is_changed(self, audience_id):
         self.wait_for_element_to_disappear(AudienceModalLocators.LOADING_OVERLAY)
@@ -297,10 +300,8 @@ class AudienceModal(WebApp):
         audience_ids = [audience.get_attribute('data-id') for audience in audiences]
         assert audience_id in audience_ids
 
-    def verify_locations_and_languages(self):
-        assert True
-
     def verify_correct_number_of_audiences_are_created(self, context):
         self.wait_for_element_to_disappear(AudienceModalLocators.LOADING_OVERLAY)
         new_audience_count = self.find_element(*AudienceModalLocators.AUDIENCE_COUNT).text
         assert int(new_audience_count) == int(context.potential_reach) + int(context.audience_count)
+        print(new_audience_count, context.potential_reach, context.audience_count)

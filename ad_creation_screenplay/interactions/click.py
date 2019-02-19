@@ -25,3 +25,23 @@ class HoverAndClick(Interaction):
 
     def execute(self):
         self.elements.hover_and_click_elements(self.count)
+
+
+class ClickMultiple(Interaction):
+    def __init__(self, context):
+        super().__init__(context)
+        self._checkboxes = None
+
+    def elements(self, elements):
+        self.elements = elements
+        return self
+
+    def checkboxes(self, chbs, count):
+        self.elements = chbs
+        self._count = count
+        self._checkboxes = True
+        return self
+
+    def execute(self):
+        if self._checkboxes:
+            self.elements.check_checkboxes(self._count)

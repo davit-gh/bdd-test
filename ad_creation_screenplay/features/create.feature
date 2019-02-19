@@ -18,14 +18,14 @@ Feature: Create Campaign
     Then The campaign is successfully published
 
     Examples: Campaign
-    | campaign_type     | ad_design_type   |
-    | POST_ENGAGEMENT   | Page Post Ad  |
-    | POST_ENGAGEMENT   | Photo Ad      |
-    | PAGE_LIKES        | Page Like Ad  |
-    | LINK_CLICKS       | Carousel Ad   |
-    | CONVERSIONS       | Link Ad       |
-    | LEAD_GENERATION   | Lead Ad       |
-    | VIDEO_VIEWS       | Video Ad      |
+    | campaign_type     | ad_design_type  |
+    | POST_ENGAGEMENT   | Page Post Ad    |
+    | POST_ENGAGEMENT   | Photo Ad        |
+    | PAGE_LIKES        | Page Like Ad    |
+    | LINK_CLICKS       | Carousel Ad     |
+    | CONVERSIONS       | Link Ad         |
+    | LEAD_GENERATION   | Lead Ad         |
+    | VIDEO_VIEWS       | Video Ad        |
 
   Scenario: Publish Later
     Given Ad_Creator is logged in
@@ -67,7 +67,7 @@ Feature: Create Campaign
     And she creates a new POST_ENGAGEMENT campaign
     And she chooses 2 existing audiences
     And she chooses 3 Photo Ad ad designs
-    And she clicks on Next button
+    And she splits on 3 placement options
     And she chooses to create adset per ad design
     And she clicks on Next button
-    Then 6 adsets should be available for publishing
+    Then 18 adsets should be available for publishing

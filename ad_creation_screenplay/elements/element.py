@@ -26,3 +26,17 @@ class Element(BaseElement):
             webdriver.ActionChains(self.driver.instance).move_to_element(webelement).perform()
             time.sleep(0.5)
             webelement.click()
+
+    def check_checkboxes(self, count):
+        count = int(count)
+        labels = WebDriverWait(self.driver.instance, 10).until(
+            EC.presence_of_all_elements_located((self.locator, self.selector))
+        )
+        checkboxes = [label.find_element_by_xpath("./preceding-sibling::input") for label in labels]
+        checked = [label for label, checkbox in zip(labels, checkboxes) if checkbox.is_selected()]
+        if count > len(checked) or count < 1:
+            raise Exception("Wrong count number. Should be between 1 and 5.")
+        diff = len(checked) - count
+        [label.click() for label in checked[-diff:]] if diff else None
+
+

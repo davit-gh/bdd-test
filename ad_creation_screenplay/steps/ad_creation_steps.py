@@ -3,6 +3,7 @@ from ad_creation_screenplay.tasks.open_web_page import OpenWebPage
 from ad_creation_screenplay.tasks.create_a_campaign import CreateCampaign
 from ad_creation_screenplay.tasks.select_from_dropdown import Select
 from ad_creation_screenplay.tasks.choose import Choose, ChooseMultiple
+from ad_creation_screenplay.tasks.click_on import ClickOn
 from ad_creation_screenplay.tasks.open_campaign_details_page import OpenCampaignDetailsPage
 from ad_creation_screenplay.interactions.click import Click
 from ad_creation_screenplay.interactions.wait import WaitForOverlayToDisappear
@@ -144,3 +145,10 @@ def step_impl(context, count):
     assert number_of_adsets == int(count)
 
 
+@step("she splits on {count} placement options")
+def step_impl(context, count):
+    """
+    :type count: str
+    :type context: behave.runner.Context
+    """
+    ClickOn(context).several(count).checkboxes().and_first_split_switch().perform_as(stage.the_actor_in_the_spotlight())
