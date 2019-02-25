@@ -13,12 +13,17 @@ class NavigationMenuLocators(object):
 
 class NavigationMenu(WebApp):
 
+    def __init__(self, driver, page_name=None):
+        super().__init__(driver)
+        self.page_name = page_name
+
     def navigate_to_page(self, page_name):
         """
         Navigates to the page
         :param page_name: name of wanted page
         :type page_name: string
         """
+
         if page_name == "Dashboard":
             self.click_on_menu_tab(NavigationMenuLocators.DASHBOARD_TAB)
         elif page_name == "Campaigns":
@@ -37,3 +42,6 @@ class NavigationMenu(WebApp):
     def click_on_menu_tab(self, tab_name):
         element = self.wait_for_element(tab_name)
         element.click()
+
+    def execute(self):
+        self.navigate_to_page(self.page_name)
