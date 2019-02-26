@@ -4,14 +4,24 @@ class Click(Interaction):
 
     def __init__(self, context):
         super().__init__(context)
+        self.one_of = None
 
     def element(self, element):
         self.element = element
         return self
 
-    def execute(self):
-        self.element.click()
+    def one_of_elements(self, elements):
+        self._elements = elements
+        self.one_of = True
+        return self
 
+    def execute(self):
+        response = None
+        if self.one_of:
+            response = self._elements.click_one_of_elements()
+        else:
+            self.element.click()
+        return response
 
 class HoverAndClick(Interaction):
 

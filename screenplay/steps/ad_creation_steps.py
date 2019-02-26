@@ -151,4 +151,4 @@ def step_impl(context, count):
     :type count: str
     :type context: behave.runner.Context
     """
-    ClickOn(context).several(count).checkboxes().and_first_split_switch().perform_as(stage.the_actor_in_the_spotlight())
+    ClickOn(context).multiple(count).checkboxes().and_first_split_switch().perform_as(stage.the_actor_in_the_spotlight())

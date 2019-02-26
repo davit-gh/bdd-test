@@ -2,7 +2,7 @@ from screenplay.elements.baseElement import BaseElement
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium import webdriver
-import time
+import time, random
 
 class Element(BaseElement):
 
@@ -40,3 +40,13 @@ class Element(BaseElement):
         [label.click() for label in checked[-diff:]] if diff else None
 
 
+    def click_one_of_elements(self):
+        """Randomly click one of the available elements
+              :return: int
+        """
+        webelements = WebDriverWait(self.driver.instance, 10).until(
+            EC.visibility_of_all_elements_located((self.locator, self.selector))
+        )
+        random_index = random.randrange(len(webelements))
+        webelements[random_index].click()
+        return random_index
