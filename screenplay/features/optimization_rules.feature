@@ -28,7 +28,7 @@ Feature: Optimization Rules Automation
     Given Ad_Creator is on Optimization Rules page
     And at least 1 optimization rule is created
     And she clicks on Assign icon on any rule
-    And she searches for a campaign by name
+    And she searches for pagelikecampaign campaign
     And chooses a campaign and clicks on Apply
     Then the rule is assigned to that campaign
 

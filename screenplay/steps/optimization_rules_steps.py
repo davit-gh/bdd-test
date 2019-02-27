@@ -71,3 +71,20 @@ def step_impl(context):
     :type context: behave.runner.Context
     """
     assert NotDisplayed(context).modal(context.random_index).perform_as(stage.the_actor_in_the_spotlight())
+
+
+@step("she searches for {campaign_name} campaign")
+def step_impl(context, campaign_name):
+    """
+    :type campaign_name: str
+    :type context: behave.runner.Context
+    """
+    SearchFor(context).campaign(campaign_name).perform_as(stage.the_actor_in_the_spotlight())
+
+
+@step("chooses a campaign and clicks on Apply")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    ClickOn(context).campaign().button("Apply")

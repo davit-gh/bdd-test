@@ -1,5 +1,6 @@
 from screenplay.tasks.task import Task
 from screenplay.interactions.click import ClickMultiple, Click
+from screenplay.interactions.wait import WaitForOverlayToDisappear
 from screenplay.pages.intermediatePages import PlacementPage
 
 class ClickOn(Task):
@@ -8,14 +9,22 @@ class ClickOn(Task):
         self.context = context
         self._multiple = None
         self._one_of = None
+        self._campaign = None
 
     def multiple(self, count):
         self.count = count
         self._multiple = True
         return self
 
+    def campaign(self):
+        self._campaign = self.context.optimization_locators.assign_rule_chbx
+        return self
+
     def button(self, btn_name):
-        self._element = self.context.optimization_locators.button.set_parameters(btn_name)
+        if btn_name == "Apply":
+            self._element = self.context.optimization_locators.apply_button
+        else:
+            self._element = self.context.optimization_locators.button.set_parameters(btn_name)
         return self
 
     def randomly_chosen_icon(self, icon_name):
@@ -33,18 +42,21 @@ class ClickOn(Task):
         return self
 
     def perform_as(self, actor):
+        actions = ()
+        actions += (Click(self.context).element(self._campaign),) if self._campaign else ()
         if self._multiple:
-            actions = (
+            actions += (
                 ClickMultiple(self.context).checkboxes(self.elements, self.count),
                 Click(self.context).element(self.split_switch),
                 Click(self.context).element(self.context.create_ad_locators.next_btn)
             )
         elif self._one_of:
-            actions = (
+            actions += (
                 Click(self.context).one_of_elements(self._elements),
+                WaitForOverlayToDisappear(self.context).element(self.context.optimization_locators.datatable_overlay)
             )
         else:
-            actions = (
+            actions += (
                 Click(self.context).element(self._element),
             )
 
