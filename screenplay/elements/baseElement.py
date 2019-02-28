@@ -1,7 +1,7 @@
 """
 BaseElement
 """
-import random
+import random, time
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
@@ -74,7 +74,7 @@ class BaseElement(object):
         :return: [WebElement]
         """
         WebDriverWait(self.driver.instance, 10).until(
-            EC.element_to_be_clickable((self.locator, self.selector))
+            EC.visibility_of_all_elements_located((self.locator, self.selector))
         )
         self.elements_collection = self.driver.instance.find_elements(self.locator, self.selector)
 
@@ -131,20 +131,35 @@ class BaseElement(object):
 
         return bool(is_visible)
 
-    def is_element_not_visible(self, timeout=7):
+    def is_element_not_visible(self, timeout=10):
         """Checks if elements is not visible by selenium within given timeout
 
         :param timeout: int
         :return: boolean
         """
+        time.sleep(1)
         try:
-            is_invisible = WebDriverWait(self.driver.instance, timeout).until(
+            WebDriverWait(self.driver.instance, timeout).until(
                 EC.invisibility_of_element_located((self.locator, self.selector))
             )
         except TimeoutException:
-            is_invisible = False
+            raise Exception("Element is still visible")
+        return True
 
-        return is_invisible
+    def are_elements_not_visible(self, timeout=7):
+        time.sleep(0.5)
+        elements = WebDriverWait(self.driver.instance, 10).until(
+            EC.presence_of_all_elements_located((self.locator, self.selector))
+        )
+        for element in elements:
+            try:
+                WebDriverWait(self.driver.instance, timeout).until(
+                    EC.invisibility_of_element(element)
+                )
+            except TimeoutException:
+                return False
+        return True
+
 
     def is_element_present(self, timeout=3):
         """Checks if element is present by selenium within given timeout

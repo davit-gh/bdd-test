@@ -49,4 +49,9 @@ class Element(BaseElement):
         )
         random_index = random.randrange(len(webelements))
         webelements[random_index].click()
+        # xpath index is 1-based
+        random_index += 1
         return random_index
+
+    def is_selected(self):
+        return self.element.is_selected()

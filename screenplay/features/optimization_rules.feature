@@ -21,22 +21,22 @@ Feature: Optimization Rules Automation
     Given Ad_Creator is on Optimization Rules page
     And at least 1 optimization rule is created
     And she clicks on Edit icon on any rule
-    And clicks on Cancel button
+    And clicks on Cancel Edit button
     Then the modal is closed
 
   Scenario: Rule Assignment
     Given Ad_Creator is on Optimization Rules page
     And at least 1 optimization rule is created
     And she clicks on Assign icon on any rule
-    And she searches for pagelikecampaign campaign
+    And she searches for fin_Page Like campaign
     And chooses a campaign and clicks on Apply
-    Then the rule is assigned to that campaign
+    Then the rule is assigned to fin_Page Like campaign
 
   Scenario: Rule Assignment - Negative
     Given Ad_Creator is on Optimization Rules page
     And at least 1 optimization rule is created
     And she clicks on Assign icon on any rule
-    And clicks on Cancel button
+    And clicks on Cancel Assign button
     Then the modal is closed
 
   Scenario: Duplicate Rule

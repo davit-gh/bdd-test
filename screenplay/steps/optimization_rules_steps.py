@@ -4,6 +4,7 @@ from screenplay.tasks.search_for import SearchFor
 from screenplay.tasks.click_on import ClickOn
 from screenplay.questions.get_all import GetAll
 from screenplay.questions.not_visible import NotDisplayed
+from screenplay.questions.is_checked import IsChecked
 from screenplay.stage import Stage
 
 stage = Stage()
@@ -87,4 +88,16 @@ def step_impl(context):
     """
     :type context: behave.runner.Context
     """
-    ClickOn(context).campaign().button("Apply")
+    ClickOn(context).campaign().button("Apply").perform_as(stage.the_actor_in_the_spotlight())
+    NotDisplayed(context).rule_modal().perform_as(stage.the_actor_in_the_spotlight())
+
+
+@then("the rule is assigned to {campaign_name} campaign")
+def step_impl(context, campaign_name):
+    """
+    :type campaign_name: str
+    :type context: behave.runner.Context
+    """
+    ClickOn(context).icon("Assign", context.random_index).perform_as(stage.the_actor_in_the_spotlight())
+    SearchFor(context).campaign(campaign_name).perform_as(stage.the_actor_in_the_spotlight())
+    assert IsChecked(context).first_checkbox().perform_as(stage.the_actor_in_the_spotlight())

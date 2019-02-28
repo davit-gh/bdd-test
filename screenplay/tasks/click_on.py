@@ -18,17 +18,26 @@ class ClickOn(Task):
 
     def campaign(self):
         self._campaign = self.context.optimization_locators.assign_rule_chbx
+        self._wait = self.context.optimization_locators.datatable_overlay2
+        return self
+
+    def icon(self, name, index):
+        index = "[{}]".format(index)
+        self._element = self.context.optimization_locators.icons.set_parameters(name, index)
         return self
 
     def button(self, btn_name):
         if btn_name == "Apply":
             self._element = self.context.optimization_locators.apply_button
-        else:
-            self._element = self.context.optimization_locators.button.set_parameters(btn_name)
+        elif btn_name == "Cancel Edit":
+            self._element = self.context.optimization_locators.cancel_edit_btn
+        elif btn_name == "Cancel Assign":
+            self._element = self.context.optimization_locators.cancel_assign_btn
         return self
 
     def randomly_chosen_icon(self, icon_name):
-        self._elements = self.context.optimization_locators.icons.set_parameters(icon_name)
+        self._elements = self.context.optimization_locators.icons.set_parameters(icon_name, '')
+        self._wait = self.context.optimization_locators.datatable_overlay1
         self._one_of = True
         return self
 
@@ -43,8 +52,13 @@ class ClickOn(Task):
 
     def perform_as(self, actor):
         actions = ()
-        actions += (Click(self.context).element(self._campaign),) if self._campaign else ()
-        if self._multiple:
+        if self._campaign:
+            actions += (
+                WaitForOverlayToDisappear(self.context).element(self._wait),
+                Click(self.context).element(self._campaign),
+                Click(self.context).element(self._element)
+            )
+        elif self._multiple:
             actions += (
                 ClickMultiple(self.context).checkboxes(self.elements, self.count),
                 Click(self.context).element(self.split_switch),
@@ -52,11 +66,13 @@ class ClickOn(Task):
             )
         elif self._one_of:
             actions += (
+                #WaitForOverlayToDisappear(self.context).element(self.context),
                 Click(self.context).one_of_elements(self._elements),
-                WaitForOverlayToDisappear(self.context).element(self.context.optimization_locators.datatable_overlay)
             )
         else:
             actions += (
+                WaitForOverlayToDisappear(self.context).element(self.context.optimization_locators.datatable_overlay1),
+                WaitForOverlayToDisappear(self.context).element(self.context.optimization_locators.datatable_overlay2),
                 Click(self.context).element(self._element),
             )
 

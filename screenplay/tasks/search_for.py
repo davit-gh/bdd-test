@@ -22,9 +22,9 @@ class SearchFor(Task):
 
     def perform_as(self, actor):
         actions = (
+            WaitForOverlayToDisappear(self.context).element(self.context.optimization_locators.datatable_overlay1),
             Click(self.context).element(self._element),
             Fill(self.context).value(self._value).into_field(self._element),
-            Click(self.context).element(self._search_icon),
-            WaitForOverlayToDisappear(self.context).element(self.context.optimization_locators.overlay)
+            Click(self.context).element(self._search_icon)
         )
         return actor.attempts_to("dummy", *actions)
