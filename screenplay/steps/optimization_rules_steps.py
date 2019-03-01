@@ -98,6 +98,29 @@ def step_impl(context, campaign_name):
     :type campaign_name: str
     :type context: behave.runner.Context
     """
-    ClickOn(context).icon("Assign", context.random_index).perform_as(stage.the_actor_in_the_spotlight())
+    ClickOn(context).icon("js-assign-rule", context.random_index).perform_as(stage.the_actor_in_the_spotlight())
     SearchFor(context).campaign(campaign_name).perform_as(stage.the_actor_in_the_spotlight())
     assert IsChecked(context).first_checkbox().perform_as(stage.the_actor_in_the_spotlight())
+    ClickOn(context).campaign().button("Apply").perform_as(stage.the_actor_in_the_spotlight())
+
+
+@step("she clicks on {icon_name} icon under that dropdown")
+def step_impl(context, icon_name):
+    """
+    :type icon_name: str
+    :type context: behave.runner.Context
+    """
+    rules_number = GetAll(context).rules().length().perform_as(stage.the_actor_in_the_spotlight())
+    context.rules_number = rules_number
+    ClickOn(context).button("Duplicate").perform_as(stage.the_actor_in_the_spotlight())
+
+
+@then("the rule is duplicated")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    rule_names = GetAll(context).rule_names().perform_as(stage.the_actor_in_the_spotlight())
+    rules_number = GetAll(context).rules().length().perform_as(stage.the_actor_in_the_spotlight())
+    assert context.rules_number == rules_number - 1
+    assert "copy of " + rule_names[context.random_index] in rule_names

@@ -1,5 +1,6 @@
 from screenplay.questions.question import Question
 from screenplay.interactions.get import Get
+from screenplay.interactions.wait import WaitForOverlayToDisappear
 
 class GetAll(Question):
 
@@ -24,12 +25,13 @@ class GetAll(Question):
         return self
 
     def perform_as(self, actor):
+        actions = ()
         if self._length:
-            action = Get(self.context).length_of().elements(self.elements)
+            actions += (Get(self.context).length_of().elements(self.elements),)
         else:
-            action = Get(self.context).elements(self.elements).texts()
-        actions = (
-            action,
-        )
+            actions += (
+                WaitForOverlayToDisappear(self.context).element(self.context.optimization_locators.success_message),
+                Get(self.context).elements(self.elements).texts()
+            )
 
         return actor.attempts_to("dummy", *actions)

@@ -13,7 +13,8 @@ class OptimizationRulesPage(BasePage):
         self.existing_rule_names = Element(By.CLASS_NAME, "rule-name", context)
         self.rule_search_field = Element(By.XPATH, "//input[@name='search_rule']", context)
         self.search_icon = Element(By.XPATH, "//input[@placeholder='{}']/following-sibling::span", context)
-        self.icons = Element(By.XPATH, "(//div[@title='{}']){}", context)
+        self.icons = Element(By.XPATH, "(//div[@class='action-buttons-item {}']){}", context)
+        self.dropdown_icon = Element(By.XPATH, "(//div[contains(@class,' dropdown')])[{}]//li[./span[text()=' {}']]", context)
         self.cancel_edit_btn = Element(By.XPATH, "//div[@id='optimRulesList']//button[text()='Cancel']", context)
         self.cancel_assign_btn = Element(By.ID, "ruleCampaignsCancel", context)
         self.apply_button = Element(By.ID, "assignRuleCampaigns", context)
@@ -23,5 +24,6 @@ class OptimizationRulesPage(BasePage):
         self.assign_rule_modal = Element(By.ID, "optimRulesCampaignsList", context)
         self.campaign_search_field = Element(By.XPATH, "//input[@placeholder='Search by name...']", context)
         self.loading = Element(By.CLASS_NAME, "ftLoading", context)
+        self.success_message = Element(By.ID, "successMessage", context)
         super().__init__(context)
 

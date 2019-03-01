@@ -33,10 +33,12 @@ class ClickOn(Task):
             self._element = self.context.optimization_locators.cancel_edit_btn
         elif btn_name == "Cancel Assign":
             self._element = self.context.optimization_locators.cancel_assign_btn
+        else:
+            self._element = self.context.optimization_locators.dropdown_icon.set_parameters(self.context.random_index, btn_name)
         return self
 
-    def randomly_chosen_icon(self, icon_name):
-        self._elements = self.context.optimization_locators.icons.set_parameters(icon_name, '')
+    def randomly_chosen_icon(self, icon_class):
+        self._elements = self.context.optimization_locators.icons.set_parameters(icon_class, '')
         self._wait = self.context.optimization_locators.datatable_overlay1
         self._one_of = True
         return self

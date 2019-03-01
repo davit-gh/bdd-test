@@ -20,14 +20,14 @@ Feature: Optimization Rules Automation
   Scenario: Edit An Existing Rule - Negative
     Given Ad_Creator is on Optimization Rules page
     And at least 1 optimization rule is created
-    And she clicks on Edit icon on any rule
+    And she clicks on rule_arrow js-edit-optim-rule icon on any rule
     And clicks on Cancel Edit button
     Then the modal is closed
 
   Scenario: Rule Assignment
     Given Ad_Creator is on Optimization Rules page
     And at least 1 optimization rule is created
-    And she clicks on Assign icon on any rule
+    And she clicks on js-assign-rule icon on any rule
     And she searches for fin_Page Like campaign
     And chooses a campaign and clicks on Apply
     Then the rule is assigned to fin_Page Like campaign
@@ -35,14 +35,15 @@ Feature: Optimization Rules Automation
   Scenario: Rule Assignment - Negative
     Given Ad_Creator is on Optimization Rules page
     And at least 1 optimization rule is created
-    And she clicks on Assign icon on any rule
+    And she clicks on js-assign-rule icon on any rule
     And clicks on Cancel Assign button
     Then the modal is closed
 
   Scenario: Duplicate Rule
     Given Ad_Creator is on Optimization Rules page
     And at least 1 optimization rule is created
-    And she clicks on Duplicate icon on any rule
+    And she clicks on dropdown icon on any rule
+    And she clicks on Duplicate icon under that dropdown
     Then the rule is duplicated
 
   Scenario: Delete Rule
