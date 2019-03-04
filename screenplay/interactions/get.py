@@ -10,6 +10,7 @@ class Get(Interaction):
         self._texts = False
         self._length = False
         self._selected = None
+        self._attr_name = None
         self.title_elements = None
         super().__init__(context)
 
@@ -19,6 +20,10 @@ class Get(Interaction):
 
     def elements(self, elements):
         self._elements = elements
+        return self
+
+    def attribute(self, attr_name):
+        self._attr_name = attr_name
         return self
 
     def is_selected(self, element):
@@ -58,4 +63,6 @@ class Get(Interaction):
             response = len(self._elements.get_elements())
         elif self._selected:
             response = self._selected.is_selected()
+        elif self._attr_name:
+            response = self._element.get_attribute(self._attr_name)
         return response

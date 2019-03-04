@@ -1,23 +1,23 @@
 from screenplay.questions.question import Question
 from screenplay.interactions.get import Get
 
-class IsChecked(Question):
+class GetAttribute(Question):
 
     def __init__(self, context):
         super().__init__(context)
 
-    def first_checkbox(self):
-        self._element = self.context.optimization_locators.assign_rule_chbx_input
+    def element(self, name):
+        self._element = self.context.optimization_locators.get_element(name)
         return self
 
-    def radio_btn(self, btn_name):
-        self._element = self.context.optimization_locators.get_element(btn_name)
+    def attribute(self, attr_name):
+        self._attr_name = attr_name
         return self
 
     def perform_as(self, actor):
 
         actions = (
-            Get(self.context).is_selected(self._element),
+            Get(self.context).from_element(self._element).attribute(self._attr_name),
         )
 
         return actor.attempts_to("dummy", *actions)

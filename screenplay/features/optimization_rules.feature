@@ -13,7 +13,7 @@ Feature: Optimization Rules Automation
   Scenario: Edit An Existing Rule
     Given Ad_Creator is on Optimization Rules page
     And at least 1 optimization rule is created
-    And she clicks on Edit icon on any rule
+    And she clicks on rule_arrow js-edit-optim-rule icon on any rule
     And makes changes on the modal and clicks on Save button
     Then the changes are saved
 
@@ -49,7 +49,9 @@ Feature: Optimization Rules Automation
   Scenario: Delete Rule
     Given Ad_Creator is on Optimization Rules page
     And at least 1 optimization rule is created
-    And she clicks on Delete icon on any rule and confirms
+    And she clicks on dropdown icon on any rule
+    And she clicks on Delete icon under that dropdown
+    And she clicks on Delete button on popup
     Then the rule is deleted
 
   Scenario: Create Rule

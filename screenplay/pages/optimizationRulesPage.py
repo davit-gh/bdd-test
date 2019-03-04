@@ -17,6 +17,7 @@ class OptimizationRulesPage(BasePage):
         self.dropdown_icon = Element(By.XPATH, "(//div[contains(@class,' dropdown')])[{}]//li[./span[text()=' {}']]", context)
         self.cancel_edit_btn = Element(By.XPATH, "//div[@id='optimRulesList']//button[text()='Cancel']", context)
         self.cancel_assign_btn = Element(By.ID, "ruleCampaignsCancel", context)
+        self.delete_rule_btn = Element(By.ID, "delete-rule-btn", context)
         self.apply_button = Element(By.ID, "assignRuleCampaigns", context)
         self.rule_creation_modal = Element(By.XPATH, "(//div[contains(@class,'js-rule-creation-block')])[{}]", context)
         self.assign_rule_chbx = Element(By.XPATH, "//div[@id='dashboardTable']//div[@class='check-box']", context)
@@ -25,5 +26,18 @@ class OptimizationRulesPage(BasePage):
         self.campaign_search_field = Element(By.XPATH, "//input[@placeholder='Search by name...']", context)
         self.loading = Element(By.CLASS_NAME, "ftLoading", context)
         self.success_message = Element(By.ID, "successMessage", context)
+        self.action_ddown = Element(By.XPATH, "//div[contains(@class,'rule_action ')]/div/button", context)
+        self._option = Element(By.XPATH, "//a[./span[text()='{}']]", context)
+        self.cpc_cpm_ddown = Element(By.XPATH, "(//div[contains(@class,'rule_cpc_cpm_select')])[1]/div[2]/button", context)
+        self.period_ddown = Element(By.XPATH, "(//div[contains(@class, 'period-select')])[1]/div/button", context)
+        self.adset_radio_btn = Element(By.XPATH, "//div[contains(@class,'rule_ad_adset_camp_select')]/div[3]/label", context)
+        self.adset_radio_input = Element(By.XPATH, "//div[contains(@class,'rule_ad_adset_camp_select')]/div[3]/input", context)
+        self.save_rule_btn = Element(By.XPATH, "//div[@id='rule_container']//button[text()='Save']", context)
         super().__init__(context)
 
+    def get_element(self, name, *args):
+        element = ''
+        if hasattr(self, name):
+            element = getattr(self, name)
+            element.set_parameters(*args)
+        return element

@@ -13,6 +13,12 @@ class Select(Task):
             self.ddown_selector = self.context.create_ad_locators.page_ddown
         elif ddown_name == 'ad_type':
             self.ddown_selector = self.context.create_ad_locators.ad_type_ddown
+        elif ddown_name == 'action':
+            self.ddown_selector = self.context.optimization_locators.action_ddown
+        elif ddown_name == 'cpc_cpm':
+            self.ddown_selector = self.context.optimization_locators.cpc_cpm_ddown
+        elif ddown_name == 'period':
+            self.ddown_selector = self.context.optimization_locators.period_ddown
         self.ddown_name = ddown_name
         return self
 
@@ -23,6 +29,8 @@ class Select(Task):
             self.option_selector = self.context.create_ad_locators.page_option.set_parameters(option_name)
         elif self.ddown_name == 'ad_type':
             self.option_selector = self.context.create_ad_locators.ad_type_option.set_parameters(option_name)
+        elif self.ddown_name == 'action' or self.ddown_name == 'cpc_cpm' or self.ddown_name == 'period':
+            self.option_selector = self.context.optimization_locators._option.set_parameters(option_name)
         return self
 
     def perform_as(self, actor):

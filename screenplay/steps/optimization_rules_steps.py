@@ -2,9 +2,11 @@ from behave import *
 from screenplay.tasks.open_web_page import OpenWebPage
 from screenplay.tasks.search_for import SearchFor
 from screenplay.tasks.click_on import ClickOn
+from screenplay.tasks.select_from_dropdown import Select
 from screenplay.questions.get_all import GetAll
 from screenplay.questions.not_visible import NotDisplayed
 from screenplay.questions.is_checked import IsChecked
+from screenplay.questions.get_attribute import GetAttribute
 from screenplay.stage import Stage
 
 stage = Stage()
@@ -112,7 +114,7 @@ def step_impl(context, icon_name):
     """
     rules_number = GetAll(context).rules().length().perform_as(stage.the_actor_in_the_spotlight())
     context.rules_number = rules_number
-    ClickOn(context).button("Duplicate").perform_as(stage.the_actor_in_the_spotlight())
+    ClickOn(context).button(icon_name).perform_as(stage.the_actor_in_the_spotlight())
 
 
 @then("the rule is duplicated")
@@ -124,3 +126,46 @@ def step_impl(context):
     rules_number = GetAll(context).rules().length().perform_as(stage.the_actor_in_the_spotlight())
     assert context.rules_number == rules_number - 1
     assert "copy of " + rule_names[context.random_index] in rule_names
+
+
+@step("she clicks on Delete button on popup")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    ClickOn(context).button("Delete Rule").perform_as(stage.the_actor_in_the_spotlight())
+
+
+@then("the rule is deleted")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    rules_number = GetAll(context).rules().length().perform_as(stage.the_actor_in_the_spotlight())
+    assert context.rules_number == rules_number + 1
+
+
+@step("makes changes on the modal and clicks on Save button")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    values = ["Start", "CTR", "Last 3 days"]
+    ClickOn(context).button("Adset").perform_as(stage.the_actor_in_the_spotlight())
+    Select(context).from_dropdown('action').option(values[0]).perform_as(stage.the_actor_in_the_spotlight())
+    Select(context).from_dropdown('cpc_cpm').option(values[1]).perform_as(stage.the_actor_in_the_spotlight())
+    Select(context).from_dropdown('period').option(values[2]).perform_as(stage.the_actor_in_the_spotlight())
+    ClickOn(context).button("Save").perform_as(stage.the_actor_in_the_spotlight())
+    context.values_to_be_checked = values
+
+@then("the changes are saved")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    ClickOn(context).icon("rule_arrow js-edit-optim-rule", 1).perform_as(stage.the_actor_in_the_spotlight())
+    attr1 = GetAttribute(context).element("action_ddown").attribute("title").perform_as(stage.the_actor_in_the_spotlight())
+    attr2 = GetAttribute(context).element("cpc_cpm_ddown").attribute("title").perform_as(stage.the_actor_in_the_spotlight())
+    attr3 = GetAttribute(context).element("period_ddown").attribute("title").perform_as(stage.the_actor_in_the_spotlight())
+    assert IsChecked(context).radio_btn("adset_radio_input").perform_as(stage.the_actor_in_the_spotlight())
+    assert context.values_to_be_checked == [attr1, attr2, attr3]

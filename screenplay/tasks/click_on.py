@@ -33,6 +33,12 @@ class ClickOn(Task):
             self._element = self.context.optimization_locators.cancel_edit_btn
         elif btn_name == "Cancel Assign":
             self._element = self.context.optimization_locators.cancel_assign_btn
+        elif btn_name == "Delete Rule":
+            self._element = self.context.optimization_locators.delete_rule_btn
+        elif btn_name == "Adset":
+            self._element = self.context.optimization_locators.adset_radio_btn
+        elif btn_name == "Save":
+            self._element = self.context.optimization_locators.save_rule_btn
         else:
             self._element = self.context.optimization_locators.dropdown_icon.set_parameters(self.context.random_index, btn_name)
         return self
@@ -75,6 +81,7 @@ class ClickOn(Task):
             actions += (
                 WaitForOverlayToDisappear(self.context).element(self.context.optimization_locators.datatable_overlay1),
                 WaitForOverlayToDisappear(self.context).element(self.context.optimization_locators.datatable_overlay2),
+                WaitForOverlayToDisappear(self.context).element(self.context.optimization_locators.success_message),
                 Click(self.context).element(self._element),
             )
 
