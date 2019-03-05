@@ -25,12 +25,11 @@ class GetAll(Question):
         return self
 
     def perform_as(self, actor):
-        actions = ()
+        actions = (WaitForOverlayToDisappear(self.context).element(self.context.optimization_locators.success_message),)
         if self._length:
             actions += (Get(self.context).length_of().elements(self.elements),)
         else:
             actions += (
-                WaitForOverlayToDisappear(self.context).element(self.context.optimization_locators.success_message),
                 Get(self.context).elements(self.elements).texts()
             )
 

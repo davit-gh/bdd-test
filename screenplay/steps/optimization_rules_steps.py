@@ -18,7 +18,9 @@ def step_impl(context, ad_creator):
     :type ad_creator: str
     :type context: behave.runner.Context
     """
+    # Assign the number of existing rules to the context variable to be used in later steps
     OpenWebPage(context).with_name('LoginPage').navigate_to("Optimization Rules").perform_as(stage.call_to_stage(ad_creator))
+    context.rules_number = GetAll(context).rules().length().perform_as(stage.the_actor_in_the_spotlight())
 
 
 @step("at least 1 optimization rule is created")
@@ -26,8 +28,7 @@ def step_impl(context):
     """
     :type context: behave.runner.Context
     """
-    rules_number = GetAll(context).rules().length().perform_as(stage.the_actor_in_the_spotlight())
-    assert rules_number >= 1
+    assert context.rules_number >= 1
 
 
 @step("she searches for an existing rule titled {rule_name}")
@@ -113,7 +114,6 @@ def step_impl(context, icon_name):
     :type icon_name: str
     :type context: behave.runner.Context
     """
-    context.rules_number = GetAll(context).rules().length().perform_as(stage.the_actor_in_the_spotlight())
     ClickOn(context).button(icon_name).perform_as(stage.the_actor_in_the_spotlight())
 
 
@@ -137,9 +137,10 @@ def step_impl(context):
     assert context.rules_number == rules_number + 1
 
 
-@step("makes changes on the modal and clicks on Save button")
-def step_impl(context):
+@step("makes changes on the modal and clicks on {save_btn} button")
+def step_impl_make_changes(context, save_btn):
     """
+    :type save_btn: str
     :type context: behave.runner.Context
     """
     values = ["Start", "CTR", "Last 3 days"]
@@ -147,11 +148,11 @@ def step_impl(context):
     Select(context).from_dropdown('action').option(values[0]).perform_as(stage.the_actor_in_the_spotlight())
     Select(context).from_dropdown('cpc_cpm').option(values[1]).perform_as(stage.the_actor_in_the_spotlight())
     Select(context).from_dropdown('period').option(values[2]).perform_as(stage.the_actor_in_the_spotlight())
-    ClickOn(context).button("save_rule_btn").perform_as(stage.the_actor_in_the_spotlight())
+    ClickOn(context).button(save_btn).perform_as(stage.the_actor_in_the_spotlight())
     context.values_to_be_checked = values
 
 @then("the changes are saved")
-def step_impl(context):
+def step_impl_changes_are_saved(context):
     """
     :type context: behave.runner.Context
     """
@@ -169,7 +170,7 @@ def step_impl(context):
     :type context: behave.runner.Context
     """
     Create(context).rule().by_random_name().perform_as(stage.the_actor_in_the_spotlight())
-    context.execute_steps("And makes changes on the modal and clicks on Save button")
+    step_impl_make_changes(context, "create_save_btn")
 
 
 @then("the rule is created")
@@ -177,4 +178,6 @@ def step_impl(context):
     """
     :type context: behave.runner.Context
     """
-    pass
+    rules_number = GetAll(context).rules().length().perform_as(stage.the_actor_in_the_spotlight())
+    assert context.rules_number == rules_number - 1
+    step_impl_changes_are_saved(context)

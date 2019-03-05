@@ -14,7 +14,7 @@ Feature: Optimization Rules Automation
     Given Ad_Creator is on Optimization Rules page
     And at least 1 optimization rule is created
     And she clicks on rule_arrow js-edit-optim-rule icon on any rule
-    And makes changes on the modal and clicks on Save button
+    And makes changes on the modal and clicks on edit_save_btn button
     Then the changes are saved
 
   Scenario: Edit An Existing Rule - Negative
@@ -56,6 +56,6 @@ Feature: Optimization Rules Automation
 
   Scenario: Create Rule
     Given Ad_Creator is on Optimization Rules page
-    And she clicks on create_rule_btn button
+    And clicks on create_rule_btn button
     And gives the rule name, adds conditions, chooses a schedule
     Then the rule is created
