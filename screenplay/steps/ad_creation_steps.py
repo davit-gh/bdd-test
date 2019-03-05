@@ -1,6 +1,6 @@
 from behave import *
 from screenplay.tasks.open_web_page import OpenWebPage
-from screenplay.tasks.create_a_campaign import CreateCampaign
+from screenplay.tasks.create import Create
 from screenplay.tasks.select_from_dropdown import Select
 from screenplay.tasks.choose import Choose, ChooseMultiple
 from screenplay.tasks.click_on import ClickOn
@@ -55,8 +55,7 @@ def step_impl(context, campaign_type):
     :type campaign_type: str
     :type context: behave.runner.Context
     """
-    CreateCampaign(context)\
-        .by_filling_in("campaign_name").choose(campaign_type).perform_as(stage.the_actor_in_the_spotlight())
+    Create(context).campaign(campaign_type).by_random_name().perform_as(stage.the_actor_in_the_spotlight())
 
 
 @step("she chooses an existing audience")
@@ -107,7 +106,7 @@ def step_impl(context):
     :type context: behave.runner.Context
     """
     campaign_titles = UnpublishedAds(context).navigate_to().get_titles().perform_as(stage.the_actor_in_the_spotlight())
-    assert context.campaign_title in campaign_titles
+    assert context.name in campaign_titles
 
 @step("she clicks on Publish Later link")
 def step_impl(context):

@@ -34,7 +34,7 @@ Feature: Create Campaign
     And she chooses Effortis page
     And she creates a new CONVERSIONS campaign
     And she chooses an existing audience
-    And she chooses an Photo Ad ad design
+    And she chooses an Link Ad ad design
     And she clicks on Next button
     And she clicks on Next button
     And she clicks on Publish Later link

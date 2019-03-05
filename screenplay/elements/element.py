@@ -9,7 +9,7 @@ class Element(BaseElement):
     def __init__(self, locator, selector, context):
         super(Element, self).__init__(locator, selector, context)
 
-    def hover_and_click_elements(self, count):
+    def hover_and_click_elements(self, count=None):
         """Hover each element from the list of elements and click on it
 
                 :return: None

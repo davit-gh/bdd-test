@@ -43,15 +43,17 @@ class ClickMultiple(Interaction):
         self._checkboxes = None
 
     def elements(self, elements):
-        self.elements = elements
+        self._elements = elements
         return self
 
     def checkboxes(self, chbs, count):
-        self.elements = chbs
+        self._elements = chbs
         self._count = count
         self._checkboxes = True
         return self
 
     def execute(self):
         if self._checkboxes:
-            self.elements.check_checkboxes(self._count)
+            self._elements.check_checkboxes(self._count)
+        else:
+            self._elements.hover_and_click_elements()

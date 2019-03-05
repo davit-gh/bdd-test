@@ -21,7 +21,7 @@ Feature: Optimization Rules Automation
     Given Ad_Creator is on Optimization Rules page
     And at least 1 optimization rule is created
     And she clicks on rule_arrow js-edit-optim-rule icon on any rule
-    And clicks on Cancel Edit button
+    And clicks on cancel_edit_btn button
     Then the modal is closed
 
   Scenario: Rule Assignment
@@ -36,7 +36,7 @@ Feature: Optimization Rules Automation
     Given Ad_Creator is on Optimization Rules page
     And at least 1 optimization rule is created
     And she clicks on js-assign-rule icon on any rule
-    And clicks on Cancel Assign button
+    And clicks on cancel_assign_btn button
     Then the modal is closed
 
   Scenario: Duplicate Rule
@@ -51,12 +51,11 @@ Feature: Optimization Rules Automation
     And at least 1 optimization rule is created
     And she clicks on dropdown icon on any rule
     And she clicks on Delete icon under that dropdown
-    And she clicks on Delete button on popup
+    And she clicks on delete_rule_btn button
     Then the rule is deleted
 
   Scenario: Create Rule
     Given Ad_Creator is on Optimization Rules page
-    And she clicks on Create Rule button
+    And she clicks on create_rule_btn button
     And gives the rule name, adds conditions, chooses a schedule
-    And clicks on Save button
     Then the rule is created

@@ -3,6 +3,7 @@ from screenplay.tasks.open_web_page import OpenWebPage
 from screenplay.tasks.search_for import SearchFor
 from screenplay.tasks.click_on import ClickOn
 from screenplay.tasks.select_from_dropdown import Select
+from screenplay.tasks.create import Create
 from screenplay.questions.get_all import GetAll
 from screenplay.questions.not_visible import NotDisplayed
 from screenplay.questions.is_checked import IsChecked
@@ -90,7 +91,7 @@ def step_impl(context):
     """
     :type context: behave.runner.Context
     """
-    ClickOn(context).campaign().button("Apply").perform_as(stage.the_actor_in_the_spotlight())
+    ClickOn(context).campaign().button("apply_button").perform_as(stage.the_actor_in_the_spotlight())
     NotDisplayed(context).rule_modal().perform_as(stage.the_actor_in_the_spotlight())
 
 
@@ -103,7 +104,7 @@ def step_impl(context, campaign_name):
     ClickOn(context).icon("js-assign-rule", context.random_index).perform_as(stage.the_actor_in_the_spotlight())
     SearchFor(context).campaign(campaign_name).perform_as(stage.the_actor_in_the_spotlight())
     assert IsChecked(context).first_checkbox().perform_as(stage.the_actor_in_the_spotlight())
-    ClickOn(context).campaign().button("Apply").perform_as(stage.the_actor_in_the_spotlight())
+    ClickOn(context).campaign().button("apply_button").perform_as(stage.the_actor_in_the_spotlight())
 
 
 @step("she clicks on {icon_name} icon under that dropdown")
@@ -112,8 +113,7 @@ def step_impl(context, icon_name):
     :type icon_name: str
     :type context: behave.runner.Context
     """
-    rules_number = GetAll(context).rules().length().perform_as(stage.the_actor_in_the_spotlight())
-    context.rules_number = rules_number
+    context.rules_number = GetAll(context).rules().length().perform_as(stage.the_actor_in_the_spotlight())
     ClickOn(context).button(icon_name).perform_as(stage.the_actor_in_the_spotlight())
 
 
@@ -126,14 +126,6 @@ def step_impl(context):
     rules_number = GetAll(context).rules().length().perform_as(stage.the_actor_in_the_spotlight())
     assert context.rules_number == rules_number - 1
     assert "copy of " + rule_names[context.random_index] in rule_names
-
-
-@step("she clicks on Delete button on popup")
-def step_impl(context):
-    """
-    :type context: behave.runner.Context
-    """
-    ClickOn(context).button("Delete Rule").perform_as(stage.the_actor_in_the_spotlight())
 
 
 @then("the rule is deleted")
@@ -151,11 +143,11 @@ def step_impl(context):
     :type context: behave.runner.Context
     """
     values = ["Start", "CTR", "Last 3 days"]
-    ClickOn(context).button("Adset").perform_as(stage.the_actor_in_the_spotlight())
+    ClickOn(context).button("adset_radio_btn").perform_as(stage.the_actor_in_the_spotlight())
     Select(context).from_dropdown('action').option(values[0]).perform_as(stage.the_actor_in_the_spotlight())
     Select(context).from_dropdown('cpc_cpm').option(values[1]).perform_as(stage.the_actor_in_the_spotlight())
     Select(context).from_dropdown('period').option(values[2]).perform_as(stage.the_actor_in_the_spotlight())
-    ClickOn(context).button("Save").perform_as(stage.the_actor_in_the_spotlight())
+    ClickOn(context).button("save_rule_btn").perform_as(stage.the_actor_in_the_spotlight())
     context.values_to_be_checked = values
 
 @then("the changes are saved")
@@ -169,3 +161,20 @@ def step_impl(context):
     attr3 = GetAttribute(context).element("period_ddown").attribute("title").perform_as(stage.the_actor_in_the_spotlight())
     assert IsChecked(context).radio_btn("adset_radio_input").perform_as(stage.the_actor_in_the_spotlight())
     assert context.values_to_be_checked == [attr1, attr2, attr3]
+
+
+@step("gives the rule name, adds conditions, chooses a schedule")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    Create(context).rule().by_random_name().perform_as(stage.the_actor_in_the_spotlight())
+    context.execute_steps("And makes changes on the modal and clicks on Save button")
+
+
+@then("the rule is created")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    pass

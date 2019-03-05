@@ -14,7 +14,7 @@ class OptimizationRulesPage(BasePage):
         self.rule_search_field = Element(By.XPATH, "//input[@name='search_rule']", context)
         self.search_icon = Element(By.XPATH, "//input[@placeholder='{}']/following-sibling::span", context)
         self.icons = Element(By.XPATH, "(//div[@class='action-buttons-item {}']){}", context)
-        self.dropdown_icon = Element(By.XPATH, "(//div[contains(@class,' dropdown')])[{}]//li[./span[text()=' {}']]", context)
+        self.ddown_opt = Element(By.XPATH, "(//div[contains(@class,' dropdown')])[{}]//li[./span[text()=' {}']]", context)
         self.cancel_edit_btn = Element(By.XPATH, "//div[@id='optimRulesList']//button[text()='Cancel']", context)
         self.cancel_assign_btn = Element(By.ID, "ruleCampaignsCancel", context)
         self.delete_rule_btn = Element(By.ID, "delete-rule-btn", context)
@@ -33,11 +33,7 @@ class OptimizationRulesPage(BasePage):
         self.adset_radio_btn = Element(By.XPATH, "//div[contains(@class,'rule_ad_adset_camp_select')]/div[3]/label", context)
         self.adset_radio_input = Element(By.XPATH, "//div[contains(@class,'rule_ad_adset_camp_select')]/div[3]/input", context)
         self.save_rule_btn = Element(By.XPATH, "//div[@id='rule_container']//button[text()='Save']", context)
+        self.create_rule_btn = Element(By.CLASS_NAME, "create_new_rule", context)
+        self.rule_name_field = Element(By.NAME, "rule_name", context)
         super().__init__(context)
 
-    def get_element(self, name, *args):
-        element = ''
-        if hasattr(self, name):
-            element = getattr(self, name)
-            element.set_parameters(*args)
-        return element

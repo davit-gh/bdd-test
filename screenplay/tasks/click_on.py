@@ -27,20 +27,10 @@ class ClickOn(Task):
         return self
 
     def button(self, btn_name):
-        if btn_name == "Apply":
-            self._element = self.context.optimization_locators.apply_button
-        elif btn_name == "Cancel Edit":
-            self._element = self.context.optimization_locators.cancel_edit_btn
-        elif btn_name == "Cancel Assign":
-            self._element = self.context.optimization_locators.cancel_assign_btn
-        elif btn_name == "Delete Rule":
-            self._element = self.context.optimization_locators.delete_rule_btn
-        elif btn_name == "Adset":
-            self._element = self.context.optimization_locators.adset_radio_btn
-        elif btn_name == "Save":
-            self._element = self.context.optimization_locators.save_rule_btn
-        else:
-            self._element = self.context.optimization_locators.dropdown_icon.set_parameters(self.context.random_index, btn_name)
+        self._element = self.context.optimization_locators.get_element(btn_name)
+        r_ind = self.context.random_index if hasattr(self.context, "random_index") else ""
+        if btn_name == "Duplicate" or btn_name == "Delete":
+            self._element = self.context.optimization_locators.ddown_opt.set_parameters(r_ind, btn_name)
         return self
 
     def randomly_chosen_icon(self, icon_class):
