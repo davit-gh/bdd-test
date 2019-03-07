@@ -4,6 +4,7 @@ from screenplay.tasks.search_for import SearchFor
 from screenplay.tasks.click_on import ClickOn
 from screenplay.tasks.select_from_dropdown import Select
 from screenplay.tasks.create import Create
+from screenplay.tasks.fill_in import FillIn
 from screenplay.questions.get_all import GetAll
 from screenplay.questions.not_visible import NotDisplayed
 from screenplay.questions.is_checked import IsChecked
@@ -143,11 +144,12 @@ def step_impl_make_changes(context, save_btn):
     :type save_btn: str
     :type context: behave.runner.Context
     """
-    values = ["Start", "CTR", "Last 3 days"]
+    values = ["12", "Start", "CTR", "Last 3 days"]
     ClickOn(context).button("adset_radio_btn").perform_as(stage.the_actor_in_the_spotlight())
-    Select(context).from_dropdown('action').option(values[0]).perform_as(stage.the_actor_in_the_spotlight())
-    Select(context).from_dropdown('cpc_cpm').option(values[1]).perform_as(stage.the_actor_in_the_spotlight())
-    Select(context).from_dropdown('period').option(values[2]).perform_as(stage.the_actor_in_the_spotlight())
+    FillIn(context).value(values[0]).in_the_field("rule_price_field").perform_as(stage.the_actor_in_the_spotlight())
+    Select(context).from_dropdown('action').option(values[1]).perform_as(stage.the_actor_in_the_spotlight())
+    Select(context).from_dropdown('cpc_cpm').option(values[2]).perform_as(stage.the_actor_in_the_spotlight())
+    Select(context).from_dropdown('period').option(values[3]).perform_as(stage.the_actor_in_the_spotlight())
     ClickOn(context).button(save_btn).perform_as(stage.the_actor_in_the_spotlight())
     context.values_to_be_checked = values
 
@@ -157,11 +159,12 @@ def step_impl_changes_are_saved(context):
     :type context: behave.runner.Context
     """
     ClickOn(context).icon("rule_arrow js-edit-optim-rule", 1).perform_as(stage.the_actor_in_the_spotlight())
-    attr1 = GetAttribute(context).element("action_ddown").attribute("title").perform_as(stage.the_actor_in_the_spotlight())
-    attr2 = GetAttribute(context).element("cpc_cpm_ddown").attribute("title").perform_as(stage.the_actor_in_the_spotlight())
-    attr3 = GetAttribute(context).element("period_ddown").attribute("title").perform_as(stage.the_actor_in_the_spotlight())
+    attr1 = GetAttribute(context).element("rule_price_field").attribute("value").perform_as(stage.the_actor_in_the_spotlight())
+    attr2 = GetAttribute(context).element("action_ddown").attribute("title").perform_as(stage.the_actor_in_the_spotlight())
+    attr3 = GetAttribute(context).element("cpc_cpm_ddown").attribute("title").perform_as(stage.the_actor_in_the_spotlight())
+    attr4 = GetAttribute(context).element("period_ddown").attribute("title").perform_as(stage.the_actor_in_the_spotlight())
     assert IsChecked(context).radio_btn("adset_radio_input").perform_as(stage.the_actor_in_the_spotlight())
-    assert context.values_to_be_checked == [attr1, attr2, attr3]
+    assert context.values_to_be_checked == [attr1, attr2, attr3, attr4]
 
 
 @step("gives the rule name, adds conditions, chooses a schedule")

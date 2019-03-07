@@ -36,5 +36,6 @@ class OptimizationRulesPage(BasePage):
         self.create_save_btn = Element(By.XPATH, "//div[@id='modal-for-create-rule']//button[text()='Save']", context)
         self.create_rule_btn = Element(By.CLASS_NAME, "create_new_rule", context)
         self.rule_name_field = Element(By.NAME, "rule_name", context)
+        self.rule_price_field = Element(By.NAME, "rule_price", context)
         super().__init__(context)
 
