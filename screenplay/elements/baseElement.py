@@ -117,7 +117,7 @@ class BaseElement(object):
         self.element.send_keys(value)
 
     def is_element_visible(self, timeout=7):
-        """Checks if element is visible by selenium within given timeout
+        """Checks if element is visible within given timeout
 
         :param timeout: int
         :return: boolean

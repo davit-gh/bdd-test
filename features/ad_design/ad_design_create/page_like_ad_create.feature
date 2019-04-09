@@ -7,8 +7,8 @@ Feature: Page Like Ad Creation Screen
 
   Scenario: Open the Page Like Ad creation screen
     Given Ad Design creation popup is opened
-    When I select an Ad Account from adaccount drop-down
-    And I select Adscook page
+    When I select Adzwedo Sandbox Ad Account from adaccount drop-down
+    And I select Test page page
     And I click on pageLikeAd box
     And I click on Next button
     Then I should see pageLikeAdType creation screen

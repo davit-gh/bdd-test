@@ -22,12 +22,13 @@ def step_impl(context):
     context.adsdesignpage.click_create_ad_design_button()
 
 
-@when("I select an Ad Account from adaccount drop-down")
-def step_impl(context):
+@when("I select (?P<adaccount_name>.+) from adaccount drop-down")
+def step_impl(context, adaccount_name):
     """
+    :type adaccount_name: str
     :type context: behave.runner.Context
     """
-    context.adsdesignpage.select_ad_account()
+    context.adsdesignpage.pick_ad_account_on_modal(adaccount_name)
 
 
 @step("I select (?P<page_name>.+) page")
@@ -72,12 +73,13 @@ def step_impl(context, adtype_id):
     context.adsdesignpage.verify_on_ad_design_page()
     context.adsdesignpage.click_create_ad_design_button()
     if adtype_id == 'leadAd':
-        context.adsdesignpage.select_page('Effortis')
+        context.adsdesignpage.select_page('Test page')
     context.adsdesignpage.click_box(adtype_id)
     context.adsdesignpage.click_btn("Next")
     context.ad_type = adtype_id + "Type"
     context.adsdesignpage.screen_is_displayed(context.ad_type)
     context.popup_window = PopUpWindow(driver)
+    context.design_count = context.adsdesignpage._get_design_count()
 
 
 @when('I click on (?P<box_name>.+) box')
@@ -208,7 +210,7 @@ def step_impl(context, count, ad_type):
     :type count: str
     :type context: behave.runner.Context
     """
-    context.adsdesignpage.verify_that_ads_were_created(count, ad_type)
+    context.adsdesignpage.verify_that_ads_were_created(count, ad_type, context)
 
 
 @step("I (?P<choose_or_upload>.+) multiple images as a slideshow")

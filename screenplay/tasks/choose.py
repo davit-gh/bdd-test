@@ -21,7 +21,7 @@ class Choose(Task):
 
         actions = (
             Click(self.context).element(self.select_btn),
-            Click(self.context).element(self.context.create_ad_locators.next_btn)
+            Click(self.context).element(self.context.create_ad_locators.footer_btn.set_parameters("Next"))
         )
         actor.attempts_to("dummy", *actions)
 

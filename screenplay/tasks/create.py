@@ -12,7 +12,7 @@ class Create(Task):
     def campaign(self, campaign_type):
         self.elements_to_click = [
             self.context.create_ad_locators.get_element("campaign_type", campaign_type),
-            self.context.create_ad_locators.next_btn
+            self.context.create_ad_locators.footer_btn.set_parameters("Next")
         ]
         self._element = self.context.create_ad_locators.get_element("campaign_title_field")
         return self

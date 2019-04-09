@@ -7,8 +7,8 @@ Feature: Lead Ad Creation Screen
 
   Scenario: Open the Lead Ad creation screen
     Given Ad Design creation popup is opened
-    When I select an Ad Account from adaccount drop-down
-    And I select Adscook page
+    When I select Adzwedo Sandbox Ad Account from adaccount drop-down
+    And I select Test page page
     And I click on leadAd box
     And I click on Next button
     Then I should see leadAdType creation screen

@@ -7,8 +7,8 @@ Feature: Create Campaign
   Scenario Outline: Create Campaign - Positive
     Given Ad_Creator is logged in
     When she clicks on Create Ad button
-    And she chooses 155367MK ad account
-    And she chooses Effortis page
+    And she chooses Adzwedo Sandbox Ad Account ad account
+    And she chooses Test page page
     And she creates a new <campaign_type> campaign
     And she chooses an existing audience
     And she chooses an <ad_design_type> ad design
@@ -30,8 +30,8 @@ Feature: Create Campaign
   Scenario: Publish Later
     Given Ad_Creator is logged in
     When she clicks on Create Ad button
-    And she chooses 155367MK ad account
-    And she chooses Effortis page
+    And she chooses Adzwedo Sandbox Ad Account ad account
+    And she chooses Test page page
     And she creates a new CONVERSIONS campaign
     And she chooses an existing audience
     And she chooses an Link Ad ad design
@@ -43,8 +43,8 @@ Feature: Create Campaign
   Scenario: No Audience Selected
     Given Ad_Creator is logged in
     When she clicks on Create Ad button
-    And she chooses 155367MK ad account
-    And she chooses Effortis page
+    And she chooses Adzwedo Sandbox Ad Account ad account
+    And she chooses Test page page
     And she creates a new CONVERSIONS campaign
     And she clicks on Next button
     Then she sees Field is required error notification
@@ -52,8 +52,8 @@ Feature: Create Campaign
   Scenario: No Ad Design Selected
     Given Ad_Creator is logged in
     When she clicks on Create Ad button
-    And she chooses 155367MK ad account
-    And she chooses Effortis page
+    And she chooses Adzwedo Sandbox Ad Account ad account
+    And she chooses Test page page
     And she creates a new POST_ENGAGEMENT campaign
     And she chooses an existing audience
     And she clicks on Next button
@@ -62,8 +62,8 @@ Feature: Create Campaign
   Scenario: Create Adset Per Ad Design
     Given Ad_Creator is logged in
     When she clicks on Create Ad button
-    And she chooses 155367MK ad account
-    And she chooses Effortis page
+    And she chooses Adzwedo Sandbox Ad Account ad account
+    And she chooses Test page page
     And she creates a new POST_ENGAGEMENT campaign
     And she chooses 2 existing audiences
     And she chooses 3 Photo Ad ad designs

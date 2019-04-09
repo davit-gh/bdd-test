@@ -1,6 +1,6 @@
 login_page_url = "https://adzwedo.getpinner.com/user/signin"
-correct_username = "kate+eff@effortis.com"
+correct_username = "my@email.com"
 incorrect_username = "incorrect+uname@effortis.com"
 correct_pwd = "123456"
 random_pwd = "rnd12pwd$"
-profile_name = "Test test"
+profile_name = "red sun"

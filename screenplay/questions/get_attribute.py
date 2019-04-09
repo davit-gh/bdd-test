@@ -6,8 +6,9 @@ class GetAttribute(Question):
     def __init__(self, context):
         super().__init__(context)
 
-    def element(self, name):
-        self._element = self.context.optimization_locators.get_element(name)
+    def element(self, name, locators_group="optimization_locators"):
+        locators = getattr(self.context, locators_group)
+        self._element = locators.get_element(name)
         return self
 
     def attribute(self, attr_name):

@@ -8,14 +8,14 @@ Feature: Photo Ad Creation Screen
   Scenario: Open the Photo Ad creation screen
     Given Ad Design creation popup is opened
     When I select an Ad Account from adaccount drop-down
-    And I select a page
+    And I select Test page page
     And I click on photoAd box
     And I click on Create button on photoAdType popup
     Then I should see photoAdType creation screen
 
   Scenario: Create a photo ad - positive
     Given I am on photoAd creation screen
-    When I upload a single image
+    When I upload a single image for photoAdType
     And I click on Create button on photoAdType popup
     Then I should see 1 newly created Photo Ad designs
 

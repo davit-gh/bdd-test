@@ -83,7 +83,7 @@ class PopUpWindow(WebApp):
             if choose_or_upload == 'upload':
                 video = os.getcwd() + "{}\\SampleVideo.mp4".format(path_videos)
                 self.driver.instance.find_element(*PopUpWindowLocators.UPLOAD_SINGLE_VIDEO_FILE).send_keys(video)
-                self.wait_for_element(PopUpWindowLocators.FILE_UPLOAD_COMPLETED, time=20)
+                self.wait_for_element(PopUpWindowLocators.FILE_UPLOAD_COMPLETED, time=40)
             else:
                 btn_selector = (By.XPATH, PopUpWindowLocators.CHOOSE_EXISTING_BTN_XPATH.format(ad_type))
                 choose_existing_btn = self.wait_for_clickable(btn_selector)

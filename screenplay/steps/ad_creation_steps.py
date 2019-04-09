@@ -7,9 +7,11 @@ from screenplay.tasks.click_on import ClickOn
 from screenplay.tasks.open_campaign_details_page import OpenCampaignDetailsPage
 from screenplay.interactions.click import Click
 from screenplay.interactions.wait import WaitForOverlayToDisappear
+from screenplay.interactions.wait import WaitForVisible
 from screenplay.questions.unpublished_ads import UnpublishedAds
 from screenplay.questions.validation import Validation
 from screenplay.questions.get_all import GetAll
+from screenplay.questions.get_attribute import GetAttribute
 from screenplay.stage import Stage
 
 stage = Stage()
@@ -98,7 +100,7 @@ def step_impl(context, button_name):
     :type button_name: str
     :type context: behave.runner.Context
     """
-    Click(context).element(context.create_ad_locators.next_btn).execute()
+    Click(context).element(context.create_ad_locators.footer_btn.set_parameters(button_name)).execute()
 
 @then("The campaign is moved to Unpublished Ads")
 def step_impl(context):
@@ -151,3 +153,14 @@ def step_impl(context, count):
     :type context: behave.runner.Context
     """
     ClickOn(context).multiple(count).checkboxes().and_first_split_switch().perform_as(stage.the_actor_in_the_spotlight())
+
+
+@then("The campaign is successfully published")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    WaitForVisible(context).element("submit_modal", "create_ad_locators").timeout(30).execute()
+    style_attr = GetAttribute(context).element("submit_modal", "create_ad_locators").attribute("style")\
+        .perform_as(stage.the_actor_in_the_spotlight())
+    assert "display: block;" in style_attr

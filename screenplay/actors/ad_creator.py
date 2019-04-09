@@ -2,5 +2,5 @@ from screenplay.actors.actor import Actor
 
 class Ad_Creator(Actor):
 
-    email = "kate+eff@effortis.com"
+    email = "my@email.com"
     password = "123456"

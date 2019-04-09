@@ -16,6 +16,8 @@ class AdDesignPageLocator(object):
     AD_ACCOUNT_OPTION_XPATH = "//div[@class='filters-content--item'][1]//ul/li[.//span[text()='{}']]"
     AD_ACCOUNT_VALUE_XPATH = "//div[@class='filters-content--item']//option[text()='{}']"
     AD_ACCOUNT_DROPDOWN = (By.XPATH, "//div[@class='filters-content--item'][1]//button")
+    AD_ACCOUNT_DROPDOWN_BTN_POPUP = (By.XPATH, "(//form[@id='addesign']//button)[1]")
+    AD_ACCOUNT_DROPDOWN_OPTION_POPUP_XPATH = "//form[@id='addesign']//a/span[text()='{}']"
     PUBLISHED_POSTS_TABLE_ROW = (By.XPATH, "//div[@id='selectedByPublishedPosts']//tbody/tr")
     SELECT_BTN = (By.XPATH, "//div[@id='selectedByPublishedPosts']//tbody/tr//button")
     ERROR_LABEL = (By.CLASS_NAME, "error_message")
@@ -119,6 +121,7 @@ class AdDesignPage(WebApp):
 
     def click_create_ad_design_button(self):
         self.click_element(*AdDesignPageLocator.CREATE_AD_DESIGN_BUTTON)
+        time.sleep(2)
 
     def verify_ad_design_popup_is_displayed(self):
         element = self.wait_for_element(AdDesignPageLocator.MODAL_ID)
@@ -132,6 +135,11 @@ class AdDesignPage(WebApp):
         value_locator = (By.XPATH, AdDesignPageLocator.AD_ACCOUNT_VALUE_XPATH.format(ad_account))
         value = self.wait_for_element(value_locator).get_attribute("value")
         return value
+
+    def pick_ad_account_on_modal(self, ad_account_name):
+        self.wait_for_clickable(AdDesignPageLocator.AD_ACCOUNT_DROPDOWN_BTN_POPUP).click()
+        option = (By.XPATH, AdDesignPageLocator.AD_ACCOUNT_DROPDOWN_OPTION_POPUP_XPATH.format(ad_account_name))
+        self.wait_for_clickable(option).click()
 
     def click_box(self, box_name):
         box_locator = (By.XPATH, "//label[@for='{}']".format(box_name))
@@ -479,16 +487,21 @@ class AdDesignPage(WebApp):
     def click_folder_creation_save_icon(self):
         self.wait_for_element(AdDesignPageLocator.SAVE_ICON).click()
 
-    def verify_that_ads_were_created(self, count, ad_type):
+    def verify_that_ads_were_created(self, count, ad_type, context):
         time.sleep(1)
         count = int(count)
         for i in range(count):
             overlay_selector = (By.XPATH, AdDesignPageLocator.IMG_LOADING_OVERLAYS_XPATH.format(i + 1))
             self.wait_for_element_to_disappear(overlay_selector)
-        elements = self.wait_for_elements(AdDesignPageLocator.AD_DESIGN_HEADER_DATE)
-        ad_header_dates = [date.text for date in elements]
-        current_date = self._get_current_date()
-        assert ad_header_dates.count(current_date) == count
+        #elements = self.wait_for_elements(AdDesignPageLocator.AD_DESIGN_HEADER_DATE)
+        #ad_header_dates = [date.text for date in elements]
+        #current_date = self._get_current_date()
+        design_count = self._get_design_count()
+        if design_count == int(context.design_count) + count:
+            raise AssertionError(
+                "Current count: {} is not equal to {} + {}".format(design_count, context.design_count, count)
+            )
+
 
     def verify_that_ad_with_specific_type_exists(self, ad_header: str):
         ad_types = self.wait_for_elements((By.XPATH, AdDesignPageLocator.AD_DESIGN_HEADER_TEXT.format(ad_header)))
@@ -560,6 +573,10 @@ class AdDesignPage(WebApp):
         dropdown = (By.XPATH, "//div[@class='filters-content--item'][2]/div")
         self.wait_for_clickable(dropdown).click()
         self.wait_for_clickable((By.XPATH, "(//li[.//p[text()='{}']])[1]".format(page_name))).click()
+
+    def _get_design_count(self):
+        element = self.find_element(*AdDesignPageLocator.AD_DESIGN_COUNT)
+        return element.text
 
     @staticmethod
     def _get_current_date():
