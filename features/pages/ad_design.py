@@ -196,10 +196,10 @@ class AdDesignPage(WebApp):
     def fill_in_letters(self):
         selector = (By.XPATH, "//div[@class='bs-searchbox']/input")
         element = self.wait_for_element(selector)
-        element.send_keys('Eff')
+        element.send_keys('Test')
 
     def filter_pages(self):
-        selector = (By.XPATH, "//li[@data-original-index='2']")
+        selector = (By.XPATH, "//li[@data-original-index='1']")
         element = self.wait_for_element(selector)
         assert 'active' in element.get_attribute('class')
 

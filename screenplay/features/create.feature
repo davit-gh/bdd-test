@@ -5,9 +5,9 @@ Feature: Create Campaign
   when I choose a campaign objective and follow through the flow
 
   Scenario Outline: Create Campaign - Positive
-    Given Ad_Creator is logged in
+    Given Live_User is logged in
     When she clicks on Create Ad button
-    And she chooses Adzwedo Sandbox Ad Account ad account
+    And she chooses Adzwedo Account ad account
     And she chooses Test page page
     And she creates a new <campaign_type> campaign
     And she chooses an existing audience
@@ -28,9 +28,9 @@ Feature: Create Campaign
     | VIDEO_VIEWS       | Video Ad        |
 
   Scenario: Publish Later
-    Given Ad_Creator is logged in
+    Given Live_User is logged in
     When she clicks on Create Ad button
-    And she chooses Adzwedo Sandbox Ad Account ad account
+    And she chooses Adzwedo Account ad account
     And she chooses Test page page
     And she creates a new CONVERSIONS campaign
     And she chooses an existing audience
@@ -41,18 +41,18 @@ Feature: Create Campaign
     Then The campaign is moved to Unpublished Ads
 
   Scenario: No Audience Selected
-    Given Ad_Creator is logged in
+    Given Live_User is logged in
     When she clicks on Create Ad button
-    And she chooses Adzwedo Sandbox Ad Account ad account
+    And she chooses Adzwedo Account ad account
     And she chooses Test page page
     And she creates a new CONVERSIONS campaign
     And she clicks on Next button
     Then she sees Field is required error notification
 
   Scenario: No Ad Design Selected
-    Given Ad_Creator is logged in
+    Given Live_User is logged in
     When she clicks on Create Ad button
-    And she chooses Adzwedo Sandbox Ad Account ad account
+    And she chooses Adzwedo Account ad account
     And she chooses Test page page
     And she creates a new POST_ENGAGEMENT campaign
     And she chooses an existing audience
@@ -60,9 +60,9 @@ Feature: Create Campaign
     Then she sees Field is required error notification
 
   Scenario: Create Adset Per Ad Design
-    Given Ad_Creator is logged in
+    Given Live_User is logged in
     When she clicks on Create Ad button
-    And she chooses Adzwedo Sandbox Ad Account ad account
+    And she chooses Adzwedo Account ad account
     And she chooses Test page page
     And she creates a new POST_ENGAGEMENT campaign
     And she chooses 2 existing audiences

@@ -1,4 +1,4 @@
-from screenplay.actors.ad_creator import Ad_Creator
+from screenplay.actors.ad_creator import Ad_Creator, Live_User
 
 class Stage(object):
 
@@ -8,8 +8,8 @@ class Stage(object):
     def call_to_stage(self, actor):
         if actor == "Ad_Creator":
             self.current_actor = Ad_Creator
-        else:
-            pass
+        elif actor == "Live_User":
+            self.current_actor = Live_User
         return self.the_actor_in_the_spotlight()
 
     def the_actor_in_the_spotlight(self):

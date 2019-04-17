@@ -239,3 +239,12 @@ def step_impl(context, field_type):
     :type context: behave.runner.Context
     """
     context.popup_window.edit_text_input_value(field_type, context.ad_type)
+
+
+@when("I choose 1 image on each on of 3 cards")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    for i in range(3):
+        pass

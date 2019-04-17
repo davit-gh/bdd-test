@@ -1,28 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e9890c41-f447-49b9-8112-3fdbafcb276b" name="Default Changelist" comment="implement the first scenario in optimization rules feature">
-      <change afterPath="$PROJECT_DIR$/features/ad_design/ad_design_create/carousel_ad_create.feature" afterDir="false" />
+    <list default="true" id="e9890c41-f447-49b9-8112-3fdbafcb276b" name="Default Changelist" comment="Recent changes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/ad_design/ad_design_create/lead_ad_create.feature" beforeDir="false" afterPath="$PROJECT_DIR$/features/ad_design/ad_design_create/lead_ad_create.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/ad_design/ad_design_create/link_ad_create.feature" beforeDir="false" afterPath="$PROJECT_DIR$/features/ad_design/ad_design_create/link_ad_create.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/ad_design/ad_design_create/page_like_ad_create.feature" beforeDir="false" afterPath="$PROJECT_DIR$/features/ad_design/ad_design_create/page_like_ad_create.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/ad_design/ad_design_create/page_post_ad_create.feature" beforeDir="false" afterPath="$PROJECT_DIR$/features/ad_design/ad_design_create/page_post_ad_create.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/ad_design/ad_design_create/photo_ad_create.feature" beforeDir="false" afterPath="$PROJECT_DIR$/features/ad_design/ad_design_create/photo_ad_create.feature" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/features/ad_design/ad_design_create/steps/addesign_steps.py" beforeDir="false" afterPath="$PROJECT_DIR$/features/ad_design/ad_design_create/steps/addesign_steps.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/ad_design/ad_design_create/video_ad_create.feature" beforeDir="false" afterPath="$PROJECT_DIR$/features/ad_design/ad_design_create/video_ad_create.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/pages/ad_design.py" beforeDir="false" afterPath="$PROJECT_DIR$/features/pages/ad_design.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features/pages/popup_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/features/pages/popup_window.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/features/ad_design_filtering.feature" beforeDir="false" afterPath="$PROJECT_DIR$/features/ad_design_filtering.feature" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/screenplay/actors/ad_creator.py" beforeDir="false" afterPath="$PROJECT_DIR$/screenplay/actors/ad_creator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screenplay/elements/baseElement.py" beforeDir="false" afterPath="$PROJECT_DIR$/screenplay/elements/baseElement.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/screenplay/features/create.feature" beforeDir="false" afterPath="$PROJECT_DIR$/screenplay/features/create.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screenplay/interactions/wait.py" beforeDir="false" afterPath="$PROJECT_DIR$/screenplay/interactions/wait.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screenplay/pages/createAdPage.py" beforeDir="false" afterPath="$PROJECT_DIR$/screenplay/pages/createAdPage.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screenplay/questions/get_attribute.py" beforeDir="false" afterPath="$PROJECT_DIR$/screenplay/questions/get_attribute.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screenplay/steps/ad_creation_steps.py" beforeDir="false" afterPath="$PROJECT_DIR$/screenplay/steps/ad_creation_steps.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screenplay/tasks/choose.py" beforeDir="false" afterPath="$PROJECT_DIR$/screenplay/tasks/choose.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screenplay/tasks/create.py" beforeDir="false" afterPath="$PROJECT_DIR$/screenplay/tasks/create.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenplay/stage.py" beforeDir="false" afterPath="$PROJECT_DIR$/screenplay/stage.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -35,7 +20,7 @@
     <SUITE FILE_PATH="coverage/bdd_prof$scenario.coverage" NAME="scenario Coverage Results" MODIFIED="1546782028586" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/bdd_latest$audience_modal.coverage" NAME="audience_modal Coverage Results" MODIFIED="1549348333983" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/features/pages" />
     <SUITE FILE_PATH="coverage/bdd_latest$audience_create_steps.coverage" NAME="audience_create_steps Coverage Results" MODIFIED="1549354432436" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/features/audience/steps" />
-    <SUITE FILE_PATH="coverage/bdd_latest$scenario.coverage" NAME="scenario Coverage Results" MODIFIED="1554795942603" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/bdd_latest$scenario.coverage" NAME="scenario Coverage Results" MODIFIED="1555500591878" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
   <component name="DatabaseView">
     <option name="SHOW_INTERMEDIATE" value="true" />
@@ -54,51 +39,39 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/features/ad_design/ad_design_create/link_ad_create.feature">
+        <entry file="file://$PROJECT_DIR$/features/ad_design/ad_design_create/steps/addesign_steps.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="7" column="38" lean-forward="true" selection-start-line="7" selection-start-column="38" selection-end-line="7" selection-end-column="38" />
+            <state relative-caret-position="215">
+              <caret line="249" column="12" selection-start-line="249" selection-start-column="12" selection-end-line="249" selection-end-column="12" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/features/pages/ad_design.py">
+        <entry file="file://$PROJECT_DIR$/features/ad_design_filtering.feature">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="25" column="39" selection-start-line="25" selection-start-column="39" selection-end-line="25" selection-end-column="39" />
-              <folding>
-                <element signature="e#0#13#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="255">
+              <caret line="24" column="42" selection-start-line="24" selection-start-column="42" selection-end-line="24" selection-end-column="42" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/features/steps/popup.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="191">
+              <caret line="135" column="34" selection-start-line="135" selection-start-column="34" selection-end-line="135" selection-end-column="34" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/features/ad_design/ad_design_create/carousel_ad_create.feature">
+        <entry file="file://$PROJECT_DIR$/features/pages/ad_design.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="171">
-              <caret line="34" column="29" selection-start-line="34" selection-start-column="29" selection-end-line="34" selection-end-column="29" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/features/ad_design/ad_design_create/steps/addesign_steps.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="208">
-              <caret line="30" column="35" selection-start-line="30" selection-start-column="35" selection-end-line="30" selection-end-column="35" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/screenplay/pages/createAdPage.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="8" column="79" selection-start-line="8" selection-start-column="79" selection-end-line="8" selection-end-column="79" />
+            <state relative-caret-position="106">
+              <caret line="200" column="8" selection-start-line="200" selection-start-column="8" selection-end-line="200" selection-end-column="8" />
               <folding>
-                <element signature="e#0#46#0" expanded="true" />
+                <element signature="e#0#13#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -107,8 +80,50 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/features/pages/popup_window.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1309">
-              <caret line="85" column="87" selection-start-line="85" selection-start-column="87" selection-end-line="85" selection-end-column="87" />
+            <state relative-caret-position="1105">
+              <caret line="73" column="8" selection-start-line="73" selection-start-column="8" selection-end-line="73" selection-end-column="8" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/screenplay/steps/ad_creation_steps.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="25" column="67" selection-start-line="25" selection-start-column="67" selection-end-line="25" selection-end-column="67" />
+              <folding>
+                <element signature="e#0#20#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/screenplay/stage.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="11" column="42" selection-start-line="11" selection-start-column="42" selection-end-line="11" selection-end-column="42" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/screenplay/tasks/open_web_page.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="153">
+              <caret line="18" column="8" selection-start-line="18" selection-start-column="8" selection-end-line="18" selection-end-column="8" />
+              <folding>
+                <element signature="e#0#50#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/screenplay/actors/ad_creator.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="10" column="22" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -126,7 +141,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>ische</find>
       <find>she clicks on</find>
       <find>button</find>
       <find>clicks on</find>
@@ -156,7 +170,11 @@
       <find>createAdDesignModal</find>
       <find>Ad Account:</find>
       <find>adzwe</find>
+      <find>Ad_Creator</find>
     </findStrings>
+    <replaceStrings>
+      <replace>Live_User</replace>
+    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -164,8 +182,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/ad_creation_screenplay/interactions/click.py" />
-        <option value="$PROJECT_DIR$/ad_creation_screenplay/pages/intermediatePages.py" />
         <option value="$PROJECT_DIR$/ad_creation_screenplay/tasks/click_on.py" />
         <option value="$PROJECT_DIR$/ad_creation_screenplay/features/create.feature" />
         <option value="$PROJECT_DIR$/ad_creation_screenplay/elements/element.py" />
@@ -193,7 +209,6 @@
         <option value="$PROJECT_DIR$/screenplay/tasks/fill_in.py" />
         <option value="$PROJECT_DIR$/screenplay/tasks/select_from_dropdown.py" />
         <option value="$PROJECT_DIR$/screenplay/steps/optimization_rules_steps.py" />
-        <option value="$PROJECT_DIR$/config/settings.py" />
         <option value="$PROJECT_DIR$/features/ad_design/ad_design_create/lead_ad_create.feature" />
         <option value="$PROJECT_DIR$/framework/webapp.py" />
         <option value="$PROJECT_DIR$/features/ad_design/ad_design_create/link_ad_create.feature" />
@@ -201,7 +216,6 @@
         <option value="$PROJECT_DIR$/features/ad_design/ad_design_create/page_post_ad_create.feature" />
         <option value="$PROJECT_DIR$/features/ad_design/ad_design_create/photo_ad_create.feature" />
         <option value="$PROJECT_DIR$/features/ad_design/ad_design_create/video_ad_create.feature" />
-        <option value="$PROJECT_DIR$/screenplay/actors/ad_creator.py" />
         <option value="$PROJECT_DIR$/screenplay/tasks/create.py" />
         <option value="$PROJECT_DIR$/screenplay/tasks/choose.py" />
         <option value="$PROJECT_DIR$/screenplay/questions/get_attribute.py" />
@@ -209,18 +223,22 @@
         <option value="$PROJECT_DIR$/screenplay/elements/baseElement.py" />
         <option value="$PROJECT_DIR$/screenplay/interactions/wait.py" />
         <option value="$PROJECT_DIR$/screenplay/steps/ad_creation_steps.py" />
-        <option value="$PROJECT_DIR$/screenplay/features/create.feature" />
         <option value="$PROJECT_DIR$/features/pages/popup_window.py" />
-        <option value="$PROJECT_DIR$/features/ad_design/ad_design_create/steps/addesign_steps.py" />
         <option value="$PROJECT_DIR$/features/steps/del.html" />
         <option value="$PROJECT_DIR$/features/pages/ad_design.py" />
         <option value="$PROJECT_DIR$/features/ad_design/ad_design_create/carousel_ad_create.feature" />
+        <option value="$PROJECT_DIR$/screenplay/actors/ad_creator.py" />
+        <option value="$PROJECT_DIR$/screenplay/stage.py" />
+        <option value="$PROJECT_DIR$/screenplay/features/create.feature" />
+        <option value="$PROJECT_DIR$/features/ad_design/ad_design_create/steps/addesign_steps.py" />
+        <option value="$PROJECT_DIR$/features/ad_design_filtering.feature" />
+        <option value="$PROJECT_DIR$/config/settings.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="78" />
-    <option name="y" value="170" />
+    <option name="x" value="211" />
+    <option name="y" value="284" />
     <option name="width" value="1429" />
     <option name="height" value="724" />
   </component>
@@ -241,20 +259,12 @@
             <path>
               <item name="bdd-latest" type="b2602c69:ProjectViewProjectNode" />
               <item name="bdd-latest" type="462c0819:PsiDirectoryNode" />
-              <item name="features" type="462c0819:PsiDirectoryNode" />
+              <item name="config" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="bdd-latest" type="b2602c69:ProjectViewProjectNode" />
               <item name="bdd-latest" type="462c0819:PsiDirectoryNode" />
               <item name="features" type="462c0819:PsiDirectoryNode" />
-              <item name="ad_design" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="bdd-latest" type="b2602c69:ProjectViewProjectNode" />
-              <item name="bdd-latest" type="462c0819:PsiDirectoryNode" />
-              <item name="features" type="462c0819:PsiDirectoryNode" />
-              <item name="ad_design" type="462c0819:PsiDirectoryNode" />
-              <item name="ad_design_create" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -265,8 +275,8 @@
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/features/ad_design/ad_design_create/link_ad_create.feature" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.smartKeys" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/features/ad_design_filtering.feature" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -313,7 +323,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <WHAT_TO_RUN WHAT_TO_RUN="$PROJECT_DIR$/features/ad_design/ad_design_create/link_ad_create.feature" />
+      <WHAT_TO_RUN WHAT_TO_RUN="$PROJECT_DIR$/features/ad_design_filtering.feature" />
       <option name="ADDITIONAL_ARGS" value="" />
       <method v="2" />
     </configuration>
@@ -439,7 +449,10 @@
       <workItem from="1554448209381" duration="13057000" />
       <workItem from="1554706192758" duration="655000" />
       <workItem from="1554709530386" duration="5918000" />
-      <workItem from="1554794166476" duration="4472000" />
+      <workItem from="1554794166476" duration="5176000" />
+      <workItem from="1554965797240" duration="1619000" />
+      <workItem from="1555050533888" duration="5056000" />
+      <workItem from="1555490268014" duration="3347000" />
     </task>
     <task id="LOCAL-00001" summary="Continue audience creation steps implementation">
       <created>1549290967383</created>
@@ -574,43 +587,50 @@
       <option name="project" value="LOCAL" />
       <updated>1551961132826</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Recent changes">
+      <created>1554817810188</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1554817810189</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="scenario - 2019.04.08 at 15h 20m 53s.xml">
-      <configuration name="scenario" configurationId="PyBehaveRunConfigurationType" />
-    </history-entry>
-    <history-entry file="scenario - 2019.04.08 at 15h 30m 50s.xml">
-      <configuration name="scenario" configurationId="PyBehaveRunConfigurationType" />
-    </history-entry>
-    <history-entry file="scenario - 2019.04.08 at 19h 04m 43s.xml">
-      <configuration name="scenario" configurationId="PyBehaveRunConfigurationType" />
-    </history-entry>
-    <history-entry file="scenario - 2019.04.08 at 19h 05m 28s.xml">
-      <configuration name="scenario" configurationId="PyBehaveRunConfigurationType" />
-    </history-entry>
-    <history-entry file="scenario - 2019.04.09 at 11h 20m 21s.xml">
-      <configuration name="scenario" configurationId="PyBehaveRunConfigurationType" />
-    </history-entry>
-    <history-entry file="scenario - 2019.04.09 at 11h 20m 58s.xml">
-      <configuration name="scenario" configurationId="PyBehaveRunConfigurationType" />
-    </history-entry>
-    <history-entry file="scenario - 2019.04.09 at 11h 33m 02s.xml">
-      <configuration name="scenario" configurationId="PyBehaveRunConfigurationType" />
-    </history-entry>
-    <history-entry file="scenario - 2019.04.09 at 11h 33m 34s.xml">
-      <configuration name="scenario" configurationId="PyBehaveRunConfigurationType" />
-    </history-entry>
     <history-entry file="scenario - 2019.04.09 at 11h 44m 22s.xml">
       <configuration name="scenario" configurationId="PyBehaveRunConfigurationType" />
     </history-entry>
     <history-entry file="scenario - 2019.04.09 at 11h 50m 17s.xml">
       <configuration name="scenario" configurationId="PyBehaveRunConfigurationType" />
     </history-entry>
+    <history-entry file="scenario - 2019.04.11 at 11h 07m 24s.xml">
+      <configuration name="scenario" configurationId="PyBehaveRunConfigurationType" />
+    </history-entry>
+    <history-entry file="scenario - 2019.04.11 at 11h 08m 18s.xml">
+      <configuration name="scenario" configurationId="PyBehaveRunConfigurationType" />
+    </history-entry>
+    <history-entry file="scenario - 2019.04.11 at 11h 13m 40s.xml">
+      <configuration name="scenario" configurationId="PyBehaveRunConfigurationType" />
+    </history-entry>
+    <history-entry file="scenario - 2019.04.17 at 15h 18m 20s.xml">
+      <configuration name="scenario" configurationId="PyBehaveRunConfigurationType" />
+    </history-entry>
+    <history-entry file="scenario - 2019.04.17 at 15h 18m 53s.xml">
+      <configuration name="scenario" configurationId="PyBehaveRunConfigurationType" />
+    </history-entry>
+    <history-entry file="scenario - 2019.04.17 at 15h 20m 15s.xml">
+      <configuration name="scenario" configurationId="PyBehaveRunConfigurationType" />
+    </history-entry>
+    <history-entry file="scenario - 2019.04.17 at 15h 20m 26s.xml">
+      <configuration name="scenario" configurationId="PyBehaveRunConfigurationType" />
+    </history-entry>
+    <history-entry file="scenario - 2019.04.17 at 15h 25m 21s.xml">
+      <configuration name="scenario" configurationId="PyBehaveRunConfigurationType" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="410437000" />
+    <option name="totallyTimeSpent" value="421163000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -622,25 +642,25 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="78" y="170" width="1429" height="724" extended-state="0" />
+    <frame x="211" y="284" width="1429" height="724" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24689554" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25785244" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32922536" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.3556338" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3556338" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.44542253" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.32833582" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.3274648" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="10" weight="0.3286385" />
-      <window_info anchor="bottom" id="Terminal" order="11" weight="0.32833582" />
-      <window_info anchor="bottom" id="Python Console" order="12" weight="0.32833582" />
+      <window_info anchor="bottom" id="Version Control" order="10" weight="0.3274648" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.3274648" />
+      <window_info anchor="bottom" id="Python Console" order="12" weight="0.3274648" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -693,7 +713,8 @@
     <MESSAGE value="Do some refactoring, start implementing Create Rule scenario" />
     <MESSAGE value="continue with Create Rule implementation" />
     <MESSAGE value="add new action to create/edit rule" />
-    <option name="LAST_COMMIT_MESSAGE" value="add new action to create/edit rule" />
+    <MESSAGE value="Recent changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Recent changes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -731,23 +752,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/screenplay/interactions/is_displayed.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="13" column="47" lean-forward="true" selection-start-line="13" selection-start-column="47" selection-end-line="13" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/screenplay/tasks/search_for.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="24" column="54" selection-start-line="24" selection-start-column="54" selection-end-line="24" selection-end-column="54" />
-          <folding>
-            <element signature="e#0#38#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/screenplay/questions/not_visible.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="207">
@@ -886,13 +890,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="23" selection-start-line="5" selection-start-column="23" selection-end-line="5" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/screenplay/interactions/fill.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -968,13 +965,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/screenplay/actors/ad_creator.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="25" selection-start-line="4" selection-start-column="25" selection-end-line="4" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/screenplay/tasks/choose.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-2">
@@ -985,27 +975,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/screenplay/stage.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="8" selection-start-line="7" selection-start-column="8" selection-end-line="7" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/screenplay/tasks/open_campaign_details_page.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="6" column="8" selection-start-line="6" selection-start-column="8" selection-end-line="6" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/screenplay/tasks/open_web_page.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="164">
-          <caret line="21" column="39" selection-start-line="21" selection-start-column="21" selection-end-line="21" selection-end-column="39" />
-          <folding>
-            <element signature="e#0#50#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1033,27 +1006,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/screenplay/steps/ad_creation_steps.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="63">
-          <caret line="33" column="32" lean-forward="true" selection-start-line="33" selection-start-column="32" selection-end-line="33" selection-end-column="32" />
-          <folding>
-            <element signature="e#0#20#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/screenplay/tasks/select_from_dropdown.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="216">
           <caret line="37" column="34" lean-forward="true" selection-start-line="37" selection-start-column="34" selection-end-line="37" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/screenplay/features/create.feature">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="32" lean-forward="true" selection-start-line="9" selection-start-column="32" selection-end-line="9" selection-end-column="32" />
         </state>
       </provider>
     </entry>
@@ -1082,41 +1038,103 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/features/pages/popup_window.py">
+    <entry file="file://$PROJECT_DIR$/screenplay/features/create.feature">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1309">
-          <caret line="85" column="87" selection-start-line="85" selection-start-column="87" selection-end-line="85" selection-end-column="87" />
+        <state relative-caret-position="-204">
+          <caret line="9" column="46" lean-forward="true" selection-start-line="9" selection-start-column="46" selection-end-line="9" selection-end-column="46" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/features/ad_design/ad_design_create/link_ad_create.feature">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="38" lean-forward="true" selection-start-line="7" selection-start-column="38" selection-end-line="7" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/features/ad_design/ad_design_create/steps/addesign_steps.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="30" column="35" selection-start-line="30" selection-start-column="35" selection-end-line="30" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/features/pages/ad_design.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="25" column="39" selection-start-line="25" selection-start-column="39" selection-end-line="25" selection-end-column="39" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="289">
+          <caret line="17" column="22" selection-start-line="17" selection-start-column="22" selection-end-line="17" selection-end-column="22" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/features/ad_design/ad_design_create/carousel_ad_create.feature">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="34" column="29" selection-start-line="34" selection-start-column="29" selection-end-line="34" selection-end-column="29" />
+        <state relative-caret-position="272">
+          <caret line="16" column="36" selection-start-line="16" selection-start-column="36" selection-end-line="16" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/features/pages/popup_window.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1105">
+          <caret line="73" column="8" selection-start-line="73" selection-start-column="8" selection-end-line="73" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/screenplay/steps/ad_creation_steps.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="25" column="67" selection-start-line="25" selection-start-column="67" selection-end-line="25" selection-end-column="67" />
+          <folding>
+            <element signature="e#0#20#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/screenplay/stage.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="42" selection-start-line="11" selection-start-column="42" selection-end-line="11" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/screenplay/tasks/open_web_page.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="18" column="8" selection-start-line="18" selection-start-column="8" selection-end-line="18" selection-end-column="8" />
+          <folding>
+            <element signature="e#0#50#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/screenplay/actors/ad_creator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="22" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/features/ad_design/ad_design_create/steps/addesign_steps.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="215">
+          <caret line="249" column="12" selection-start-line="249" selection-start-column="12" selection-end-line="249" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="47" selection-start-column="47" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/features/ad_design_filtering.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="24" column="42" selection-start-line="24" selection-start-column="42" selection-end-line="24" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/features/steps/popup.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="191">
+          <caret line="135" column="34" selection-start-line="135" selection-start-column="34" selection-end-line="135" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/features/pages/ad_design.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="106">
+          <caret line="200" column="8" selection-start-line="200" selection-start-column="8" selection-end-line="200" selection-end-column="8" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

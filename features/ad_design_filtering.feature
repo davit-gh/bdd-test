@@ -7,16 +7,16 @@ Feature: Ad Design filtering
 
   Scenario: Filter ad designs by Ad Account
     Given I am on Ad Design page
-    When I select 155367MK Ad Account from drop-down
+    When I select Adzwedo Sandbox Ad Account Ad Account from drop-down
     Then That ad account is the selected option
     And I should see ad designs belonging to that account
 
 
   Scenario: Filter ad designs by Page
     Given I am on Ad Design page
-    When I select Adscook Page from Ad Design Pages drop-down
+    When I select Test page Page from Ad Design Pages drop-down
     Then That page is the selected option
-    And I should see ad designs with pageid 223267218417113
+    And I should see ad designs with pageid 321032575277846
 
   Scenario: Filter Pages
     Given I am on Ad Design page
@@ -44,9 +44,8 @@ Feature: Ad Design filtering
 
     Examples: Dates
     | date1         | date2       |
-    | 30/12/2018    | 05/01/2019  |
-    | 01/01/2017    | 04/01/2019  |
-    | 01/12/2018    | 31/12/2018  |
+    | 01/03/2019    | 31/03/2019  |
+    | 01/04/2019    | 15/04/2019  |
 
   Scenario: Filter ad designs by Tags
     Given I am on Ad Design page
