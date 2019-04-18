@@ -12,8 +12,9 @@ from webdriver import Driver
 class OpenWebPage(Task):
 
     def __init__(self, context):
+        is_headless = context.config.userdata.get("headless", None)
         self.page_name = None
-        self.driver = Driver()
+        self.driver = Driver(is_headless)
         self.context = context
 
     def with_name(self, page_name):
