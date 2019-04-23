@@ -12,7 +12,8 @@ def step_impl(context):
     """
     :type context: behave.runner.Context
     """
-    driver = Driver()
+    is_headless = context.config.userdata.get("headless", None)
+    driver = Driver(is_headless)
     loginpage = LoginPage(driver)
     driver = loginpage.log_in()
     context.navmenu = NavigationMenu(driver)
@@ -64,7 +65,8 @@ def step_impl(context, adtype_id):
     :type adtype_id: str
     :type context: behave.runner.Context
     """
-    driver = Driver()
+    is_headless = context.config.userdata.get("headless", None)
+    driver = Driver(is_headless)
     loginpage = LoginPage(driver)
     driver = loginpage.log_in()
     context.navmenu = NavigationMenu(driver)
