@@ -81,7 +81,7 @@ class PopUpWindow(WebApp):
             self.driver.instance.find_element(*selector).send_keys(image)
         elif file_type == "video":
             if choose_or_upload == 'upload':
-                video = os.getcwd() + "{}\\SampleVideo.mp4".format(path_videos)
+                video = os.getcwd() + "{}/SampleVideo.mp4".format(path_videos)
                 self.driver.instance.find_element(*PopUpWindowLocators.UPLOAD_SINGLE_VIDEO_FILE).send_keys(video)
                 self.wait_for_element(PopUpWindowLocators.FILE_UPLOAD_COMPLETED, time=40)
             else:

@@ -231,7 +231,7 @@ def step_impl(context):
     """
     :type context: behave.runner.Context
     """
-    context.popup_window.upload_file("video")
+    context.popup_window.upload_file("video", context.ad_type)
 
 
 @step("I edit the (?P<field_type>.+) field")

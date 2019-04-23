@@ -7,7 +7,7 @@ Feature: Photo Ad Creation Screen
 
   Scenario: Open the Photo Ad creation screen
     Given Ad Design creation popup is opened
-    When I select an Ad Account from adaccount drop-down
+    When I select Adzwedo Sandbox Ad Account from adaccount drop-down
     And I select Test page page
     And I click on photoAd box
     And I click on Create button on photoAdType popup
