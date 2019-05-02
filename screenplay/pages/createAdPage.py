@@ -9,6 +9,7 @@ class AdCreationPage(BasePage):
         self.create_ad_btn = Element(By.XPATH, "//button[text()='Create Ad']", context)
         self.loading_overlay = Element(By.CLASS_NAME, "js-get-data-loading-overlay", context)
         self.profile_overlay = Element(By.CLASS_NAME, "loading-user-profile", context)
+        self.cc_overlays = Element(By.CLASS_NAME, "loading-overlay-custom-conversion", context)
         self.ad_account_ddown = Element(By.XPATH, "(//div[@id='adcreationSteps']//button)[1]", context)
         self.ad_account_option = Element(By.XPATH, "//div[@id='adcreationSteps']//a/span[text()='{}']", context)
         self.page_ddown = Element(By.XPATH, "//button[@data-id='wizardPageSelect']", context)

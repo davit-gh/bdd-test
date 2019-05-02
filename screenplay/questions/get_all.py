@@ -30,7 +30,7 @@ class GetAll(Question):
             actions += (Get(self.context).length_of().elements(self.elements),)
         else:
             actions += (
-                Get(self.context).elements(self.elements).texts()
+                Get(self.context).elements(self.elements).texts(),
             )
 
         return actor.attempts_to("dummy", *actions)

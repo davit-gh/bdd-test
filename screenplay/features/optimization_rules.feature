@@ -28,9 +28,9 @@ Feature: Optimization Rules Automation
     Given Ad_Creator is on Optimization Rules page
     And at least 1 optimization rule is created
     And she clicks on js-assign-rule icon on any rule
-    And she searches for fin_Page Like campaign
+    And she searches for testPL campaign
     And chooses a campaign and clicks on Apply
-    Then the rule is assigned to fin_Page Like campaign
+    Then the rule is assigned to testPL campaign
 
   Scenario: Rule Assignment - Negative
     Given Ad_Creator is on Optimization Rules page

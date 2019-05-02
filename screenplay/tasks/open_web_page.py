@@ -13,9 +13,9 @@ class OpenWebPage(Task):
 
     def __init__(self, context):
         is_headless = context.config.userdata.get("headless", None)
-        self.page_name = None
         self.driver = Driver(is_headless)
         self.context = context
+        self.context.page_name = None
 
     def with_name(self, page_name):
         self.context.driver = self.driver
@@ -26,19 +26,19 @@ class OpenWebPage(Task):
     def navigate_to(self, page_name):
         if page_name == "Optimization Rules":
             self.context.optimization_locators = OptimizationRulesPage(self.context)
-        self.page_name = page_name
+        self.context.page_name = page_name
         return self
 
     def perform_as(self, actor):
         actions = (
-            Open(self.context).page(self.page_name),
+            Open(self.context).page(self.context.page_name),
             Fill(self.context).value(actor.email).into_field(self.context.login_page_locators.username_field),
             Fill(self.context).value(actor.password).into_field(self.context.login_page_locators.password_field),
             Click(self.context).element(self.context.login_page_locators.submit_btn)
         )
-        if self.page_name:
+        if self.context.page_name:
             actions += (
-                NavigationMenu(self.context.driver, self.page_name),
+                NavigationMenu(self.context.driver, self.context.page_name),
                 WaitForOverlayToDisappear(self.context).element(self.context.optimization_locators.overlay)
             )
         return actor.attempts_to("dummy", *actions)

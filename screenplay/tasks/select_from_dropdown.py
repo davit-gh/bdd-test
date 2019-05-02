@@ -1,5 +1,6 @@
 from screenplay.tasks.task import Task
 from screenplay.interactions.click import Click
+from screenplay.interactions.wait import WaitForOverlayToDisappear
 
 class Select(Task):
 
@@ -38,4 +39,6 @@ class Select(Task):
             Click(self.context).element(self.ddown_selector),
             Click(self.context).element(self.option_selector)
         )
+        if self.context.page_name != "Optimization Rules":
+            actions += (WaitForOverlayToDisappear(self.context).elements(self.context.create_ad_locators.cc_overlays),)
         actor.attempts_to("dummy", *actions)
